@@ -815,20 +815,32 @@ h3 {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 247, 224, 0.5), rgba(246, 206, 132, 0) 70%);
 }
-.vplaceholder .vplay {
-  width: 74px;
-  height: 74px;
+.vplaceholder .vspinner {
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  border: 1.5px solid rgba(246, 206, 132, 0.7);
-  display: grid;
-  place-items: center;
-  color: var(--sun-2);
-  background: rgba(21, 42, 32, 0.35);
+  border: 2.5px solid rgba(246, 206, 132, 0.25);
+  border-top-color: var(--sun-2);
+  animation: vspin 0.8s linear infinite;
 }
-.vplaceholder .vplay svg {
-  width: 26px;
-  height: 26px;
-  margin-left: 3px;
+@keyframes vspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vplaceholder .vspinner {
+    animation: vpulse 1.4s ease-in-out infinite;
+  }
+}
+@keyframes vpulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 .vplaceholder .vph-name {
   font-family: var(--f-title);
@@ -1175,5 +1187,13 @@ h3 {
     background: var(--cream);
     cursor: pointer;
     color: var(--espresso);
+  }
+  /* Shrink dish title 20% on mobile (1.04rem -> 0.832rem) */
+  .mitem .nm {
+    font-size: 0.832rem;
+  }
+  /* Shrink video popup dish title on mobile (1.5rem -> 0.96rem, -20% twice) */
+  .vmeta .vname {
+    font-size: 0.96rem;
   }
 }

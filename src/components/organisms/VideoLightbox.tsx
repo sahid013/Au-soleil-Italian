@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuItem } from "@/lib/types";
 import { slugify } from "@/lib/slug";
-import { CloseIcon, PlayIcon } from "@/components/atoms/icons";
+import { CloseIcon } from "@/components/atoms/icons";
 
 /**
  * Dish-video lightbox. Open by passing an `item`; close via `onClose`.
@@ -51,11 +51,9 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
           {!videoReady && (
             <div className="vplaceholder">
               <span className="vsun" />
-              <span className="vplay">
-                <PlayIcon />
-              </span>
+              <span className="vspinner" aria-hidden="true" />
               <span className="vph-name">{item.name}</span>
-              <span className="vph-soon">{t({ fr: "Vidéo du plat bientôt disponible", en: "Dish video coming soon" })}</span>
+              <span className="vph-soon">{t({ fr: "Chargement de la vidéo…", en: "Loading video…" })}</span>
             </div>
           )}
           <video
