@@ -10,6 +10,9 @@ import { CloseIcon } from "@/components/atoms/icons";
  * Dish-video lightbox. Open by passing an `item`; close via `onClose`.
  * Looks for a clip at /videos/<slug>.mp4 and shows an elegant poster
  * fallback until it loads (so the UI works before videos are added).
+ *
+ * The clip auto-plays muted + inline so it also starts on iOS Safari,
+ * which blocks autoplay for anything with sound.
  */
 export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClose: () => void }) {
   const { t, lang } = useLanguage();
@@ -60,11 +63,16 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             ref={videoRef}
             className="vvid"
             playsInline
+            muted
+            autoPlay
             controls
-            preload="metadata"
+            preload="auto"
             src={src}
             style={{ display: videoReady ? "block" : "none" }}
-            onLoadedData={() => setVideoReady(true)}
+            onLoadedData={() => {
+              setVideoReady(true);
+              videoRef.current?.play().catch(() => {});
+            }}
           />
         </div>
 
