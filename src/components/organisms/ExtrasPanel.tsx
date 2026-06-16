@@ -1,12 +1,20 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n";
-import type { MenuExtras } from "@/lib/types";
+import type { MenuExtras, MenuItem } from "@/lib/types";
 import { PanelHead } from "@/components/molecules/PanelHead";
 import { BambinoGroup } from "@/components/molecules/BambinoGroup";
 
 /** The "Coffee & Kids" tab — café gourmand note + children's menu block. */
-export function ExtrasPanel({ extras, active }: { extras: MenuExtras; active: boolean }) {
+export function ExtrasPanel({
+  extras,
+  active,
+  onPlay,
+}: {
+  extras: MenuExtras;
+  active: boolean;
+  onPlay: (item: MenuItem) => void;
+}) {
   const { t } = useLanguage();
   const { cafe, bambino } = extras;
 
@@ -29,7 +37,7 @@ export function ExtrasPanel({ extras, active }: { extras: MenuExtras; active: bo
 
       <div className="bambino">
         {bambino.groups.map((group) => (
-          <BambinoGroup key={t(group.label)} group={group} />
+          <BambinoGroup key={t(group.label)} group={group} onPlay={onPlay} />
         ))}
       </div>
     </div>

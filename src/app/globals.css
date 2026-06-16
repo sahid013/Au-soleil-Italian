@@ -885,6 +885,9 @@ h3 {
   margin-top: 14px;
 }
 .bambino .grp .lab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--f-title);
   font-size: 0.66rem;
   letter-spacing: 0.18em;

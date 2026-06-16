@@ -36,7 +36,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
 
   if (!item) return null;
 
-  const src = `/videos/${slugify(item.name)}.mp4`;
+  const src = item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name)}.mp4`;
   const description = item.description ? item.description[lang] : "";
 
   return (

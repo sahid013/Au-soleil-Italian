@@ -17,7 +17,6 @@
           "name": "Salmone",
           "price": "17,00€",
           "isNew": true,
-          "hasVideo": true,
           "description": {
             "fr": "Crème fraîche, mozzarella, oignons, saumon frais, roquette, citron",
             "en": "Crème fraîche, mozzarella, onions, fresh salmon, rocket, lemon"
@@ -198,7 +197,6 @@
         {
           "name": "Tartuffo",
           "price": "17,50€",
-          "hasVideo": true,
           "description": {
             "fr": "Crème truffée, burrata, champignons, tomates cerises, jambon italien, parmesan, roquette",
             "en": "Truffle cream, burrata, mushrooms, cherry tomatoes, Italian ham, parmesan, rocket"
@@ -291,6 +289,7 @@
         },
         {
           "name": "Soleil",
+          "hasVideo": true,
           "description": {
             "fr": "Salade, tomates, légumes marinés à la vinaigrette balsamique, mortadelle truffée, parmesan",
             "en": "Greens, tomatoes, balsamic-marinated vegetables, truffle mortadella, parmesan"
@@ -339,7 +338,6 @@
         {
           "name": "Linguine du Soleil",
           "price": "15,50€",
-          "hasVideo": true,
           "description": {
             "fr": "Crème truffée, jambon italien, copeaux de parmesan, champignons",
             "en": "Truffle cream, Italian ham, parmesan shavings, mushrooms"
@@ -448,7 +446,8 @@
       "items": [
         {
           "name": "Escalope de Veau Milanaise Panée",
-          "price": "14,90€"
+          "price": "14,90€",
+          "hasVideo": true
         },
         {
           "name": "Escalope de Veau Marsala",
@@ -478,7 +477,6 @@
         {
           "name": "Escalope de Veau du Soleil",
           "price": "18,50€",
-          "hasVideo": true,
           "description": {
             "fr": "Jambon italien, crème truffée au parmesan, champignons, burrata",
             "en": "Italian ham, parmesan truffle cream, mushrooms, burrata"
@@ -523,7 +521,6 @@
         {
           "name": "Risotto du Moment",
           "price": "19,00€",
-          "hasVideo": true,
           "description": { "fr": "Consultez l'ardoise du jour", "en": "See today's blackboard" }
         }
       ]
@@ -554,6 +551,7 @@
         },
         {
           "label": { "fr": "Desserts", "en": "Desserts" },
+          "video": "children-menu-desert.mp4",
           "value": {
             "fr": "Brownies chocolat · Glace 2 boules",
             "en": "Chocolate brownie · 2-scoop ice cream"

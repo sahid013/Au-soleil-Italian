@@ -23,6 +23,8 @@ export interface MenuItem {
   isNew?: boolean;
   /** When true, an item video button opens the lightbox (video at /videos/<slug>.mp4). */
   hasVideo?: boolean;
+  /** Explicit video filename under /videos/ (overrides the name-slug lookup). */
+  video?: string;
   /** Optional preparation time note (e.g. "25 min"). */
   time?: string;
   /** Free-form tag (e.g. "plat" = main course only). */
@@ -49,6 +51,8 @@ export interface CafeExtra {
 export interface BambinoGroup {
   label: Localized;
   value: Localized;
+  /** Optional dish-video filename under /videos/ — renders a play button on the line. */
+  video?: string;
 }
 
 export interface BambinoExtra {

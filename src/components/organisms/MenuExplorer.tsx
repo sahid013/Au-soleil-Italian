@@ -66,7 +66,7 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
           {menu.categories.map((category) => (
             <MenuPanel key={category.id} category={category} active={activeTab === category.id} onPlay={setActiveVideo} />
           ))}
-          <ExtrasPanel extras={menu.extras} active={activeTab === EXTRAS_ID} />
+          <ExtrasPanel extras={menu.extras} active={activeTab === EXTRAS_ID} onPlay={setActiveVideo} />
         </div>
 
         <div className="menu-notes">
