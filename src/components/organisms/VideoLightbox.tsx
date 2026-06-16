@@ -64,10 +64,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             preload="metadata"
             src={src}
             style={{ display: videoReady ? "block" : "none" }}
-            onLoadedData={() => {
-              setVideoReady(true);
-              videoRef.current?.play().catch(() => {});
-            }}
+            onLoadedData={() => setVideoReady(true)}
           />
         </div>
 
