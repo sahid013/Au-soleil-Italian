@@ -1,0 +1,58 @@
+{
+  "$comment": "Site-wide content: brand, navigation, contact details and footer. Bilingual where relevant. Edit phone/address/social here once your friend confirms the real values.",
+  "brand": {
+    "name": "Au Soleil Italien",
+    "tagline": "Pizzeria · Ristorante"
+  },
+  "contact": {
+    "phone": "+33000000000",
+    "phoneDisplay": "__ __ __ __ __",
+    "website": "https://ausoleilitalien.fr",
+    "websiteLabel": "ausoleilitalien.fr",
+    "address": { "fr": "Adresse à compléter", "en": "Address to be added" },
+    "phoneNote": { "fr": "Numéro à compléter", "en": "Number to be added" }
+  },
+  "hours": {
+    "days": { "fr": "Du mardi au samedi", "en": "Tuesday to Saturday" },
+    "service": { "fr": "Midi & soir", "en": "Lunch & dinner" },
+    "closed": { "fr": "Fermé dimanche & lundi", "en": "Closed Sunday & Monday" }
+  },
+  "nav": [
+    { "label": { "fr": "Accueil", "en": "Home" }, "href": "/" },
+    { "label": { "fr": "La Carte", "en": "Menu" }, "href": "/", "current": true },
+    { "label": { "fr": "Nous trouver", "en": "Find us" }, "href": "#visiter" }
+  ],
+  "social": [
+    {
+      "type": "facebook",
+      "label": "@ausoleilitaliensgdb",
+      "href": "https://facebook.com/ausoleilitaliensgdb"
+    },
+    {
+      "type": "instagram",
+      "label": "Au Soleil Italien SGDB",
+      "href": "https://instagram.com"
+    }
+  ],
+  "footer": {
+    "blurb": {
+      "fr": "Cuisine italienne authentique, faite maison et baignée de soleil.",
+      "en": "Authentic Italian cooking, made in-house and bathed in sunshine."
+    },
+    "exploreTitle": { "fr": "Explorer", "en": "Explore" },
+    "followTitle": { "fr": "Nous suivre", "en": "Follow us" },
+    "legal": {
+      "fr": "Tarifs nets, taxes et service compris",
+      "en": "Prices net, taxes and service included"
+    }
+  },
+  "reserve": {
+    "kicker": { "fr": "Une envie d'Italie ?", "en": "Craving Italy?" },
+    "title": { "fr": "Réservez votre table", "en": "Reserve your table" },
+    "text": {
+      "fr": "Réservation conseillée, surtout le week-end. Appelez-nous, nous serons ravis de vous accueillir au soleil.",
+      "en": "Booking recommended, especially at weekends. Call us — we'll be delighted to welcome you in the sun."
+    },
+    "welcome": "Bienvenue"
+  }
+}
