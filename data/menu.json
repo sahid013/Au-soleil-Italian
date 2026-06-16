@@ -521,7 +521,9 @@
         {
           "name": "Risotto du Moment",
           "price": "19,00€",
-          "description": { "fr": "Consultez l'ardoise du jour", "en": "See today's blackboard" }
+          "description": { "fr": "Consultez l'ardoise du jour", "en": "See today's blackboard" },
+          "hasVideo": true,
+          "video": "risotto.mp4"
         }
       ]
     }
