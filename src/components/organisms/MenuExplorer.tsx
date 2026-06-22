@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuData, MenuItem } from "@/lib/types";
+import { trackScan } from "@/lib/analytics";
 import { MenuPanel } from "./MenuPanel";
 import { VideoLightbox } from "./VideoLightbox";
 
@@ -18,6 +19,11 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
 
   const [activeTab, setActiveTab] = useState(menu.categories[0]?.id ?? "");
   const [activeVideo, setActiveVideo] = useState<MenuItem | null>(null);
+
+  // Fire a single "scan" event when the menu page first loads.
+  useEffect(() => {
+    trackScan();
+  }, []);
 
   function activate(id: string) {
     setActiveTab(id);

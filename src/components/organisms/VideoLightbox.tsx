@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuItem } from "@/lib/types";
 import { slugify } from "@/lib/slug";
+import { trackVideoPlay, trackWatchTime } from "@/lib/analytics";
 import { CloseIcon } from "@/components/atoms/icons";
 
 /**
@@ -13,29 +14,72 @@ import { CloseIcon } from "@/components/atoms/icons";
  *
  * The clip auto-plays muted + inline so it also starts on iOS Safari,
  * which blocks autoplay for anything with sound.
+ *
+ * Analytics: fires `video_play` when playback starts and `watch_time`
+ * (with seconds watched) when the clip ends, the lightbox closes, or the
+ * page is navigated away — once per open.
  */
 export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClose: () => void }) {
   const { t, lang } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
+  // Always-current item, so listeners added once still read the latest dish.
+  const itemRef = useRef<MenuItem | null>(item);
+  itemRef.current = item;
+  // Per-open guards so each event fires at most once per video.
+  const playSentRef = useRef(false);
+  const watchSentRef = useRef(false);
+
   const open = item !== null;
 
-  // Lock body scroll + close on Escape while open.
+  // Send watch_time once, using the live playback position. Reads refs only,
+  // so it's stable across renders.
+  const sendWatchTime = useCallback(() => {
+    if (watchSentRef.current) return;
+    const id = itemRef.current?.id;
+    if (!id) return;
+    watchSentRef.current = true;
+    trackWatchTime(id, videoRef.current?.currentTime ?? 0);
+  }, []);
+
+  const handlePlaying = useCallback(() => {
+    const id = itemRef.current?.id;
+    if (!id || playSentRef.current) return;
+    playSentRef.current = true;
+    trackVideoPlay(id);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    sendWatchTime();
+    onClose();
+  }, [sendWatchTime, onClose]);
+
+  // Reset ready state + per-open guards whenever a different dish opens.
   useEffect(() => {
     if (!open) return;
     setVideoReady(false);
+    playSentRef.current = false;
+    watchSentRef.current = false;
+  }, [open, item?.id]);
+
+  // Lock body scroll, close on Escape, and flush watch_time on page hide.
+  useEffect(() => {
+    if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") handleClose();
     };
+    const onHide = () => sendWatchTime();
     document.addEventListener("keydown", onKey);
+    window.addEventListener("pagehide", onHide);
     return () => {
       document.body.style.overflow = prev;
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("pagehide", onHide);
     };
-  }, [open, onClose]);
+  }, [open, handleClose, sendWatchTime]);
 
   if (!item) return null;
 
@@ -46,9 +90,9 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
 
   return (
     <div className="vmodal open" aria-hidden={false}>
-      <div className="vmodal-scrim" onClick={onClose} />
+      <div className="vmodal-scrim" onClick={handleClose} />
       <div className="vmodal-box" role="dialog" aria-modal="true" aria-label={item.name}>
-        <button className="vmodal-close" type="button" onClick={onClose} aria-label={t({ fr: "Fermer", en: "Close" })}>
+        <button className="vmodal-close" type="button" onClick={handleClose} aria-label={t({ fr: "Fermer", en: "Close" })}>
           <CloseIcon />
         </button>
 
@@ -76,6 +120,8 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
               setVideoReady(true);
               videoRef.current?.play().catch(() => {});
             }}
+            onPlaying={handlePlaying}
+            onEnded={sendWatchTime}
           />
         </div>
 

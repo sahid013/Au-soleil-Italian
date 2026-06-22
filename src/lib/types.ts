@@ -13,6 +13,8 @@ export interface Localized {
 
 /** A single dish / line on the menu. */
 export interface MenuItem {
+  /** Backend dish UUID, used as `dishId` for analytics events. Absent for local data. */
+  id?: string;
   /** Proper name, shown as-is in both languages (e.g. "Linguine du Soleil"). */
   name: string;
   /** Price string including the currency symbol, or null when priced elsewhere (e.g. salads). */

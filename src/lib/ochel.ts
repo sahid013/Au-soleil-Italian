@@ -99,6 +99,7 @@ function resolveVideo(dish: OchelDish): { hasVideo: boolean; videoSrc?: string; 
 function mapDish(dish: OchelDish, currency: string): MenuItem {
   const { hasVideo, videoSrc, poster } = resolveVideo(dish);
   return {
+    id: dish.id,
     name: dish.name,
     price: formatPrice(dish.price, currency),
     description: dish.description ? bilingual(dish.description) : undefined,
