@@ -636,11 +636,27 @@ h3 {
 }
 
 .mitem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
   background: var(--cream);
   border: 1px solid var(--line);
   padding: 14px 18px;
   margin-bottom: 16px;
   break-inside: avoid;
+}
+.mitem .mthumb {
+  flex: none;
+  width: 67px;
+  height: 67px;
+  object-fit: cover;
+  border-radius: 0;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+.mitem .mbody {
+  flex: 1;
+  min-width: 0;
 }
 .mitem .r1 {
   display: flex;

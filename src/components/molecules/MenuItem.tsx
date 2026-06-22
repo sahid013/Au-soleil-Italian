@@ -16,19 +16,22 @@ export function MenuItem({ item, onPlay }: { item: MenuItemType; onPlay: (item: 
 
   return (
     <div className="mitem">
-      <div className="r1">
-        <span className="nm">
-          {item.name}
-          {item.isNew && <NewTag />}
-          {item.time && <span className="mtime"> · {item.time}</span>}
-        </span>
-        {item.hasVideo && (
-          <PlayButton label={t({ fr: "Voir la vidéo du plat", en: "Watch dish video" })} onClick={() => onPlay(item)} />
-        )}
-        <span className="lead-dots" />
-        {item.price && <span className="pr">{item.price}</span>}
+      {item.image && <img className="mthumb" src={item.image} alt={item.name} loading="lazy" />}
+      <div className="mbody">
+        <div className="r1">
+          <span className="nm">
+            {item.name}
+            {item.isNew && <NewTag />}
+            {item.time && <span className="mtime"> · {item.time}</span>}
+          </span>
+          {item.hasVideo && (
+            <PlayButton label={t({ fr: "Voir la vidéo du plat", en: "Watch dish video" })} onClick={() => onPlay(item)} />
+          )}
+          <span className="lead-dots" />
+          {item.price && <span className="pr">{item.price}</span>}
+        </div>
+        {description && <div className="ds">{description}</div>}
       </div>
-      {description && <div className="ds">{description}</div>}
     </div>
   );
 }

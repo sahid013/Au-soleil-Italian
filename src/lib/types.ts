@@ -25,6 +25,12 @@ export interface MenuItem {
   hasVideo?: boolean;
   /** Explicit video filename under /videos/ (overrides the name-slug lookup). */
   video?: string;
+  /** Absolute video URL from the backend API (takes precedence over local /videos/). */
+  videoSrc?: string;
+  /** Absolute poster/thumbnail URL shown while the video loads (from the API). */
+  poster?: string;
+  /** Absolute dish photo URL from the API; shown as a thumbnail. Omitted when none. */
+  image?: string;
   /** Optional preparation time note (e.g. "25 min"). */
   time?: string;
   /** Free-form tag (e.g. "plat" = main course only). */
@@ -75,8 +81,10 @@ export interface MenuNotes {
 /** The full menu document — the unit returned by the data layer. */
 export interface MenuData {
   categories: MenuCategory[];
-  extras: MenuExtras;
-  notes: MenuNotes;
+  /** Local-only café/bambino block. Absent when the menu is API-driven. */
+  extras?: MenuExtras;
+  /** Local-only legal notes. Absent when the menu is API-driven. */
+  notes?: MenuNotes;
 }
 
 /* ---- Site configuration ---- */

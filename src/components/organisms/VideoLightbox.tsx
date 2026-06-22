@@ -39,7 +39,9 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
 
   if (!item) return null;
 
-  const src = item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name)}.mp4`;
+  // Prefer an absolute URL from the backend API; otherwise fall back to a local
+  // /videos/ file (explicit filename, then name-slug lookup).
+  const src = item.videoSrc ?? (item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name)}.mp4`);
   const description = item.description ? item.description[lang] : "";
 
   return (
@@ -67,6 +69,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             autoPlay
             controls
             preload="auto"
+            poster={item.poster}
             src={src}
             style={{ display: videoReady ? "block" : "none" }}
             onLoadedData={() => {
