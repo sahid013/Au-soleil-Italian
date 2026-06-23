@@ -25,7 +25,7 @@ export function Navbar({ site }: { site: SiteData }) {
 
           <ButtonLink variant="primary" href={`tel:${site.contact.phone}`} onClick={close}>
             <PhoneIcon className="ic" />
-            {t({ fr: "Réserver", en: "Book a table" })}
+            {t({ fr: "Réserver", en: "Book a table", es: "Reservar", zh: "预订餐桌" })}
           </ButtonLink>
         </nav>
 

@@ -92,7 +92,12 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
     <div className="vmodal open" aria-hidden={false}>
       <div className="vmodal-scrim" onClick={handleClose} />
       <div className="vmodal-box" role="dialog" aria-modal="true" aria-label={item.name}>
-        <button className="vmodal-close" type="button" onClick={handleClose} aria-label={t({ fr: "Fermer", en: "Close" })}>
+        <button
+          className="vmodal-close"
+          type="button"
+          onClick={handleClose}
+          aria-label={t({ fr: "Fermer", en: "Close", es: "Cerrar", zh: "关闭" })}
+        >
           <CloseIcon />
         </button>
 
@@ -102,7 +107,9 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
               <span className="vsun" />
               <span className="vspinner" aria-hidden="true" />
               <span className="vph-name">{item.name}</span>
-              <span className="vph-soon">{t({ fr: "Chargement de la vidéo…", en: "Loading video…" })}</span>
+              <span className="vph-soon">
+                {t({ fr: "Chargement de la vidéo…", en: "Loading video…", es: "Cargando vídeo…", zh: "正在加载视频…" })}
+              </span>
             </div>
           )}
           <video
@@ -126,7 +133,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
         </div>
 
         <div className="vmeta">
-          <span className="vkicker">{t({ fr: "Le plat en vidéo", en: "The dish on film" })}</span>
+          <span className="vkicker">{t({ fr: "Le plat en vidéo", en: "The dish on film", es: "El plato en vídeo", zh: "菜品视频" })}</span>
           <div className="vname">{item.name}</div>
           {description && <div className="vdesc">{description}</div>}
           {item.price && <div className="vprice">{item.price}</div>}

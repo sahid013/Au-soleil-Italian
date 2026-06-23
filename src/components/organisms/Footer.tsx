@@ -43,7 +43,7 @@ export function Footer({ site }: { site: SiteData }) {
               ))}
               <a href={`tel:${contact.phone}`}>
                 <PhoneIcon className="ic" />
-                {t({ fr: "Réserver par téléphone", en: "Book by phone" })}
+                {t({ fr: "Réserver par téléphone", en: "Book by phone", es: "Reservar por teléfono", zh: "电话预订" })}
               </a>
             </div>
           </div>

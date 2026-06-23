@@ -2,18 +2,21 @@
    OCHEL API ADAPTER
    ------------------------------------------------------------
    Translates the Ochel public menu API (parallel category /
-   subcategory / dish arrays, single-language, numeric prices,
-   absolute media URLs) into the bilingual, tree-shaped
-   `MenuData.categories` the UI consumes (see ./types.ts).
+   subcategory / dish arrays, multi-language text, numeric prices,
+   absolute media URLs) into the tree-shaped `MenuData.categories`
+   the UI consumes (see ./types.ts).
 
    Only this file knows the API's shape. The components never do.
    Doc: GET /api/v1/menu/{menuId}
    ============================================================ */
 
-import type { Localized, MenuCategory, MenuItem } from "./types";
+import { LANGS, type Lang, type Localized, type MenuCategory, type MenuItem } from "./types";
 import { slugify } from "./slug";
 
 /* ---- Raw API response shapes ---- */
+
+/** Per-field translations: each language maps to an array of strings (usually 0 or 1). */
+type LangArrays = Partial<Record<Lang, string[]>>;
 
 export interface OchelCategory {
   id: string;
@@ -23,6 +26,10 @@ export interface OchelCategory {
   subtitle: string | null;
   isEnabled: boolean;
   isSystem: boolean;
+  multiLangData?: {
+    name?: LangArrays;
+    subtitle?: LangArrays;
+  };
 }
 
 export interface OchelSubcategory extends OchelCategory {
@@ -48,6 +55,10 @@ export interface OchelDish {
   posterUrl: string | null;
   videoVisible: boolean;
   videoStatus: string; // "Live" | "Pending" | ... (casing varies)
+  multiLangData?: {
+    name?: LangArrays;
+    description?: LangArrays;
+  };
 }
 
 export interface OchelMenuResponse {
@@ -62,9 +73,28 @@ export interface OchelMenuResponse {
 
 /* ---- Helpers ---- */
 
-/** Both languages carry the same French source for now (see notes in menu.ts). */
-function bilingual(value: string): Localized {
-  return { fr: value, en: value };
+/** First non-empty, trimmed translation in a language's array, if any. */
+function firstOf(arr: string[] | undefined): string | undefined {
+  const value = arr?.[0]?.trim();
+  return value ? value : undefined;
+}
+
+/**
+ * Build a `Localized` from the API's per-language arrays, falling back to the
+ * plain top-level value (`fallback`) for the primary language. Each language
+ * uses its own translation when present, otherwise the primary value — so a
+ * dish only translated into French still shows (in French) under ES/ZH.
+ * Returns `undefined` when there is no text at all.
+ */
+function localize(field: LangArrays | undefined, fallback: string): Localized | undefined {
+  const primary = firstOf(field?.fr) ?? fallback.trim();
+  if (!primary) return undefined;
+  const out = { fr: primary } as Localized;
+  for (const lang of LANGS) {
+    if (lang === "fr") continue;
+    out[lang] = firstOf(field?.[lang]) ?? primary;
+  }
+  return out;
 }
 
 /**
@@ -102,7 +132,7 @@ function mapDish(dish: OchelDish, currency: string): MenuItem {
     id: dish.id,
     name: dish.name,
     price: formatPrice(dish.price, currency),
-    description: dish.description ? bilingual(dish.description) : undefined,
+    description: localize(dish.multiLangData?.description, dish.description ?? ""),
     // The API has no "new" concept; flag chef specials so they still stand out.
     isNew: dish.isSpecial || undefined,
     hasVideo: hasVideo || undefined,
@@ -149,9 +179,11 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
       ];
 
       const category: MenuCategory = {
+        // id stays language-independent (built from the primary name) so tab
+        // anchors don't change when the visitor switches language.
         id: slugify(cat.name) || cat.id,
-        title: bilingual(cat.name),
-        note: cat.subtitle ? bilingual(cat.subtitle) : undefined,
+        title: localize(cat.multiLangData?.name, cat.name) ?? { fr: cat.name, en: cat.name },
+        note: localize(cat.multiLangData?.subtitle, cat.subtitle ?? ""),
         items,
       };
       return category;

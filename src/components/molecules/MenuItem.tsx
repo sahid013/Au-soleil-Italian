@@ -51,7 +51,10 @@ export function MenuItem({ item, onPlay }: { item: MenuItemType; onPlay: (item: 
             {item.time && <span className="mtime"> · {item.time}</span>}
           </span>
           {item.hasVideo && (
-            <PlayButton label={t({ fr: "Voir la vidéo du plat", en: "Watch dish video" })} onClick={() => onPlay(item)} />
+            <PlayButton
+              label={t({ fr: "Voir la vidéo du plat", en: "Watch dish video", es: "Ver el vídeo del plato", zh: "观看菜品视频" })}
+              onClick={() => onPlay(item)}
+            />
           )}
           <span className="lead-dots" />
           {item.price && <span className="pr">{item.price}</span>}

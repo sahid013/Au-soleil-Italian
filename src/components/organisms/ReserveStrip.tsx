@@ -21,13 +21,13 @@ export function ReserveStrip({ site }: { site: SiteData }) {
           <p>{t(reserve.text)}</p>
 
           <div className="info">
-            <InfoRow icon={<PinIcon className="ic" />} label={t({ fr: "Adresse", en: "Address" })}>
+            <InfoRow icon={<PinIcon className="ic" />} label={t({ fr: "Adresse", en: "Address", es: "Dirección", zh: "地址" })}>
               <span className="muted">{t(contact.address)}</span>
             </InfoRow>
-            <InfoRow icon={<PhoneIcon className="ic" />} label={t({ fr: "Téléphone", en: "Telephone" })}>
+            <InfoRow icon={<PhoneIcon className="ic" />} label={t({ fr: "Téléphone", en: "Telephone", es: "Teléfono", zh: "电话" })}>
               <span className="muted">{t(contact.phoneNote)}</span>
             </InfoRow>
-            <InfoRow icon={<GlobeIcon className="ic" />} label={t({ fr: "En ligne", en: "Online" })}>
+            <InfoRow icon={<GlobeIcon className="ic" />} label={t({ fr: "En ligne", en: "Online", es: "En línea", zh: "在线" })}>
               <a href={contact.website} target="_blank" rel="noopener noreferrer">
                 {contact.websiteLabel}
               </a>
@@ -44,7 +44,7 @@ export function ReserveStrip({ site }: { site: SiteData }) {
             {contact.phoneDisplay}
           </a>
           <ButtonLink variant="primary" href={`tel:${contact.phone}`}>
-            {t({ fr: "Appeler pour réserver", en: "Call to book" })}
+            {t({ fr: "Appeler pour réserver", en: "Call to book", es: "Llamar para reservar", zh: "致电预订" })}
           </ButtonLink>
         </Reveal>
       </div>

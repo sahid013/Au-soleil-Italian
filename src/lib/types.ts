@@ -5,10 +5,17 @@
    (see src/lib/menu.ts).
    ============================================================ */
 
-/** A piece of text available in both site languages. */
+/**
+ * A piece of text available in the site languages. `fr` and `en` are always
+ * present for the static UI strings; `es` and `zh` are optional and used by
+ * API-driven menu text (see lib/ochel.ts). `t()` falls back to `fr` when a
+ * requested language is missing.
+ */
 export interface Localized {
   fr: string;
   en: string;
+  es?: string;
+  zh?: string;
 }
 
 /** A single dish / line on the menu. */
@@ -130,5 +137,8 @@ export interface SiteData {
   };
 }
 
-/** Supported UI languages. */
-export type Lang = "fr" | "en";
+/** Supported UI languages (match the API's multiLangData keys). */
+export type Lang = "fr" | "en" | "es" | "zh";
+
+/** All languages, in display order. */
+export const LANGS: Lang[] = ["fr", "en", "es", "zh"];

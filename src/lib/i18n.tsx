@@ -10,7 +10,7 @@
    ============================================================ */
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import type { Lang, Localized } from "./types";
+import { LANGS, type Lang, type Localized } from "./types";
 
 const STORAGE_KEY = "asi-lang";
 const DEFAULT_LANG: Lang = "fr";
@@ -31,7 +31,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
-      if (saved === "fr" || saved === "en") setLangState(saved);
+      if (saved && (LANGS as string[]).includes(saved)) setLangState(saved as Lang);
     } catch {
       /* localStorage unavailable — keep default */
     }
@@ -51,7 +51,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const t = useCallback((value: Localized) => value[lang], [lang]);
+  // Resolve to the active language, falling back to French (the primary) and
+  // then English when a translation is missing (e.g. static UI strings only
+  // carry fr/en, and some menu items aren't translated into every language).
+  const t = useCallback((value: Localized) => value[lang] ?? value.fr ?? value.en ?? "", [lang]);
 
   const ctx = useMemo<LanguageContextValue>(() => ({ lang, setLang, t }), [lang, setLang, t]);
 

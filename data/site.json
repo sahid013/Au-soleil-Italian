@@ -1,5 +1,5 @@
 {
-  "$comment": "Site-wide content: brand, navigation, contact details and footer. Bilingual where relevant. Edit phone/address/social here once your friend confirms the real values.",
+  "$comment": "Site-wide content: brand, navigation, contact details and footer. Multilingual where relevant (fr/en/es/zh, manually translated). Menu content comes from the API; these static strings are hand-maintained. Edit phone/address/social here once your friend confirms the real values.",
   "brand": {
     "name": "Au Soleil Italien",
     "tagline": "Pizzeria · Ristorante"
@@ -9,18 +9,53 @@
     "phoneDisplay": "__ __ __ __ __",
     "website": "https://ausoleilitalien.fr",
     "websiteLabel": "ausoleilitalien.fr",
-    "address": { "fr": "Adresse à compléter", "en": "Address to be added" },
-    "phoneNote": { "fr": "Numéro à compléter", "en": "Number to be added" }
+    "address": {
+      "fr": "Adresse à compléter",
+      "en": "Address to be added",
+      "es": "Dirección por añadir",
+      "zh": "地址待补充"
+    },
+    "phoneNote": {
+      "fr": "Numéro à compléter",
+      "en": "Number to be added",
+      "es": "Número por añadir",
+      "zh": "号码待补充"
+    }
   },
   "hours": {
-    "days": { "fr": "Du mardi au samedi", "en": "Tuesday to Saturday" },
-    "service": { "fr": "Midi & soir", "en": "Lunch & dinner" },
-    "closed": { "fr": "Fermé dimanche & lundi", "en": "Closed Sunday & Monday" }
+    "days": {
+      "fr": "Du mardi au samedi",
+      "en": "Tuesday to Saturday",
+      "es": "De martes a sábado",
+      "zh": "周二至周六"
+    },
+    "service": {
+      "fr": "Midi & soir",
+      "en": "Lunch & dinner",
+      "es": "Mediodía y noche",
+      "zh": "午餐和晚餐"
+    },
+    "closed": {
+      "fr": "Fermé dimanche & lundi",
+      "en": "Closed Sunday & Monday",
+      "es": "Cerrado domingo y lunes",
+      "zh": "周日和周一休息"
+    }
   },
   "nav": [
-    { "label": { "fr": "Accueil", "en": "Home" }, "href": "/" },
-    { "label": { "fr": "La Carte", "en": "Menu" }, "href": "/", "current": true },
-    { "label": { "fr": "Nous trouver", "en": "Find us" }, "href": "#visiter" }
+    {
+      "label": { "fr": "Accueil", "en": "Home", "es": "Inicio", "zh": "首页" },
+      "href": "/"
+    },
+    {
+      "label": { "fr": "La Carte", "en": "Menu", "es": "La Carta", "zh": "菜单" },
+      "href": "/",
+      "current": true
+    },
+    {
+      "label": { "fr": "Nous trouver", "en": "Find us", "es": "Cómo llegar", "zh": "找到我们" },
+      "href": "#visiter"
+    }
   ],
   "social": [
     {
@@ -37,21 +72,47 @@
   "footer": {
     "blurb": {
       "fr": "Cuisine italienne authentique, faite maison et baignée de soleil.",
-      "en": "Authentic Italian cooking, made in-house and bathed in sunshine."
+      "en": "Authentic Italian cooking, made in-house and bathed in sunshine.",
+      "es": "Auténtica cocina italiana, casera y bañada por el sol.",
+      "zh": "正宗意大利美食，手工制作，沐浴阳光。"
     },
-    "exploreTitle": { "fr": "Explorer", "en": "Explore" },
-    "followTitle": { "fr": "Nous suivre", "en": "Follow us" },
+    "exploreTitle": {
+      "fr": "Explorer",
+      "en": "Explore",
+      "es": "Explorar",
+      "zh": "探索"
+    },
+    "followTitle": {
+      "fr": "Nous suivre",
+      "en": "Follow us",
+      "es": "Síguenos",
+      "zh": "关注我们"
+    },
     "legal": {
       "fr": "Tarifs nets, taxes et service compris",
-      "en": "Prices net, taxes and service included"
+      "en": "Prices net, taxes and service included",
+      "es": "Precios netos, impuestos y servicio incluidos",
+      "zh": "价格为净价，含税费和服务费"
     }
   },
   "reserve": {
-    "kicker": { "fr": "Une envie d'Italie ?", "en": "Craving Italy?" },
-    "title": { "fr": "Réservez votre table", "en": "Reserve your table" },
+    "kicker": {
+      "fr": "Une envie d'Italie ?",
+      "en": "Craving Italy?",
+      "es": "¿Antojo de Italia?",
+      "zh": "想念意大利？"
+    },
+    "title": {
+      "fr": "Réservez votre table",
+      "en": "Reserve your table",
+      "es": "Reserve su mesa",
+      "zh": "预订您的餐桌"
+    },
     "text": {
       "fr": "Réservation conseillée, surtout le week-end. Appelez-nous, nous serons ravis de vous accueillir au soleil.",
-      "en": "Booking recommended, especially at weekends. Call us — we'll be delighted to welcome you in the sun."
+      "en": "Booking recommended, especially at weekends. Call us — we'll be delighted to welcome you in the sun.",
+      "es": "Se recomienda reservar, especialmente los fines de semana. Llámenos: estaremos encantados de recibirle bajo el sol.",
+      "zh": "建议预订，尤其是周末。请致电我们——我们很乐意在阳光下迎接您。"
     },
     "welcome": "Bienvenue"
   }
