@@ -3,17 +3,14 @@
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/i18n";
 import { Rule } from "@/components/atoms/Rule";
-import { HeroArt } from "@/components/atoms/HeroArt";
 
 /** Loop only the first N seconds of the hero video. */
 const HERO_LOOP_END = 33;
 
 /**
- * Hero header for the menu page: a centred Cinzel title (the lowercase renders
- * as small-caps, hence "La Carte" → LA CARTE) with four floating image slots
- * scattered around it. The slots are placeholders for now — pass `src`/`alt`
- * to HeroArt once the photos are ready. Scroll animation will hook onto the
- * `.hero-art` elements later.
+ * Hero header for the menu page: a full-bleed background presentation video
+ * with a centred Cinzel title (the lowercase renders as small-caps, hence
+ * "La Carte" → LA CARTE).
  */
 export function PageHead() {
   const { t } = useLanguage();
@@ -38,7 +35,7 @@ export function PageHead() {
     <section className="page-head">
       <div className="hero-sky" />
 
-      {/* Background presentation video (muted autoplay loop) + dark overlay. */}
+      {/* Background presentation video (muted autoplay, loops first ~33s). */}
       <video
         ref={videoRef}
         className="hero-bg"
@@ -49,13 +46,6 @@ export function PageHead() {
         preload="auto"
         aria-hidden="true"
       />
-      <div className="hero-overlay" aria-hidden="true" />
-
-      {/* Floating artwork: round pizzas spin on scroll, frames loop video. */}
-      <HeroArt shape="circle" className="hero-art--pizza-1" src="/pizza-1.png" spin />
-      <HeroArt shape="frame" className="hero-art--photo-1" video="/hero-video-1.mp4" straightenFrom={7} />
-      <HeroArt shape="frame" className="hero-art--photo-2" video="/hero-video-2.mp4" straightenFrom={2} />
-      <HeroArt shape="circle" className="hero-art--pizza-2" src="/pizza-2.png" spin />
 
       <div className="shell">
         <div className="hero-copy">

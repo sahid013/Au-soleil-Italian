@@ -17,7 +17,7 @@ export function Navbar({ site }: { site: SiteData }) {
     <header className="nav">
       <div className="shell nav-in">
         <a className="brand" href="/" aria-label={`${site.brand.name} — accueil`}>
-          <img className="brand-logo" src="/logo-footer.svg" alt={site.brand.name} width={186} height={56} />
+          <img className="brand-logo" src="/logo-nav.svg" alt={site.brand.name} width={186} height={56} />
         </a>
 
         <nav className={`nav-links${open ? " open" : ""}`} aria-label="Navigation principale">

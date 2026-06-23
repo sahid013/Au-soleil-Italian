@@ -318,12 +318,6 @@ h3 {
   object-fit: cover;
   z-index: -2;
 }
-.page-head .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(21, 42, 32, 0.75);
-  z-index: -1;
-}
 
 /* centred copy block, kept above the floating artwork */
 .page-head .hero-copy {
@@ -349,10 +343,11 @@ h3 {
 }
 /* Light copy for contrast over the darkened video background. */
 .page-head .hero-title {
-  color: var(--cream);
+  color: #0a160b;
 }
 .page-head p {
-  color: rgba(255, 255, 255, 0.9);
+  color: #0a160b;
+  font-weight: 600;
 }
 
 /* ---- Floating hero artwork (placeholders → swap in images later) ---- */
