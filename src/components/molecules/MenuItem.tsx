@@ -47,7 +47,7 @@ export function MenuItem({ item, onPlay }: { item: MenuItemType; onPlay: (item: 
         <div className="r1">
           <span className="nm">
             {item.name}
-            {item.isNew && <NewTag />}
+            {item.badge && <NewTag label={item.badge} />}
             {item.time && <span className="mtime"> · {item.time}</span>}
           </span>
           {item.hasVideo && (

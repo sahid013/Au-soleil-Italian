@@ -28,8 +28,8 @@ export interface MenuItem {
   price?: string | null;
   /** Optional bilingual description / list of ingredients. */
   description?: Localized;
-  /** Flags a brand-new dish (renders the "NEW" badge + section sub-note). */
-  isNew?: boolean;
+  /** Badge text from the API (e.g. a chef-special label). Shown only when set. */
+  badge?: string;
   /** When true, an item video button opens the lightbox (video at /videos/<slug>.mp4). */
   hasVideo?: boolean;
   /** Explicit video filename under /videos/ (overrides the name-slug lookup). */

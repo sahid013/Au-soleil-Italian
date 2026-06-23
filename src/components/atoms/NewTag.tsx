@@ -1,4 +1,4 @@
-/** Small "NEW" badge shown next to brand-new dishes. */
-export function NewTag() {
-  return <span className="tag-nv">NEW</span>;
+/** Small badge shown next to a dish, using the label provided by the API. */
+export function NewTag({ label }: { label: string }) {
+  return <span className="tag-nv">{label}</span>;
 }

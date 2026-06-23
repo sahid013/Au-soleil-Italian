@@ -133,8 +133,8 @@ function mapDish(dish: OchelDish, currency: string): MenuItem {
     name: dish.name,
     price: formatPrice(dish.price, currency),
     description: localize(dish.multiLangData?.description, dish.description ?? ""),
-    // The API has no "new" concept; flag chef specials so they still stand out.
-    isNew: dish.isSpecial || undefined,
+    // Show a badge only when the API provides a label for the dish.
+    badge: dish.specialLabel?.trim() || undefined,
     hasVideo: hasVideo || undefined,
     videoSrc,
     poster,
