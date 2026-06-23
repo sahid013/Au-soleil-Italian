@@ -131,8 +131,7 @@ h3 {
   left: 0;
   right: 0;
   z-index: 50;
-  background: #e2d6bf;
-  border-bottom: 1px solid var(--line);
+  background: transparent;
 }
 .nav-in {
   display: flex;
@@ -220,6 +219,7 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 0;
   overflow: hidden;
+  background: #e2d6bf;
 }
 .lang button {
   font: inherit;
@@ -309,6 +309,22 @@ h3 {
   background: #e2d6bf;
 }
 
+/* Full-bleed background video + dark overlay (sit behind copy & artwork). */
+.page-head .hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+.page-head .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(21, 42, 32, 0.62);
+  z-index: -1;
+}
+
 /* centred copy block, kept above the floating artwork */
 .page-head .hero-copy {
   position: relative;
@@ -330,6 +346,13 @@ h3 {
   margin: 22px auto 0;
   color: var(--espresso-soft);
   font-size: 1.18rem;
+}
+/* Light copy for contrast over the darkened video background. */
+.page-head .hero-title {
+  color: var(--cream);
+}
+.page-head p {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* ---- Floating hero artwork (placeholders → swap in images later) ---- */

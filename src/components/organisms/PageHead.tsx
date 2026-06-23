@@ -17,6 +17,19 @@ export function PageHead() {
     <section className="page-head">
       <div className="hero-sky" />
 
+      {/* Background presentation video (muted autoplay loop) + dark overlay. */}
+      <video
+        className="hero-bg"
+        src="/Video_presentation_restaurant.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      />
+      <div className="hero-overlay" aria-hidden="true" />
+
       {/* Floating artwork: round pizzas spin on scroll, frames loop video. */}
       <HeroArt shape="circle" className="hero-art--pizza-1" src="/pizza-1.png" spin />
       <HeroArt shape="frame" className="hero-art--photo-1" video="/hero-video-1.mp4" straightenFrom={7} />
