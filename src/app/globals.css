@@ -321,7 +321,7 @@ h3 {
 .page-head .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(21, 42, 32, 0.62);
+  background: rgba(21, 42, 32, 0.75);
   z-index: -1;
 }
 
