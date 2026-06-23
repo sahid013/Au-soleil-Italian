@@ -1,8 +1,12 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/i18n";
 import { Rule } from "@/components/atoms/Rule";
 import { HeroArt } from "@/components/atoms/HeroArt";
+
+/** Loop only the first N seconds of the hero video. */
+const HERO_LOOP_END = 33;
 
 /**
  * Hero header for the menu page: a centred Cinzel title (the lowercase renders
@@ -13,17 +17,34 @@ import { HeroArt } from "@/components/atoms/HeroArt";
  */
 export function PageHead() {
   const { t } = useLanguage();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Restart at 0 once playback passes HERO_LOOP_END, so only the first
+  // ~33s loop and everything after is skipped.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const onTimeUpdate = () => {
+      if (video.currentTime >= HERO_LOOP_END) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }
+    };
+    video.addEventListener("timeupdate", onTimeUpdate);
+    return () => video.removeEventListener("timeupdate", onTimeUpdate);
+  }, []);
+
   return (
     <section className="page-head">
       <div className="hero-sky" />
 
       {/* Background presentation video (muted autoplay loop) + dark overlay. */}
       <video
+        ref={videoRef}
         className="hero-bg"
         src="/Video_presentation_restaurant.mp4"
         autoPlay
         muted
-        loop
         playsInline
         preload="auto"
         aria-hidden="true"
