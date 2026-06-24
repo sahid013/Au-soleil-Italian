@@ -112,13 +112,14 @@ export function formatPrice(value: number, currency: string): string {
  * Decide whether to surface a dish video. The video source is always the
  * dish's `videoUrl` (we never treat `model3dUrl` as a video, even when it
  * happens to point at an .mp4 — that field is reserved for 3D models). A
- * video shows whenever it is ready (`videoStatus === "Live"`) and has a URL,
- * regardless of `mediaType` or the `videoVisible` flag. Enum casing differs
- * between the docs and the live API, so compare lower-cased.
+ * video shows only when it is ready (`videoStatus === "Live"`), has a URL,
+ * and is explicitly marked visible (`videoVisible === true`): if a dish has a
+ * video URL but `videoVisible` is false, we hide it. `mediaType` is ignored.
+ * Enum casing differs between the docs and the live API, so compare lower-cased.
  */
 function resolveVideo(dish: OchelDish): { hasVideo: boolean; videoSrc?: string; poster?: string } {
   const isLive = dish.videoStatus?.toLowerCase() === "live";
-  if (isLive && dish.videoUrl) {
+  if (isLive && dish.videoVisible && dish.videoUrl) {
     return {
       hasVideo: true,
       videoSrc: dish.videoUrl,
