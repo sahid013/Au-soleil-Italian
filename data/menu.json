@@ -1,582 +1,396 @@
 {
-  "$comment": "Au Soleil Italien — full bilingual menu. This is the single source of truth for the menu. Categories render in the order listed here. Each item: name (proper name, kept as-is), price (string with € or null), description {fr,en}, and optional flags: isNew, hasVideo, time, tag. Edit freely — the UI is data-driven. When the backend API is ready, lib/menu.ts becomes the only file that needs to change.",
+  "$comment": "LIVE RAW SNAPSHOT of the Ochel API response (2026-06-24T10:10:07.650Z), GET /api/v1/menu/{menuId}. This is the exact API contract (parallel categories / subcategories / dishes arrays). lib/menu.ts maps it via mapOchelToCategories; the live API is used directly when NEXT_PUBLIC_USE_API=true and this file is the fallback.",
+  "menuId": "9289c209-1e66-4cab-888d-1643965d8ee0",
+  "restaurantName": "Au Soleil Italien sgdb",
+  "cuisine": "Italian",
+  "currency": "EUR",
   "categories": [
     {
-      "id": "pizza",
-      "title": { "fr": "Pizza", "en": "Pizza" },
-      "note": {
-        "fr": "Notre pâte à pizza est pétrie sur place à partir de farine 100% italienne",
-        "en": "Our pizza dough is kneaded in-house from 100% Italian flour"
-      },
-      "supplement": {
-        "fr": "Supplément œuf 1,20€ · Base crème truffée 2,00€ · Ingrédient 2,00€ · Boule burrata fraîche 5,50€ · Saumon fumé 5,50€",
-        "en": "Extra egg 1.20€ · Truffle cream base 2.00€ · Extra topping 2.00€ · Fresh burrata 5.50€ · Smoked salmon 5.50€"
-      },
-      "items": [
-        {
-          "name": "Salmone",
-          "price": "17,00€",
-          "isNew": true,
-          "description": {
-            "fr": "Crème fraîche, mozzarella, oignons, saumon frais, roquette, citron",
-            "en": "Crème fraîche, mozzarella, onions, fresh salmon, rocket, lemon"
-          }
+      "id": "dc847863-c676-4889-b3ee-d0065f9724a2",
+      "name": "Planches à partager",
+      "sortOrder": 0,
+      "icon": null,
+      "subtitle": null,
+      "isEnabled": true,
+      "isSystem": false,
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Planches à partager"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
         },
-        {
-          "name": "La Pistachio",
-          "price": "17,00€",
-          "isNew": true,
-          "hasVideo": true,
-          "description": {
-            "fr": "Crème de pistache, mozzarella, roquette, jambon blanc, stracciatella, pesto de pistache et tomates cerises",
-            "en": "Pistachio cream, mozzarella, rocket, ham, stracciatella, pistachio pesto and cherry tomatoes"
-          }
-        },
-        {
-          "name": "Barbecue",
-          "price": "17,00€",
-          "description": {
-            "fr": "Sauce tomate, mozzarella, viande hachée, merguez, poulet et sauce barbecue",
-            "en": "Tomato sauce, mozzarella, minced beef, merguez, chicken and BBQ sauce"
-          }
-        },
-        {
-          "name": "Marguerita",
-          "price": "11,00€",
-          "description": { "fr": "Tomate, mozzarella, olives", "en": "Tomato, mozzarella, olives" }
-        },
-        {
-          "name": "Napoletana",
-          "price": "13,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, anchois, câpres, olives",
-            "en": "Tomato, mozzarella, anchovies, capers, olives"
-          }
-        },
-        {
-          "name": "Chèvre",
-          "price": "13,50€",
-          "description": { "fr": "Tomate, mozzarella, chèvre", "en": "Tomato, mozzarella, goat cheese" }
-        },
-        {
-          "name": "Regina",
-          "price": "14,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, jambon blanc, champignons, olives",
-            "en": "Tomato, mozzarella, ham, mushrooms, olives"
-          }
-        },
-        {
-          "name": "Nettuno",
-          "price": "14,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, thon, câpres, œuf, olives",
-            "en": "Tomato, mozzarella, tuna, capers, egg, olives"
-          }
-        },
-        {
-          "name": "Italia",
-          "price": "14,50€",
-          "description": {
-            "fr": "Tomate, mozzarella, merguez, spianata piccante, œuf",
-            "en": "Tomato, mozzarella, merguez, spianata piccante, egg"
-          }
-        },
-        {
-          "name": "Mexicaine",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, viande hachée, merguez, piment",
-            "en": "Tomato, mozzarella, minced beef, merguez, chilli"
-          }
-        },
-        {
-          "name": "Orientale",
-          "price": "14,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, poivrons, merguez, œuf",
-            "en": "Tomato, mozzarella, peppers, merguez, egg"
-          }
-        },
-        {
-          "name": "Paysanne",
-          "price": "14,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, lardons, rondelles de tomates, œuf, oignons",
-            "en": "Tomato, mozzarella, pancetta, tomato slices, egg, onions"
-          }
-        },
-        {
-          "name": "Calzone",
-          "price": "13,50€",
-          "description": {
-            "fr": "Tomate, mozzarella, jambon blanc, jaune d'œuf",
-            "en": "Tomato, mozzarella, ham, egg yolk"
-          }
-        },
-        {
-          "name": "Quatro Stagioni",
-          "price": "14,50€",
-          "description": {
-            "fr": "Tomate, mozzarella, jambon, champignons, poivrons, artichauts",
-            "en": "Tomato, mozzarella, ham, mushrooms, peppers, artichokes"
-          }
-        },
-        {
-          "name": "Bolognaise",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, viande hachée, oignons, œuf",
-            "en": "Tomato, mozzarella, minced beef, onions, egg"
-          }
-        },
-        {
-          "name": "3 Jambons",
-          "price": "14,80€",
-          "description": {
-            "fr": "Tomate, mozzarella, jambon blanc, coppa, salami, finocchiona IGP, œuf",
-            "en": "Tomato, mozzarella, ham, coppa, salami, finocchiona PGI, egg"
-          }
-        },
-        {
-          "name": "4 Fromages",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, chèvre, gorgonzola, parmesan",
-            "en": "Tomato, mozzarella, goat cheese, gorgonzola, parmesan"
-          }
-        },
-        {
-          "name": "Végétarienne",
-          "price": "14,50€",
-          "description": {
-            "fr": "Tomate, mozzarella, poivrons, artichauts, oignons, champignons, courgettes, olives",
-            "en": "Tomato, mozzarella, peppers, artichokes, onions, mushrooms, courgettes, olives"
-          }
-        },
-        {
-          "name": "Savoyarde",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, raclette, jambon italien, pomme de terre, lardons, crème",
-            "en": "Tomato, mozzarella, raclette, Italian ham, potato, pancetta, cream"
-          }
-        },
-        {
-          "name": "Soleil Italien",
-          "price": "14,90€",
-          "description": {
-            "fr": "Tomate, mozzarella, jambon italien, tomates fraîches, oignons, basilic, huile d'olive, salade",
-            "en": "Tomato, mozzarella, Italian ham, fresh tomatoes, onions, basil, olive oil, greens"
-          }
-        },
-        {
-          "name": "Massimo",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, viande hachée, boursin, œuf",
-            "en": "Tomato, mozzarella, minced beef, Boursin, egg"
-          }
-        },
-        {
-          "name": "Al Polo",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella, poulet, champignons, poivrons",
-            "en": "Tomato, mozzarella, chicken, mushrooms, peppers"
-          }
-        },
-        {
-          "name": "Burra",
-          "price": "15,50€",
-          "description": {
-            "fr": "Burrata, courgettes, parmesan, sauce tomate, mozzarella, tomates cerises, jambon italien, roquette, basilic",
-            "en": "Burrata, courgettes, parmesan, tomato sauce, mozzarella, cherry tomatoes, Italian ham, rocket, basil"
-          }
-        },
-        {
-          "name": "Tartuffo",
-          "price": "17,50€",
-          "description": {
-            "fr": "Crème truffée, burrata, champignons, tomates cerises, jambon italien, parmesan, roquette",
-            "en": "Truffle cream, burrata, mushrooms, cherry tomatoes, Italian ham, parmesan, rocket"
-          }
-        },
-        {
-          "name": "Diavola",
-          "price": "15,00€",
-          "description": {
-            "fr": "Tomate, mozzarella fumée, spianata piccante, tomates cerises, roquette",
-            "en": "Tomato, smoked mozzarella, spianata piccante, cherry tomatoes, rocket"
-          }
+        "subtitle": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
         }
-      ]
-    },
-    {
-      "id": "planches",
-      "title": { "fr": "Planches à partager", "en": "Sharing Boards" },
-      "items": [
-        {
-          "name": "Assortiment de Charcuterie Italiennes",
-          "price": "17,00€",
-          "description": {
-            "fr": "Coppa, jambon italien, salami italien, spianata piccante, mortadelle à la truffe",
-            "en": "Coppa, Italian ham, Italian salami, spianata piccante, truffle mortadella"
-          }
-        },
-        {
-          "name": "Méli-Mélo",
-          "price": "18,00€",
-          "description": {
-            "fr": "Légumes grillés marinés, charcuterie, burrata fraîche",
-            "en": "Marinated grilled vegetables, cured meats, fresh burrata"
-          }
-        }
-      ]
-    },
-    {
-      "id": "antipasti",
-      "title": { "fr": "Antipasti", "en": "Antipasti" },
-      "items": [
-        {
-          "name": "Calamars Frits « Maison »",
-          "price": "8,90€",
-          "description": { "fr": "Sauce Caesar", "en": "Caesar sauce" }
-        },
-        {
-          "name": "Carpaccio de Bœuf",
-          "price": "12,00€",
-          "description": { "fr": "Basilic et parmesan", "en": "Basil and parmesan" }
-        },
-        {
-          "name": "Carpaccio de Bœuf et Burrata à l'huile truffée",
-          "price": "14,50€"
-        },
-        {
-          "name": "Burrata crémeuse à l'huile truffée",
-          "price": "9,80€"
-        }
-      ]
-    },
-    {
-      "id": "salades",
-      "title": { "fr": "Salades", "en": "Salads" },
-      "note": {
-        "fr": "Petite 12,80€  ·  Grande 16,50€",
-        "en": "Small 12.80€  ·  Large 16.50€"
-      },
-      "items": [
-        {
-          "name": "Crottin de Chèvre aux Noix",
-          "description": {
-            "fr": "Salade, tomate, crottin de chèvre, noix, julienne de carottes",
-            "en": "Greens, tomato, goat cheese, walnuts, carrot julienne"
-          }
-        },
-        {
-          "name": "Caesar",
-          "description": {
-            "fr": "Salade, tomates, poulet pané panko maison, parmesan, croûtons, sauce caesar maison et œufs durs",
-            "en": "Greens, tomatoes, house panko-breaded chicken, parmesan, croutons, house Caesar dressing, boiled eggs"
-          }
-        },
-        {
-          "name": "Norvégienne",
-          "description": {
-            "fr": "Salade, tomates, avocat, crevettes, saumon fumé, crème ciboulette, blinis, tarama",
-            "en": "Greens, tomatoes, avocado, prawns, smoked salmon, chive cream, blinis, taramasalata"
-          }
-        },
-        {
-          "name": "Soleil",
-          "hasVideo": true,
-          "description": {
-            "fr": "Salade, tomates, légumes marinés à la vinaigrette balsamique, mortadelle truffée, parmesan",
-            "en": "Greens, tomatoes, balsamic-marinated vegetables, truffle mortadella, parmesan"
-          }
-        },
-        {
-          "name": "Bruschetta di Parma",
-          "description": {
-            "fr": "Pain bruschetta, mozzarella fumée, jambon italien, courgettes, roquette, parmesan, huile d'olive au basilic",
-            "en": "Bruschetta bread, smoked mozzarella, Italian ham, courgettes, rocket, parmesan, basil olive oil"
-          }
-        },
-        {
-          "name": "Burrata",
-          "tag": "plat",
-          "description": {
-            "fr": "En plat uniquement — salade, tomates, burrata crémeuse, courgettes grillées, huile d'olive au basilic",
-            "en": "Main course only — greens, tomatoes, creamy burrata, grilled courgettes, basil olive oil"
-          }
-        }
-      ]
-    },
-    {
-      "id": "pasta",
-      "title": { "fr": "Pasta", "en": "Pasta" },
-      "note": {
-        "fr": "Toutes nos sauces sont préparées sur place",
-        "en": "All our sauces are made in-house"
-      },
-      "items": [
-        {
-          "name": "Linguine Pesto de Pistache",
-          "price": "16,00€",
-          "isNew": true,
-          "hasVideo": true,
-          "description": {
-            "fr": "Pesto de pistache, stracciatella, tomates cerises, jambon cru",
-            "en": "Pistachio pesto, stracciatella, cherry tomatoes, cured ham"
-          }
-        },
-        {
-          "name": "Papardelle Bolognaise",
-          "price": "13,00€",
-          "description": { "fr": "Sauce tomate et viande hachée", "en": "Tomato sauce and minced beef" }
-        },
-        {
-          "name": "Linguine du Soleil",
-          "price": "15,50€",
-          "description": {
-            "fr": "Crème truffée, jambon italien, copeaux de parmesan, champignons",
-            "en": "Truffle cream, Italian ham, parmesan shavings, mushrooms"
-          }
-        },
-        {
-          "name": "Linguine Calamars & Crevettes",
-          "price": "15,50€",
-          "description": {
-            "fr": "Calamars, crevettes, basilic, vin blanc, ail, sauce tomate cuisinée",
-            "en": "Squid, prawns, basil, white wine, garlic, cooked tomato sauce"
-          }
-        },
-        {
-          "name": "Linguine Pesto & Burrata",
-          "price": "15,50€",
-          "description": {
-            "fr": "Linguine, pesto, crème, tomates cerises, burrata fraîche entière",
-            "en": "Linguine, pesto, cream, cherry tomatoes, whole fresh burrata"
-          }
-        },
-        {
-          "name": "Linguine Carbonara",
-          "price": "13,50€",
-          "description": { "fr": "Crème, lardons, jaune d'œuf", "en": "Cream, pancetta, egg yolk" }
-        },
-        {
-          "name": "Papardelle Gamberetti",
-          "price": "15,50€",
-          "description": {
-            "fr": "Crevettes poêlées, brocolis, vin blanc, champignons, citron et crème",
-            "en": "Pan-seared prawns, broccoli, white wine, mushrooms, lemon and cream"
-          }
-        },
-        {
-          "name": "Papardelle aux 2 Saumons",
-          "price": "15,50€",
-          "description": {
-            "fr": "Saumon frais, saumon fumé, tomate cerise, basilic, crème, citron, vin blanc",
-            "en": "Fresh salmon, smoked salmon, cherry tomato, basil, cream, lemon, white wine"
-          }
-        },
-        {
-          "name": "Penne all'Arrabiata",
-          "price": "13,50€",
-          "description": {
-            "fr": "Piment, ail, huile d'olive, sauce tomate, basilic",
-            "en": "Chilli, garlic, olive oil, tomato sauce, basil"
-          }
-        },
-        {
-          "name": "Penne Gorgonzola",
-          "price": "13,50€",
-          "description": { "fr": "Gorgonzola, crème", "en": "Gorgonzola, cream" }
-        },
-        {
-          "name": "Tortellonis du Soleil",
-          "price": "13,80€",
-          "description": {
-            "fr": "Boursin, courgettes, poulet, crème, champignons",
-            "en": "Boursin, courgettes, chicken, cream, mushrooms"
-          }
-        },
-        {
-          "name": "Tortellonis Saumon Épinards",
-          "price": "15,50€",
-          "description": {
-            "fr": "Crème de citron, saumon frais, épinards, vin blanc",
-            "en": "Lemon cream, fresh salmon, spinach, white wine"
-          }
-        },
-        {
-          "name": "Lasagne Bolognaise Maison",
-          "price": "14,50€",
-          "description": { "fr": "Servie avec salade verte", "en": "Served with green salad" }
-        },
-        {
-          "name": "Trio de Pâtes",
-          "price": "19,00€",
-          "description": {
-            "fr": "½ lasagne, penne au gorgonzola, tagliatelle carbonara",
-            "en": "½ lasagne, gorgonzola penne, carbonara tagliatelle"
-          }
-        },
-        {
-          "name": "Ravioles aux Cèpes",
-          "price": "18,00€",
-          "description": {
-            "fr": "Crème truffée, jambon, roquette, champignons et copeaux de parmesan",
-            "en": "Truffle cream, ham, rocket, mushrooms and parmesan shavings"
-          }
-        }
-      ]
-    },
-    {
-      "id": "viandes",
-      "title": { "fr": "Viandes & Poissons", "en": "Meat & Fish" },
-      "note": {
-        "fr": "Garnitures au choix : linguine, frites, poêlée de légumes verts",
-        "en": "Choice of side: linguine, fries, sautéed green vegetables"
-      },
-      "supplement": {
-        "fr": "Garniture supplémentaire 3,50€",
-        "en": "Extra side 3.50€"
-      },
-      "items": [
-        {
-          "name": "Escalope de Veau Milanaise Panée",
-          "price": "14,90€",
-          "hasVideo": true
-        },
-        {
-          "name": "Escalope de Veau Marsala",
-          "price": "16,50€",
-          "description": {
-            "fr": "Champignons flambés au Marsala, crème",
-            "en": "Mushrooms flambéed in Marsala, cream"
-          }
-        },
-        {
-          "name": "Escalope de Veau Florentine",
-          "price": "16,50€",
-          "time": "25 min",
-          "description": {
-            "fr": "Mozzarella, jambon blanc, épinards, gratinée au parmesan, sauce tomate écrémée",
-            "en": "Mozzarella, ham, spinach, parmesan gratin, light tomato sauce"
-          }
-        },
-        {
-          "name": "Escalope de Veau Parmigiana",
-          "price": "16,50€",
-          "description": {
-            "fr": "Aubergines, scamorza fumée, basilic, sauce tomate, gratinée au four",
-            "en": "Aubergine, smoked scamorza, basil, tomato sauce, oven-baked gratin"
-          }
-        },
-        {
-          "name": "Escalope de Veau du Soleil",
-          "price": "18,50€",
-          "description": {
-            "fr": "Jambon italien, crème truffée au parmesan, champignons, burrata",
-            "en": "Italian ham, parmesan truffle cream, mushrooms, burrata"
-          }
-        },
-        {
-          "name": "Escalope de Veau Bolognaise",
-          "price": "17,50€",
-          "description": {
-            "fr": "Jambon, sauce bolognaise, gratinée au parmesan",
-            "en": "Ham, bolognese sauce, parmesan gratin"
-          }
-        },
-        {
-          "name": "Entrecôte (selon arrivage) 300 g",
-          "price": "24,50€",
-          "description": { "fr": "Poêlée, sauce gorgonzola", "en": "Pan-seared, gorgonzola sauce" }
-        },
-        {
-          "name": "Escalope de Saumon Florentine",
-          "price": "19,00€",
-          "time": "25 min",
-          "description": {
-            "fr": "Saumon frais, épinards, crème citronnée au vin blanc, gratinée au parmesan",
-            "en": "Fresh salmon, spinach, lemon white-wine cream, parmesan gratin"
-          }
-        },
-        {
-          "name": "Escalope de Saumon Nature",
-          "price": "18,50€",
-          "description": {
-            "fr": "Sauce Caesar, poêlée de légumes verts",
-            "en": "Caesar sauce, sautéed green vegetables"
-          }
-        }
-      ]
-    },
-    {
-      "id": "risotto",
-      "title": { "fr": "Risotto", "en": "Risotto" },
-      "items": [
-        {
-          "name": "Risotto du Moment",
-          "price": "19,00€",
-          "description": { "fr": "Consultez l'ardoise du jour", "en": "See today's blackboard" },
-          "hasVideo": true,
-          "video": "risotto.mp4"
-        }
-      ]
-    }
-  ],
-  "extras": {
-    "cafe": {
-      "title": { "fr": "Café Gourmand", "en": "Café Gourmand" },
-      "text": {
-        "fr": "Demandez la carte sucrée pour retrouver tous nos desserts.",
-        "en": "Ask for the dessert menu to discover all our sweets."
       }
     },
-    "bambino": {
-      "title": { "fr": "Menu Bambino", "en": "Children's Menu" },
-      "price": "9,00€",
-      "age": {
-        "fr": "Jusqu'à 12 ans · supplément pizza 2€",
-        "en": "Up to age 12 · pizza supplement 2€"
-      },
-      "groups": [
-        {
-          "label": { "fr": "Plats au choix", "en": "Choice of main" },
-          "value": {
-            "fr": "Pizza Marguerita · Linguine au jambon · Linguine bolognaise · Jambon frites",
-            "en": "Marguerita pizza · Ham linguine · Bolognese linguine · Ham & fries"
-          }
+    {
+      "id": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "name": "Antipasti",
+      "sortOrder": 1,
+      "icon": null,
+      "subtitle": null,
+      "isEnabled": true,
+      "isSystem": false,
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Antipasti"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
         },
-        {
-          "label": { "fr": "Desserts", "en": "Desserts" },
-          "video": "children-menu-desert.mp4",
-          "value": {
-            "fr": "Brownies chocolat · Glace 2 boules",
-            "en": "Chocolate brownie · 2-scoop ice cream"
-          }
-        },
-        {
-          "label": { "fr": "Boisson (au verre)", "en": "Drink (by the glass)" },
-          "value": {
-            "fr": "Jus de fruits · Limonade · Sirop · Coca",
-            "en": "Fruit juice · Lemonade · Cordial · Coca-Cola"
-          }
+        "subtitle": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
         }
-      ]
+      }
     }
-  },
-  "notes": {
-    "main": {
-      "fr": "Tarifs nets, taxes et service compris. Les chèques ne sont pas acceptés.",
-      "en": "Prices net, taxes and service included. Cheques are not accepted."
+  ],
+  "subcategories": [],
+  "dishes": [
+    {
+      "id": "26028ab0-5f75-4a6e-b679-6ca6aa19c3ef",
+      "categoryId": "dc847863-c676-4889-b3ee-d0065f9724a2",
+      "subcategoryId": null,
+      "name": "Assortiment de charcuterie italiennes",
+      "description": "Coppa, jambon italien, salami italien, Spinata piccante, mortadelle à la truffe",
+      "price": 17,
+      "sortOrder": 0,
+      "isSpecial": true,
+      "specialLabel": "De saison",
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "Model3d",
+      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/ae58db3f1d044357b90a8dc44053f173/2fbcd62debce4829bab32262da6092a8.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260624T095312Z&X-Amz-SignedHeaders=host&X-Amz-Signature=b4f6c3c503db7a3a9efc3bf6cde8fb4199f1013efead66ccb8a19b37855610b7",
+      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/assortiment_de_charcuterie_italiennes.mp4",
+      "model3dUrl": "https://plats.ochel.fr/au_soleil_italien/assortiment_de_charcuterie_italiennes.mp4",
+      "posterUrl": null,
+      "videoVisible": false,
+      "videoStatus": "Live",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Assortiment de charcuterie italiennes"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Coppa, jambon italien, salami italien, Spinata piccante, mortadelle à la truffe"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [
+            "De saison"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
     },
-    "sub": {
-      "fr": "Un plat de résistance obligatoire par personne · Menu enfant obligatoire de 3 à 12 ans",
-      "en": "One main course required per person · Children's menu required for ages 3 to 12"
+    {
+      "id": "1c94e583-caa0-48c5-88f4-0cdc29aceca6",
+      "categoryId": "dc847863-c676-4889-b3ee-d0065f9724a2",
+      "subcategoryId": null,
+      "name": "Méli - Mélo",
+      "description": "Légumes grillés marinés, charcuterie, burrata fraîche",
+      "price": 18,
+      "sortOrder": 1,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "Photo",
+      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/eeda5e39fa9e479e8eee950d0be379f9/62f347487fb6425daec9626cce53cfb5.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260624T095312Z&X-Amz-SignedHeaders=host&X-Amz-Signature=df9172ae3b2bc5853b1f6d33aeb880f4440246fab9aa5baf1d07507fcbf3c69e",
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "videoStatus": "Pending",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Méli - Mélo"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Légumes grillés marinés, charcuterie, burrata fraîche"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "ebedf723-accf-4e2f-8607-5f2aeddecef5",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Calamars Frits \"Maison\"",
+      "description": "Sauce Caesar",
+      "price": 8.9,
+      "sortOrder": 2,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Calamars Frits \"Maison\""
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Sauce Caesar"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "81dd0132-f24c-431f-a420-55e2a75980c0",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Burrata crémeuse à l'huile truffée",
+      "description": null,
+      "price": 9.8,
+      "sortOrder": 2,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Burrata crémeuse à l'huile truffée"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "0c8358cf-94ce-4ed0-ad4c-302087388318",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Carpaccio de Boeuf",
+      "description": "Basilic et Parmesan",
+      "price": 12,
+      "sortOrder": 3,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Carpaccio de Boeuf"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Basilic et Parmesan"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "e8f7fb4b-1a89-41a0-bb92-d269c90073df",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Carpaccio de Boeuf et Burrata à l'huile truffée",
+      "description": null,
+      "price": 14.5,
+      "sortOrder": 4,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "Photo",
+      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/e8f7fb4b1a8941a0bb92d269c90073df/047bf33efa3447e08a2bd26692e34b32.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260624%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260624T095312Z&X-Amz-SignedHeaders=host&X-Amz-Signature=f03ab76f1334682db261848e4de1bda4fe0edbd31c797b4f6e2a47647d351eac",
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Carpaccio de Boeuf et Burrata à l'huile truffée"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
     }
-  }
+  ]
 }

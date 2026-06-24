@@ -29,8 +29,12 @@ const USE_API = process.env.NEXT_PUBLIC_USE_API === "true";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
 const MENU_ID = process.env.NEXT_PUBLIC_MENU_ID ?? "";
 
-/** The local JSON, typed. `$comment` keys are ignored by the type. */
-const localMenu = menuJson as unknown as MenuData;
+/**
+ * The local JSON fallback. It mirrors the raw Ochel API response shape
+ * (categories / subcategories / dishes arrays) so it can be mapped with the
+ * same adapter as the live API. `$comment` keys are ignored by the type.
+ */
+const localMenu = menuJson as unknown as OchelMenuResponse;
 
 /**
  * Fetch the full menu.
@@ -46,7 +50,7 @@ const localMenu = menuJson as unknown as MenuData;
  * categories so the site never shows a blank menu.
  */
 export async function getMenu(): Promise<MenuData> {
-  if (!USE_API) return localMenu;
+  if (!USE_API) return { categories: mapOchelToCategories(localMenu) };
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/menu/${MENU_ID}`, { cache: "no-store" });
@@ -55,7 +59,7 @@ export async function getMenu(): Promise<MenuData> {
     return { categories: mapOchelToCategories(data) };
   } catch (err) {
     console.error("[getMenu] API fetch failed, falling back to local menu:", err);
-    return { categories: localMenu.categories };
+    return { categories: mapOchelToCategories(localMenu) };
   }
 }
 
