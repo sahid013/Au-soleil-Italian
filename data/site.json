@@ -5,21 +5,21 @@
     "tagline": "Pizzeria · Ristorante"
   },
   "contact": {
-    "phone": "+33000000000",
-    "phoneDisplay": "__ __ __ __ __",
+    "phone": "+33160153492",
+    "phoneDisplay": "01 60 15 34 92",
     "website": "https://ausoleilitalien.fr",
     "websiteLabel": "ausoleilitalien.fr",
     "address": {
-      "fr": "Adresse à compléter",
-      "en": "Address to be added",
-      "es": "Dirección por añadir",
-      "zh": "地址待补充"
+      "fr": "31 Av. du Régiment Normandie Niemen, 91700 Sainte-Geneviève-des-Bois",
+      "en": "31 Av. du Régiment Normandie Niemen, 91700 Sainte-Geneviève-des-Bois",
+      "es": "31 Av. du Régiment Normandie Niemen, 91700 Sainte-Geneviève-des-Bois",
+      "zh": "31 Av. du Régiment Normandie Niemen, 91700 Sainte-Geneviève-des-Bois"
     },
     "phoneNote": {
-      "fr": "Numéro à compléter",
-      "en": "Number to be added",
-      "es": "Número por añadir",
-      "zh": "号码待补充"
+      "fr": "01 60 15 34 92",
+      "en": "01 60 15 34 92",
+      "es": "01 60 15 34 92",
+      "zh": "01 60 15 34 92"
     }
   },
   "hours": {
