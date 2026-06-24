@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/i18n";
-import { Rule } from "@/components/atoms/Rule";
 
 /** Loop only the first N seconds of the hero video. */
 const HERO_LOOP_END = 33;
@@ -49,16 +48,17 @@ export function PageHead() {
 
       <div className="shell">
         <div className="hero-copy">
-          <h1 className="hero-title">La Carte</h1>
-          <p>
-            {t({
-              fr: "Pâtes fraîches, pizzas pétries sur place et produits transalpins. Tous nos plats sont préparés maison, avec générosité, sous le soleil.",
-              en: "Fresh pasta, dough kneaded in-house and finest Italian produce. Every dish is made in our kitchen, with generosity, under the sun.",
-              es: "Pasta fresca, masa amasada en casa y los mejores productos italianos. Todos nuestros platos se preparan en casa, con generosidad, bajo el sol.",
-              zh: "新鲜面食、现场手工揉制的披萨面团和精选意大利食材。我们的每道菜都在自家厨房用心烹制，沐浴阳光。",
-            })}
-          </p>
-          <Rule style={{ maxWidth: 300, margin: "24px auto 0" }} />
+          <div className="hero-card">
+            <h1 className="hero-title">La Carte</h1>
+            <p>
+              {t({
+                fr: "Pâtes fraîches, pizzas pétries sur place et produits transalpins. Plats préparés maison, avec générosité, sous le soleil.",
+                en: "Fresh pasta, dough kneaded in-house and finest Italian produce. Made in our kitchen, with generosity, under the sun.",
+                es: "Pasta fresca, masa amasada en casa y los mejores productos italianos. Platos preparados en casa, con generosidad, bajo el sol.",
+                zh: "新鲜面食、现场手工揉制的披萨面团和精选意大利食材。自家厨房用心烹制，沐浴阳光。",
+              })}
+            </p>
+          </div>
         </div>
       </div>
     </section>

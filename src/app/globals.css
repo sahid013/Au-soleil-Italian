@@ -299,11 +299,10 @@ h3 {
   overflow: hidden;
   min-height: clamp(620px, 82vh, 880px);
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: center;
-  /* sits the copy in the upper third — clears the absolute navbar and
-     trims the top spacing ~30% vs. perfectly-centred */
-  padding-top: 150px;
+  /* sits the copy at the bottom centre of the hero */
+  padding-bottom: 48px;
 }
 .page-head .hero-sky {
   background: #e2d6bf;
@@ -326,24 +325,33 @@ h3 {
   max-width: 640px;
   margin: 0 auto;
 }
+/* Wrap the title + intro on the same surface as the menu items (var(--cream)). */
+.page-head .hero-card {
+  /* 60% opaque cream so the blurred video behind shows through */
+  background: rgba(251, 248, 241, 0.6);
+  border: 1px solid var(--line);
+  padding: 28px 32px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
 .hero-title {
   font-family: var(--f-title);
   font-weight: 400;
   color: var(--olive);
   line-height: 1;
-  /* 12px smaller again (clamp bounds reduced by another 0.67rem @ 18px root) */
-  font-size: clamp(1.86rem, 7vw, 5.06rem);
+  /* reduced a further 30% from the previous clamp bounds */
+  font-size: clamp(1.3rem, 4.9vw, 3.54rem);
   letter-spacing: 0.02em;
 }
 .page-head p {
   max-width: 52ch;
-  margin: 22px auto 0;
+  margin: 15px auto 0;
   color: var(--espresso-soft);
   font-size: 1.18rem;
 }
 /* Light copy for contrast over the darkened video background. */
 .page-head .hero-title {
-  color: #0a160b;
+  color: var(--olive);
 }
 .page-head p {
   color: #0a160b;
@@ -451,8 +459,8 @@ h3 {
     /* tall enough to host the floating pizza + video below the copy and to
        let the video run past the bottom edge (clipped by overflow: hidden) */
     min-height: 640px;
-    /* top padding clears the 78px absolute navbar so the title stays visible */
-    padding: 108px 0 0;
+    /* bottom padding keeps the bottom-anchored copy off the hero's edge */
+    padding: 0 0 36px;
   }
   /* on mobile keep just one pizza + the right-hand video, drop the left pair */
   .hero-art--pizza-1,
@@ -577,7 +585,8 @@ h3 {
 }
 .panel-head h2 {
   font-family: var(--f-title);
-  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 400;
+  font-size: clamp(1.44rem, 2.56vw, 2.08rem);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--red);
@@ -971,9 +980,10 @@ h3 {
    VISIT (olive reserve strip)
    ============================================================ */
 .visit {
-  background: var(--olive);
-  color: var(--cream);
+  background: var(--cream-2);
+  color: var(--espresso);
   padding: 92px 0;
+  border-top: 1px solid var(--line);
 }
 .visit .shell {
   display: grid;
@@ -982,17 +992,17 @@ h3 {
   align-items: center;
 }
 .visit .kicker {
-  color: var(--sun-2);
+  color: var(--bronze-dk);
 }
 .visit h2 {
-  color: var(--cream);
+  color: var(--olive);
   font-size: clamp(1.4rem, 2.38vw, 2.1rem);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin: 10px 0 22px;
 }
 .visit p {
-  color: rgba(251, 248, 241, 0.82);
+  color: var(--espresso-soft);
   font-size: 1.18rem;
 }
 .visit .info {
@@ -1005,15 +1015,15 @@ h3 {
   gap: 18px;
   align-items: flex-start;
   padding: 18px 0;
-  border-bottom: 1px solid rgba(245, 241, 232, 0.16);
+  border-bottom: 1px solid var(--line);
 }
 .visit .info .row:first-child {
-  border-top: 1px solid rgba(245, 241, 232, 0.16);
+  border-top: 1px solid var(--line);
 }
 .visit .info .ic {
   width: 24px;
   height: 24px;
-  color: var(--sun-2);
+  color: var(--bronze-dk);
   flex: none;
   margin-top: 3px;
 }
@@ -1022,21 +1032,26 @@ h3 {
   font-size: 0.66rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   margin-bottom: 3px;
 }
 .visit .info .val {
   font-size: 1.12rem;
-  color: var(--cream);
+  color: var(--espresso);
+}
+.visit .info .val a {
+  color: var(--red);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .visit .info .val .muted {
-  color: rgba(245, 241, 232, 0.74);
+  color: var(--espresso-soft);
   font-style: italic;
   font-size: 0.95rem;
 }
 .visit-card {
-  background: rgba(251, 248, 241, 0.06);
-  border: 1px solid rgba(199, 154, 59, 0.34);
+  background: var(--cream);
+  border: 1px solid var(--line);
   border-radius: 0;
   padding: 42px 40px;
   text-align: center;
@@ -1044,7 +1059,7 @@ h3 {
 .visit-card .scr {
   font-family: var(--f-script);
   font-size: 3.4rem;
-  color: var(--sun-2);
+  color: var(--bronze-dk);
   line-height: 0.8;
 }
 .visit-card .days {
@@ -1052,16 +1067,16 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 0.24em;
   font-size: 0.84rem;
-  color: var(--cream);
+  color: var(--olive);
   margin: 18px 0 6px;
 }
 .visit-card .hours {
   font-size: 1.5rem;
-  color: var(--cream);
+  color: var(--espresso);
 }
 .visit-card .closed {
   font-size: 0.95rem;
-  color: rgba(245, 241, 232, 0.74);
+  color: var(--espresso-soft);
   font-style: italic;
   margin-top: 4px;
 }
@@ -1070,7 +1085,7 @@ h3 {
   font-family: var(--f-title);
   font-size: 1.7rem;
   letter-spacing: 0.06em;
-  color: var(--sun-2);
+  color: var(--red);
   margin: 24px 0 6px;
 }
 .visit-card .btn {
@@ -1081,9 +1096,10 @@ h3 {
    FOOTER
    ============================================================ */
 .footer {
-  background: #152a20;
-  color: rgba(245, 241, 232, 0.7);
+  background: var(--sand);
+  color: var(--espresso-soft);
   padding: 64px 0 36px;
+  border-top: 1px solid var(--line);
 }
 .footer .top {
   display: grid;
@@ -1105,7 +1121,7 @@ h3 {
 .footer .scr-name {
   font-family: var(--f-script);
   font-size: 2.4rem;
-  color: var(--sun-2);
+  color: var(--bronze-dk);
   line-height: 0.8;
 }
 .footer .sub-name {
@@ -1113,12 +1129,12 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 0.3em;
   font-size: 0.6rem;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   margin-top: 8px;
 }
 .footer p {
   font-size: 1.02rem;
-  color: rgba(245, 241, 232, 0.62);
+  color: var(--espresso-soft);
   max-width: 34ch;
   margin: 16px 0 0;
 }
@@ -1127,7 +1143,7 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.7rem;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   margin: 0 0 18px;
 }
 .footer .lk {
@@ -1136,30 +1152,30 @@ h3 {
 }
 .footer .lk a {
   font-size: 1.05rem;
-  color: rgba(245, 241, 232, 0.8);
+  color: var(--espresso);
   display: inline-flex;
   align-items: center;
   gap: 10px;
   transition: color 0.2s;
 }
 .footer .lk a:hover {
-  color: var(--sun-2);
+  color: var(--red);
 }
 .footer .lk a .ic {
   width: 17px;
   height: 17px;
-  color: var(--bronze);
+  color: var(--bronze-dk);
 }
 .footer .bottom {
   margin-top: 48px;
   padding-top: 24px;
-  border-top: 1px solid rgba(245, 241, 232, 0.12);
+  border-top: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
   font-size: 0.86rem;
-  color: rgba(245, 241, 232, 0.66);
+  color: var(--espresso-soft);
   font-family: var(--f-title);
   letter-spacing: 0.08em;
 }

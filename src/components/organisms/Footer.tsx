@@ -14,7 +14,7 @@ export function Footer({ site }: { site: SiteData }) {
       <div className="shell">
         <div className="top">
           <div>
-            <img className="footer-logo" src="/logo-footer.svg" alt={brand.name} width={186} height={56} />
+            <img className="footer-logo" src="/logo-nav.svg" alt={brand.name} width={186} height={56} />
             <p>{t(footer.blurb)}</p>
           </div>
 
