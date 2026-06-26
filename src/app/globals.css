@@ -583,6 +583,7 @@ h3 {
   z-index: 30;
   background: rgba(245, 241, 232, 0.92);
   backdrop-filter: blur(12px) saturate(1.1);
+  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   margin-bottom: 48px;
 }
