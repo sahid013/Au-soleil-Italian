@@ -32,11 +32,22 @@ export function PageHead() {
   }, []);
 
   return (
-    <>
+    <div className="hero">
+      {/* Ambient sunlit gradient that slowly drifts behind the whole hero
+          (intro + video). Decorative only. */}
+      <div className="hero-bg" aria-hidden="true">
+        <span className="hero-blob hero-blob--sun" />
+        <span className="hero-blob hero-blob--sky" />
+        <span className="hero-blob hero-blob--warm" />
+        <span className="hero-blob hero-blob--red" />
+      </div>
+
       <section className="page-head">
         <div className="shell">
           <div className="hero-copy">
-            <h1 className="hero-title">La Carte</h1>
+            <h1 className="hero-title">
+              {t({ fr: "La Carte", en: "The Menu", es: "La Carta", zh: "菜单" })}
+            </h1>
             <p>
               {t({
                 fr: "Pâtes fraîches, pizzas pétries sur place et produits transalpins. Plats préparés maison, avec générosité, sous le soleil.",
@@ -67,6 +78,6 @@ export function PageHead() {
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

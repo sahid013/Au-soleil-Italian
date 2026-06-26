@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuData, MenuItem } from "@/lib/types";
 import { trackScan } from "@/lib/analytics";
@@ -53,7 +54,14 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
                 aria-controls={`panel-${tab.id}`}
                 onClick={() => activate(tab.id)}
               >
-                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.span
+                    layoutId="menu-tab-pill"
+                    className="menu-tab-pill"
+                    transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                  />
+                )}
+                <span className="menu-tab-label">{tab.label}</span>
               </button>
             ))}
           </div>
@@ -62,9 +70,21 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
 
       <div className="shell">
         <div className="menu-panels">
-          {menu.categories.map((category) => (
-            <MenuPanel key={category.id} category={category} active={activeTab === category.id} onPlay={setActiveVideo} />
-          ))}
+          <AnimatePresence mode="wait">
+            {menu.categories
+              .filter((category) => category.id === activeTab)
+              .map((category) => (
+                <motion.div
+                  key={category.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+                >
+                  <MenuPanel category={category} active onPlay={setActiveVideo} />
+                </motion.div>
+              ))}
+          </AnimatePresence>
         </div>
       </div>
 

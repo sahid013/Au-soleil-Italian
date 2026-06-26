@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuItem } from "@/lib/types";
 import { slugify } from "@/lib/slug";
@@ -81,18 +82,34 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
     };
   }, [open, handleClose, sendWatchTime]);
 
-  if (!item) return null;
-
   // Prefer an absolute URL from the backend API; otherwise fall back to a local
   // /videos/ file (explicit filename, then name-slug lookup).
-  const src = item.videoSrc ?? (item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name)}.mp4`);
-  const description = item.description ? item.description[lang] : "";
+  const src = item ? item.videoSrc ?? (item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name)}.mp4`) : "";
+  const description = item?.description ? item.description[lang] : "";
 
   return (
-    <div className="vmodal open" aria-hidden={false}>
-      <div className="vmodal-scrim" onClick={handleClose} />
-      <div className="vmodal-box" role="dialog" aria-modal="true" aria-label={item.name}>
-        <button
+    <AnimatePresence>
+      {open && item && (
+        <motion.div
+          className="vmodal open"
+          aria-hidden={false}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
+        >
+          <div className="vmodal-scrim" onClick={handleClose} />
+          <motion.div
+            className="vmodal-box"
+            role="dialog"
+            aria-modal="true"
+            aria-label={item.name}
+            initial={{ opacity: 0, scale: 0.95, y: 18 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 10 }}
+            transition={{ type: "spring", stiffness: 320, damping: 30 }}
+          >
+            <button
           className="vmodal-close"
           type="button"
           onClick={handleClose}
@@ -138,7 +155,9 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
           {description && <div className="vdesc">{description}</div>}
           {item.price && <div className="vprice">{item.price}</div>}
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

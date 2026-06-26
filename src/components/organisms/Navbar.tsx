@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import type { SiteData } from "@/lib/types";
 import { LangToggle } from "@/components/atoms/LangToggle";
@@ -29,9 +30,16 @@ export function Navbar({ site }: { site: SiteData }) {
           </ButtonLink>
         </nav>
 
-        <button className="nav-toggle" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+        <motion.button
+          className="nav-toggle"
+          aria-label="Menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 400, damping: 22 }}
+        >
           <MenuIcon />
-        </button>
+        </motion.button>
       </div>
     </header>
   );
