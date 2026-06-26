@@ -39,7 +39,7 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
   const tabs = menu.categories.map((c) => ({ id: c.id, label: t(c.title) }));
 
   return (
-    <section className="menu-wrap">
+    <section className="menu-wrap" id="menu">
       <div className="menu-tabs-wrap" ref={tabsWrapRef}>
         <div className="shell">
           <div className="menu-tabs" role="tablist" aria-label="Catégories de la carte">

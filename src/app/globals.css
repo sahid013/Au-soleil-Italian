@@ -39,6 +39,11 @@
 
   --maxw: 1240px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Corner radius scale — pill buttons, softly rounded surfaces */
+  --r-pill: 999px; /* fully rounded controls (buttons, tabs, toggle) */
+  --r-card: 18px; /* cards & large surfaces */
+  --r-sm: 12px; /* media, thumbnails, modals */
 }
 
 * {
@@ -217,7 +222,7 @@ h3 {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: var(--r-pill);
   overflow: hidden;
   background: #e2d6bf;
 }
@@ -246,7 +251,7 @@ h3 {
   text-transform: uppercase;
   font-weight: 600;
   padding: 13px 24px;
-  border-radius: 0;
+  border-radius: var(--r-pill);
   border: 1px solid transparent;
   transition: 0.3s var(--ease);
   white-space: nowrap;
@@ -288,58 +293,19 @@ h3 {
 /* ============================================================
    PAGE HEAD
    ============================================================ */
-.hero-sky {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-}
 .page-head {
-  position: relative;
   text-align: center;
-  overflow: hidden;
-  min-height: clamp(620px, 82vh, 880px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  /* sits the copy at the bottom centre of the hero */
-  padding-bottom: 48px;
+  padding: clamp(48px, 8vw, 88px) 0 clamp(28px, 4vw, 44px);
 }
-.page-head .hero-sky {
-  background: #e2d6bf;
-}
-
-/* Full-bleed background video + dark overlay (sit behind copy & artwork). */
-.page-head .hero-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
-
-/* centred copy block, kept above the floating artwork */
-.page-head .hero-copy {
-  position: relative;
-  z-index: 5;
+.hero-copy {
   max-width: 640px;
   margin: 0 auto;
-}
-/* Wrap the title + intro on the same surface as the menu items (var(--cream)). */
-.page-head .hero-card {
-  /* 60% opaque cream so the blurred video behind shows through */
-  background: rgba(251, 248, 241, 0.6);
-  border: 1px solid var(--line);
-  padding: 28px 32px;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
 }
 .hero-title {
   font-family: var(--f-title);
   font-weight: 400;
   color: var(--olive);
   line-height: 1;
-  /* reduced a further 30% from the previous clamp bounds */
   font-size: clamp(1.3rem, 4.9vw, 3.54rem);
   letter-spacing: 0.02em;
 }
@@ -349,13 +315,22 @@ h3 {
   color: var(--espresso-soft);
   font-size: 1.18rem;
 }
-/* Light copy for contrast over the darkened video background. */
-.page-head .hero-title {
-  color: var(--olive);
+.hero-cta {
+  margin-top: 24px;
 }
-.page-head p {
-  color: #0a160b;
-  font-weight: 600;
+
+/* ---- Presentation video (standalone block under the intro) ---- */
+.hero-video-section {
+  padding: 0 0 clamp(40px, 6vw, 72px);
+}
+.hero-video {
+  width: 100%;
+  max-height: clamp(360px, 64vh, 640px);
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-md);
+  display: block;
 }
 
 /* ---- Floating hero artwork (placeholders → swap in images later) ---- */
@@ -455,13 +430,6 @@ h3 {
   }
 }
 @media (max-width: 760px) {
-  .page-head {
-    /* tall enough to host the floating pizza + video below the copy and to
-       let the video run past the bottom edge (clipped by overflow: hidden) */
-    min-height: 640px;
-    /* bottom padding keeps the bottom-anchored copy off the hero's edge */
-    padding: 0 0 36px;
-  }
   /* on mobile keep just one pizza + the right-hand video, drop the left pair */
   .hero-art--pizza-1,
   .hero-art--photo-1 {
@@ -523,7 +491,7 @@ h3 {
   color: var(--espresso);
   background: rgba(199, 154, 59, 0.05);
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: var(--r-pill);
   padding: 9px 17px;
   cursor: pointer;
   white-space: nowrap;
@@ -677,7 +645,7 @@ h3 {
   width: 67px;
   height: 67px;
   object-fit: cover;
-  border-radius: 0;
+  border-radius: var(--r-sm);
   border: 1px solid var(--line);
   background: var(--line);
 }
@@ -705,6 +673,10 @@ h3 {
   color: var(--espresso-soft);
 }
 .mitem .nm .tag-nv {
+  /* fit-content pill that wraps to the next line as a whole unit when it
+     doesn't fit beside the dish name, rather than breaking or overflowing */
+  display: inline-block;
+  white-space: nowrap;
   font-size: 0.5rem;
   letter-spacing: 0.14em;
   color: var(--cream);
@@ -796,7 +768,7 @@ h3 {
   max-height: 92vh;
   overflow: auto;
   background: var(--cream);
-  border-radius: 0;
+  border-radius: var(--r-card);
   box-shadow: var(--shadow-lg);
   animation: panelIn 0.35s var(--ease);
 }
@@ -933,7 +905,7 @@ h3 {
 .bambino {
   background: var(--cream);
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: var(--r-card);
   padding: 26px 28px;
 }
 .bambino .grp {
@@ -959,7 +931,7 @@ h3 {
   margin-top: 20px;
   background: var(--olive);
   color: var(--cream);
-  border-radius: 0;
+  border-radius: var(--r-card);
   padding: 28px 34px;
   text-align: center;
 }
@@ -1052,7 +1024,7 @@ h3 {
 .visit-card {
   background: var(--cream);
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: var(--r-card);
   padding: 42px 40px;
   text-align: center;
 }
@@ -1233,7 +1205,7 @@ h3 {
     width: 44px;
     height: 44px;
     border: 1px solid var(--line);
-    border-radius: 0;
+    border-radius: var(--r-sm);
     background: var(--cream);
     cursor: pointer;
     color: var(--espresso);

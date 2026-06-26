@@ -2,14 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/i18n";
+import { ButtonLink } from "@/components/atoms/Button";
 
-/** Loop only the first N seconds of the hero video. */
+/** Loop only the first N seconds of the presentation video. */
 const HERO_LOOP_END = 33;
 
 /**
- * Hero header for the menu page: a full-bleed background presentation video
- * with a centred Cinzel title (the lowercase renders as small-caps, hence
- * "La Carte" → LA CARTE).
+ * Menu page intro: a centred Cinzel title + description with a "See menu"
+ * CTA that jumps to the menu section, followed by the presentation video
+ * (muted autoplay, loops the first ~33s).
  */
 export function PageHead() {
   const { t } = useLanguage();
@@ -31,24 +32,10 @@ export function PageHead() {
   }, []);
 
   return (
-    <section className="page-head">
-      <div className="hero-sky" />
-
-      {/* Background presentation video (muted autoplay, loops first ~33s). */}
-      <video
-        ref={videoRef}
-        className="hero-bg"
-        src="/Video_presentation_restaurant.mp4"
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
-
-      <div className="shell">
-        <div className="hero-copy">
-          <div className="hero-card">
+    <>
+      <section className="page-head">
+        <div className="shell">
+          <div className="hero-copy">
             <h1 className="hero-title">La Carte</h1>
             <p>
               {t({
@@ -58,9 +45,28 @@ export function PageHead() {
                 zh: "新鲜面食、现场手工揉制的披萨面团和精选意大利食材。自家厨房用心烹制，沐浴阳光。",
               })}
             </p>
+            <ButtonLink variant="olive" href="#menu" className="hero-cta">
+              {t({ fr: "Voir la carte", en: "See menu", es: "Ver la carta", zh: "查看菜单" })}
+            </ButtonLink>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Presentation video (muted autoplay, loops first ~33s). */}
+      <section className="hero-video-section">
+        <div className="shell">
+          <video
+            ref={videoRef}
+            className="hero-video"
+            src="/Video_presentation_restaurant.mp4"
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          />
+        </div>
+      </section>
+    </>
   );
 }
