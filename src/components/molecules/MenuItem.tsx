@@ -1,48 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuItem as MenuItemType } from "@/lib/types";
-import { trackDishView } from "@/lib/analytics";
+import { useDishView } from "@/lib/useDishView";
 import { NewTag } from "@/components/atoms/NewTag";
 import { PlayButton } from "@/components/atoms/PlayButton";
+import { DishThumb } from "./DishThumb";
 
 /**
- * A single dish row: name (+ optional NEW badge / prep time), an optional
- * video button, dotted leader, price, and a description line.
- * `onPlay` is called with the item when its video button is clicked.
+ * A compact dish row in the lower (two-column) part of a category panel: a small
+ * square thumbnail, the name (+ optional badge / prep time) with a dotted leader
+ * to the price, and a description line. `onPlay` opens the dish video lightbox
+ * (also reachable by tapping the thumbnail when the dish has a video).
  */
 export function MenuItem({ item, onPlay }: { item: MenuItemType; onPlay: (item: MenuItemType) => void }) {
   const { t, lang } = useLanguage();
   const description = item.description ? item.description[lang] : "";
-
-  // Fire a "dish_view" event the first time this row scrolls into view.
-  // (trackDishView is itself de-duped per dish per page load.)
-  const rootRef = useRef<HTMLDivElement>(null);
-  const dishId = item.id;
-  useEffect(() => {
-    if (!dishId) return;
-    const el = rootRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            trackDishView(dishId);
-            observer.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.5 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [dishId]);
+  const ref = useDishView<HTMLDivElement>(item.id);
 
   return (
-    <div className="mitem" ref={rootRef}>
-      {item.image && <img className="mthumb" src={item.image} alt={item.name} loading="lazy" />}
+    <div className="mitem" ref={ref}>
+      <DishThumb item={item} size="sm" onPlay={onPlay} />
       <div className="mbody">
         <div className="r1">
           <span className="nm">

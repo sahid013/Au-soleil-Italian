@@ -140,8 +140,12 @@ function mapDish(dish: OchelDish, currency: string): MenuItem {
     badge: dish.specialLabel?.trim() || undefined,
     hasVideo: hasVideo || undefined,
     videoSrc,
+    // Raw clip URL (independent of videoVisible) so curated highlights can show
+    // a looping preview even when the dish hides its video in the menu listing.
+    videoUrl: dish.videoUrl ?? undefined,
     poster,
     image: dish.photoUrl ?? undefined,
+    tags: dish.tags?.length ? dish.tags : undefined,
   };
 }
 

@@ -15,15 +15,23 @@ export function PanelHead({
   note,
   noteNode,
   style,
+  ornament = false,
 }: {
   title: Localized;
   note?: Localized;
   noteNode?: ReactNode;
   style?: React.CSSProperties;
+  /** Show the diamond ornament row above the title. */
+  ornament?: boolean;
 }) {
   const { t } = useLanguage();
   return (
     <div className="panel-head" style={style}>
+      {ornament && (
+        <span className="panel-ornament" aria-hidden="true">
+          <i /><i /><i /><i /><i />
+        </span>
+      )}
       <h2>{t(title)}</h2>
       <Rule variant="panel" />
       {note && <p className="panel-note">{t(note)}</p>}

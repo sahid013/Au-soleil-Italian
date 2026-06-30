@@ -77,6 +77,38 @@ export function PlayIcon(props: IconProps) {
   );
 }
 
+/** Olive-leaf glyph used as the placeholder when a dish has no photo. */
+export function LeafIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <path d="M12 21c0-7 0-12 6-18-1 8-2.5 12-6 14" />
+      <path d="M12 21c0-6-1.5-10-6-13 0 6 1.5 10 6 13z" />
+      <path d="M12 21v-6" />
+    </svg>
+  );
+}
+
+/** Diagonal expand arrows — shown on a dish thumbnail that opens a video. */
+export function ExpandIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <polyline points="15 4 20 4 20 9" />
+      <polyline points="9 20 4 20 4 15" />
+      <line x1="20" y1="4" x2="13" y2="11" />
+      <line x1="4" y1="20" x2="11" y2="13" />
+    </svg>
+  );
+}
+
+/** Right-pointing chevron (rotate via CSS for the left arrow). */
+export function ChevronIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <polyline points="9 6 15 12 9 18" />
+    </svg>
+  );
+}
+
 /** Map a social link `type` to its icon. */
 export function SocialIcon({ type, className }: { type: string; className?: string }) {
   if (type === "instagram") return <InstagramIcon className={className} />;

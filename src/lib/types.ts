@@ -36,6 +36,9 @@ export interface MenuItem {
   video?: string;
   /** Absolute video URL from the backend API (takes precedence over local /videos/). */
   videoSrc?: string;
+  /** Raw dish video URL from the API, regardless of `videoVisible` — used for the
+   *  highlights carousel preview (autoplay, muted, looping). */
+  videoUrl?: string;
   /** Absolute poster/thumbnail URL shown while the video loads (from the API). */
   poster?: string;
   /** Absolute dish photo URL from the API; shown as a thumbnail. Omitted when none. */
@@ -44,6 +47,8 @@ export interface MenuItem {
   time?: string;
   /** Free-form tag (e.g. "plat" = main course only). */
   tag?: string;
+  /** All tags attached to the dish in the dashboard (e.g. "Carrousel"). */
+  tags?: string[];
 }
 
 /** A menu category / tab (e.g. Pizza, Pasta). */

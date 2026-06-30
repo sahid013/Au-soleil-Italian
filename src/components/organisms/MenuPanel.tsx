@@ -4,8 +4,13 @@ import { useLanguage } from "@/lib/i18n";
 import type { MenuCategory, MenuItem as MenuItemType } from "@/lib/types";
 import { PanelHead } from "@/components/molecules/PanelHead";
 import { MenuItem } from "@/components/molecules/MenuItem";
+import { FeatureCard } from "@/components/molecules/FeatureCard";
 
-/** A category panel: heading, two-column list of dishes, optional supplements. */
+/**
+ * A category panel inside a decorative parchment frame: centred heading, two
+ * featured dishes (the first two items) as large cards, then the remaining
+ * dishes in a two-column list, with optional supplements underneath.
+ */
 export function MenuPanel({
   category,
   active,
@@ -17,6 +22,9 @@ export function MenuPanel({
 }) {
   const { t } = useLanguage();
 
+  const featured = category.items.slice(0, 2);
+  const rest = category.items.slice(2);
+
   return (
     <div
       className={`menu-panel${active ? " active" : ""}`}
@@ -25,13 +33,28 @@ export function MenuPanel({
       data-panel={category.id}
       hidden={!active}
     >
-      <PanelHead title={category.title} note={category.note} />
+      <span className="panel-corner panel-corner--tl" aria-hidden="true" />
+      <span className="panel-corner panel-corner--tr" aria-hidden="true" />
+      <span className="panel-corner panel-corner--bl" aria-hidden="true" />
+      <span className="panel-corner panel-corner--br" aria-hidden="true" />
 
-      <div className="panel-cols">
-        {category.items.map((item) => (
-          <MenuItem key={item.name} item={item} onPlay={onPlay} />
-        ))}
-      </div>
+      <PanelHead title={category.title} note={category.note} ornament />
+
+      {featured.length > 0 && (
+        <div className="panel-feature">
+          {featured.map((item) => (
+            <FeatureCard key={item.name} item={item} onPlay={onPlay} />
+          ))}
+        </div>
+      )}
+
+      {rest.length > 0 && (
+        <div className="panel-cols">
+          {rest.map((item) => (
+            <MenuItem key={item.name} item={item} onPlay={onPlay} />
+          ))}
+        </div>
+      )}
 
       {category.supplement && <p className="sub-note panel-supp">{t(category.supplement)}</p>}
     </div>
