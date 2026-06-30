@@ -77,17 +77,6 @@ export function PlayIcon(props: IconProps) {
   );
 }
 
-/** Olive-leaf glyph used as the placeholder when a dish has no photo. */
-export function LeafIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
-      <path d="M12 21c0-7 0-12 6-18-1 8-2.5 12-6 14" />
-      <path d="M12 21c0-6-1.5-10-6-13 0 6 1.5 10 6 13z" />
-      <path d="M12 21v-6" />
-    </svg>
-  );
-}
-
 /** Diagonal expand arrows — shown on a dish thumbnail that opens a video. */
 export function ExpandIcon(props: IconProps) {
   return (

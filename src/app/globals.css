@@ -978,10 +978,6 @@ h3 {
   height: 100%;
   object-fit: cover;
 }
-.dish-thumb-leaf {
-  width: 42%;
-  height: 42%;
-}
 .dish-thumb-expand {
   position: absolute;
   right: 6px;

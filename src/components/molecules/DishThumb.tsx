@@ -3,13 +3,13 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuItem as MenuItemType } from "@/lib/types";
-import { LeafIcon, ExpandIcon } from "@/components/atoms/icons";
+import { ExpandIcon } from "@/components/atoms/icons";
 
 /**
  * Square dish thumbnail used in the menu panel (both the featured cards and the
- * compact list rows). Shows the dish photo when present, otherwise an engraved
- * olive-leaf placeholder. When the dish has a video it becomes a button that
- * opens the lightbox, marked with a small expand glyph.
+ * compact list rows). Renders only when the dish has a photo — dishes without an
+ * image show no preview at all. When the dish also has a video the thumbnail is a
+ * button that opens the lightbox, marked with a small expand glyph.
  */
 export function DishThumb({
   item,
@@ -23,13 +23,12 @@ export function DishThumb({
   const { t } = useLanguage();
   const playable = Boolean(item.hasVideo);
 
+  // No photo → no preview thumbnail (the round play button still offers video).
+  if (!item.image) return null;
+
   const inner = (
     <>
-      {item.image ? (
-        <img className="dish-thumb-img" src={item.image} alt={item.name} loading="lazy" />
-      ) : (
-        <LeafIcon className="dish-thumb-leaf" />
-      )}
+      <img className="dish-thumb-img" src={item.image} alt={item.name} loading="lazy" />
       {playable && (
         <span className="dish-thumb-expand" aria-hidden="true">
           <ExpandIcon />
