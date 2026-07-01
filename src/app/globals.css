@@ -602,6 +602,15 @@ h3 {
   overflow: hidden;
   padding: 6px 2px;
 }
+/* Mobile ticker viewport: let us handle horizontal swipes while the page keeps
+   its vertical scroll. */
+.cdh-viewport.is-swipe {
+  touch-action: pan-y;
+  cursor: grab;
+}
+.cdh-viewport.is-swipe:active {
+  cursor: grabbing;
+}
 .cdh-track {
   display: flex;
   gap: 22px;

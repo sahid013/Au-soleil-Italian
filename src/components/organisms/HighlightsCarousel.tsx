@@ -65,6 +65,16 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   // Active (real) card index on mobile, driven by the ticker position.
   const [tickIndex, setTickIndex] = useState(0);
 
+  // Swipe state for the mobile ticker: while the finger is down the track
+  // follows it; on release the fling speed is added to the base drift and then
+  // decays back to it.
+  const draggingRef = useRef(false);
+  const flingRef = useRef(0); // extra px/s velocity from a swipe, decaying
+  const dragStartXRef = useRef(0);
+  const dragStartTrackRef = useRef(0);
+  const lastMoveXRef = useRef(0);
+  const lastMoveTRef = useRef(0);
+
   // Track the viewport width so card width / cards-per-view stay responsive.
   useEffect(() => {
     const el = viewportRef.current;
@@ -92,15 +102,24 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
 
   // Mobile ticker: drift the track leftward at a constant speed via a GPU
   // transform (motion value → translateX), wrapping by one full set for a
-  // seamless loop. No layout reads/writes, so the motion stays smooth. The dot
-  // index is updated from React state only when it actually changes.
+  // seamless loop. No layout reads/writes, so the motion stays smooth. A swipe
+  // adds a decaying fling velocity on top of the base drift. The dot index is
+  // updated from React state only when it actually changes.
   const trackX = useMotionValue(0);
-  useAnimationFrame((_, delta) => {
-    if (!isMobile || period <= 0) return;
-    const next = wrapValue(-period, 0, trackX.get() - (TICKER_SPEED * delta) / 1000);
-    trackX.set(next);
-    const idx = wrapValue(0, items.length, Math.round(-next / step)) | 0;
+  const syncDot = (x: number) => {
+    const idx = wrapValue(0, items.length, Math.round(-x / step)) | 0;
     setTickIndex((prev) => (prev === idx ? prev : idx));
+  };
+  useAnimationFrame((_, delta) => {
+    if (!isMobile || period <= 0 || draggingRef.current) return;
+    const dt = delta / 1000;
+    // Ease the swipe fling back toward the steady ticker speed.
+    flingRef.current *= Math.exp(-dt / 0.9);
+    if (Math.abs(flingRef.current) < 2) flingRef.current = 0;
+    const dx = (-TICKER_SPEED + flingRef.current) * dt;
+    const next = wrapValue(-period, 0, trackX.get() + dx);
+    trackX.set(next);
+    syncDot(next);
   });
 
   if (items.length === 0) return null;
@@ -119,6 +138,39 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   const go = (next: number) => setPage(Math.max(0, Math.min(next, pageCount - 1)));
   // Mobile: jump the ticker so card `i` sits at the left edge.
   const jumpToDot = (i: number) => trackX.set(wrapValue(-period, 0, -i * step));
+
+  // Swipe handlers (mobile only): the track follows the finger, and the release
+  // velocity is handed to the frame loop as a decaying fling.
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (!isMobile) return;
+    draggingRef.current = true;
+    flingRef.current = 0;
+    dragStartXRef.current = e.clientX;
+    dragStartTrackRef.current = trackX.get();
+    lastMoveXRef.current = e.clientX;
+    lastMoveTRef.current = performance.now();
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      /* ignore */
+    }
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isMobile || !draggingRef.current) return;
+    const next = wrapValue(-period, 0, dragStartTrackRef.current + (e.clientX - dragStartXRef.current));
+    trackX.set(next);
+    syncDot(next);
+    const now = performance.now();
+    const dtMs = now - lastMoveTRef.current;
+    if (dtMs > 0) flingRef.current = ((e.clientX - lastMoveXRef.current) / dtMs) * 1000;
+    lastMoveXRef.current = e.clientX;
+    lastMoveTRef.current = now;
+  };
+  const endDrag = () => {
+    // If the finger paused before lifting, don't carry a stale fling velocity.
+    if (performance.now() - lastMoveTRef.current > 120) flingRef.current = 0;
+    draggingRef.current = false; // frame loop resumes with the fling velocity
+  };
 
   // On desktop the track springs between pages; on mobile it's the ticker
   // transform driven by `trackX` each frame.
@@ -146,7 +198,14 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
             </button>
           )}
 
-          <div className="cdh-viewport" ref={viewportRef}>
+          <div
+            className={`cdh-viewport${isMobile ? " is-swipe" : ""}`}
+            ref={viewportRef}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+          >
             <motion.ul className="cdh-track" {...trackProps}>
               {trackItems.map((item, i) => (
                 <li
