@@ -37,6 +37,18 @@ export function MenuItem({
     />
   );
 
+  // Dish-specific add-ons, listed inside the card.
+  const addons = item.addons && item.addons.length > 0 && (
+    <ul className="mitem-addons">
+      {item.addons.map((addon, i) => (
+        <li className="mitem-addon" key={i}>
+          <span className="mitem-addon-name">+ {addon.name}</span>
+          {addon.price && <span className="mitem-addon-price">{addon.price}</span>}
+        </li>
+      ))}
+    </ul>
+  );
+
   if (isMobile) {
     return (
       <div className="mitem mitem--stack" ref={ref}>
@@ -58,6 +70,7 @@ export function MenuItem({
             </span>
           )}
           {description && <div className="ds">{description}</div>}
+          {addons}
         </div>
       </div>
     );
@@ -78,6 +91,7 @@ export function MenuItem({
           {item.price && <span className="pr">{item.price}</span>}
         </div>
         {description && <div className="ds">{description}</div>}
+        {addons}
       </div>
     </div>
   );

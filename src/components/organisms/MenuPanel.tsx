@@ -6,6 +6,7 @@ import type { MenuCategory, MenuItem as MenuItemType } from "@/lib/types";
 import { PanelHead } from "@/components/molecules/PanelHead";
 import { MenuItem } from "@/components/molecules/MenuItem";
 import { FeatureCard } from "@/components/molecules/FeatureCard";
+import { AddOnsCard } from "@/components/molecules/AddOnsCard";
 
 /**
  * A category panel inside a decorative parchment frame: centred heading, two
@@ -60,6 +61,8 @@ export function MenuPanel({
           ))}
         </div>
       )}
+
+      {category.addons && category.addons.length > 0 && <AddOnsCard groups={category.addons} />}
 
       {category.supplement && <p className="sub-note panel-supp">{t(category.supplement)}</p>}
     </div>

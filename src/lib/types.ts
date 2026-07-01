@@ -49,6 +49,21 @@ export interface MenuItem {
   tag?: string;
   /** All tags attached to the dish in the dashboard (e.g. "Carrousel"). */
   tags?: string[];
+  /** Add-ons that apply only to this dish; rendered inside the dish card. */
+  addons?: AddOn[];
+}
+
+/** A single add-on / supplement (a name and an optional price). */
+export interface AddOn {
+  name: string;
+  /** Price string including the currency symbol, or null when it has none. */
+  price?: string | null;
+}
+
+/** A named group of add-ons for a category (e.g. "Suppléments"). */
+export interface AddOnGroup {
+  title: Localized;
+  items: AddOn[];
 }
 
 /** A menu category / tab (e.g. Pizza, Pasta). */
@@ -61,6 +76,9 @@ export interface MenuCategory {
   /** Optional supplements line shown at the bottom of the panel. */
   supplement?: Localized;
   items: MenuItem[];
+  /** Category-level add-on groups (from `isAddOn` subcategories); rendered as a
+   *  card beneath the category's items. */
+  addons?: AddOnGroup[];
 }
 
 export interface CafeExtra {

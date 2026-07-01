@@ -10,7 +10,7 @@
    Doc: GET /api/v1/menu/{menuId}
    ============================================================ */
 
-import { LANGS, type Lang, type Localized, type MenuCategory, type MenuItem } from "./types";
+import { LANGS, type AddOn, type AddOnGroup, type Lang, type Localized, type MenuCategory, type MenuItem } from "./types";
 import { slugify } from "./slug";
 
 /* ---- Raw API response shapes ---- */
@@ -34,6 +34,19 @@ export interface OchelCategory {
 
 export interface OchelSubcategory extends OchelCategory {
   categoryId: string;
+  /** When true, this subcategory is an add-on group for its category (its dishes
+   *  are add-ons shown at the bottom of the category, not regular menu items). */
+  isAddOn?: boolean;
+}
+
+/** A single add-on entry (attached to a dish via its `addons` array). */
+export interface OchelAddon {
+  id?: string;
+  name: string;
+  price?: number | null;
+  multiLangData?: {
+    name?: LangArrays;
+  };
 }
 
 export interface OchelDish {
@@ -55,6 +68,8 @@ export interface OchelDish {
   posterUrl: string | null;
   videoVisible: boolean;
   videoStatus: string; // "Live" | "Pending" | ... (casing varies)
+  /** Add-ons that apply only to this dish (shown inside the dish card). */
+  addons?: OchelAddon[];
   multiLangData?: {
     name?: LangArrays;
     description?: LangArrays;
@@ -129,6 +144,14 @@ function resolveVideo(dish: OchelDish): { hasVideo: boolean; videoSrc?: string; 
   return { hasVideo: false };
 }
 
+/** Map one raw add-on into the UI `AddOn` shape (name + formatted price). */
+function mapAddOn(addon: OchelAddon, currency: string): AddOn {
+  return {
+    name: firstOf(addon.multiLangData?.name?.fr) ?? addon.name,
+    price: addon.price != null ? formatPrice(addon.price, currency) : null,
+  };
+}
+
 function mapDish(dish: OchelDish, currency: string): MenuItem {
   const { hasVideo, videoSrc, poster } = resolveVideo(dish);
   return {
@@ -146,10 +169,22 @@ function mapDish(dish: OchelDish, currency: string): MenuItem {
     poster,
     image: dish.photoUrl ?? undefined,
     tags: dish.tags?.length ? dish.tags : undefined,
+    // Dish-specific add-ons (shown inside the dish card).
+    addons: dish.addons?.length ? dish.addons.map((a) => mapAddOn(a, currency)) : undefined,
   };
 }
 
 const bySortOrder = (a: { sortOrder: number }, b: { sortOrder: number }) => a.sortOrder - b.sortOrder;
+
+/**
+ * A placeholder/separator dish whose name is blank or just dashes (e.g. "-").
+ * These are dummy rows used in the dashboard (sometimes to carry a supplements
+ * note in the badge) and must never render as a real menu card.
+ */
+function isPlaceholderDish(dish: OchelDish): boolean {
+  const name = dish.name?.trim() ?? "";
+  return name === "" || /^-+$/.test(name);
+}
 
 function groupBy<T, K extends string | null>(items: T[], key: (item: T) => K): Map<K, T[]> {
   const map = new Map<K, T[]>();
@@ -175,15 +210,31 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
   return [...api.categories]
     .sort(bySortOrder)
     .map((cat) => {
-      const dishes = (dishesByCategory.get(cat.id) ?? []).slice().sort(bySortOrder);
+      const dishes = (dishesByCategory.get(cat.id) ?? [])
+        .filter((d) => !isPlaceholderDish(d))
+        .sort(bySortOrder);
       const subs = (subsByCategory.get(cat.id) ?? []).slice().sort(bySortOrder);
+
+      // Add-on subcategories (isAddOn) don't list their dishes as regular menu
+      // items — they become a category add-on card instead.
+      const addonSubs = subs.filter((s) => s.isAddOn);
+      const normalSubs = subs.filter((s) => !s.isAddOn);
 
       const items: MenuItem[] = [
         ...dishes.filter((d) => d.subcategoryId === null).map((d) => mapDish(d, api.currency)),
-        ...subs.flatMap((sub) =>
+        ...normalSubs.flatMap((sub) =>
           dishes.filter((d) => d.subcategoryId === sub.id).map((d) => mapDish(d, api.currency)),
         ),
       ];
+
+      const addons: AddOnGroup[] = addonSubs
+        .map((sub) => ({
+          title: localize(sub.multiLangData?.name, sub.name) ?? { fr: sub.name, en: sub.name },
+          items: dishes
+            .filter((d) => d.subcategoryId === sub.id)
+            .map<AddOn>((d) => ({ name: d.name, price: formatPrice(d.price, api.currency) })),
+        }))
+        .filter((group) => group.items.length > 0);
 
       const category: MenuCategory = {
         // id stays language-independent (built from the primary name) so tab
@@ -192,8 +243,9 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
         title: localize(cat.multiLangData?.name, cat.name) ?? { fr: cat.name, en: cat.name },
         note: localize(cat.multiLangData?.subtitle, cat.subtitle ?? ""),
         items,
+        addons: addons.length ? addons : undefined,
       };
       return category;
     })
-    .filter((cat) => cat.items.length > 0);
+    .filter((cat) => cat.items.length > 0 || (cat.addons?.length ?? 0) > 0);
 }

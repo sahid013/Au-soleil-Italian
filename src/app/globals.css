@@ -1224,6 +1224,93 @@ h3 {
   margin-top: 1px;
 }
 
+/* ---- Dish-level add-ons (inside a dish card) ---- */
+.mitem-addons {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 8px 0 0;
+  border-top: 1px dotted rgba(199, 154, 59, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mitem-addon {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.94rem;
+  color: var(--espresso-soft);
+}
+.mitem-addon-name {
+  flex: 1;
+  min-width: 0;
+}
+.mitem-addon-price {
+  font-family: var(--f-title);
+  font-weight: 600;
+  color: var(--bronze-dk);
+  white-space: nowrap;
+}
+
+/* ---- Category add-ons card (beneath a category's items) ---- */
+.addons-card {
+  margin: clamp(24px, 3.5vw, 40px) 0 0;
+  background: var(--cream);
+  border: 1px solid rgba(199, 154, 59, 0.4);
+  border-radius: var(--r-card);
+  padding: clamp(18px, 2.4vw, 26px) clamp(20px, 2.6vw, 30px);
+}
+.addons-group + .addons-group {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px dotted rgba(199, 154, 59, 0.35);
+}
+.addons-title {
+  font-family: var(--f-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.92rem;
+  color: var(--red);
+  margin: 0 0 12px;
+}
+.addons-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: clamp(28px, 4vw, 56px);
+  row-gap: 8px;
+}
+.addons-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.addons-name {
+  color: var(--espresso);
+  font-size: 1.02rem;
+}
+.addons-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--line);
+  transform: translateY(-5px);
+  min-width: 18px;
+}
+.addons-price {
+  font-family: var(--f-title);
+  font-weight: 600;
+  color: var(--bronze-dk);
+  font-size: 1.02rem;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .addons-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* video button on item */
 .vbtn {
   flex: none;
