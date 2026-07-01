@@ -212,20 +212,24 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
             onPointerCancel={endDrag}
           >
             <motion.ul className="cdh-track" {...trackProps}>
-              {trackItems.map((item, i) => (
-                <li
-                  className="cdh-card"
-                  key={`${item.id ?? item.name}-${i}`}
-                  style={cardWidth ? { width: cardWidth } : undefined}
-                  aria-hidden={isMobile && i >= items.length}
-                >
-                  <HighlightMedia item={item} />
-                  <div className="cdh-foot">
-                    <span className="cdh-name">{item.name}</span>
-                    {item.price && <span className="cdh-price">{item.price}</span>}
-                  </div>
-                </li>
-              ))}
+              {/* Wait until the viewport is measured so cards get their real
+                  width up front — avoids a flash of one full-width, over-tall
+                  card before the layout settles. */}
+              {cardWidth > 0 &&
+                trackItems.map((item, i) => (
+                  <li
+                    className="cdh-card"
+                    key={`${item.id ?? item.name}-${i}`}
+                    style={{ width: cardWidth }}
+                    aria-hidden={isMobile && i >= items.length}
+                  >
+                    <HighlightMedia item={item} />
+                    <div className="cdh-foot">
+                      <span className="cdh-name">{item.name}</span>
+                      {item.price && <span className="cdh-price">{item.price}</span>}
+                    </div>
+                  </li>
+                ))}
             </motion.ul>
           </div>
 

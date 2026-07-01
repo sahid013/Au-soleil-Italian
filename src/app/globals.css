@@ -601,6 +601,9 @@ h3 {
   flex: 1;
   overflow: hidden;
   padding: 6px 2px;
+  /* Reserve space so the section doesn't collapse in the one frame before the
+     cards are measured and rendered (avoids a layout jump). */
+  min-height: 150px;
 }
 /* Mobile ticker viewport: let us handle horizontal swipes while the page keeps
    its vertical scroll. */
