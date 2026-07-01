@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import type { MenuData, MenuItem } from "@/lib/types";
 import { ChevronIcon } from "@/components/atoms/icons";
 
@@ -10,12 +11,14 @@ import { ChevronIcon } from "@/components/atoms/icons";
 const HIGHLIGHT_TAG = "carrousel";
 /** Horizontal gap between cards, in px — must match `.cdh-track` gap in CSS. */
 const GAP = 22;
+/** Tighter gap used on mobile — must match the `.cdh-track` mobile gap in CSS. */
+const MOBILE_GAP = 8;
 
 /** Cards visible at once, based on the viewport width of the carousel. */
 function perViewFor(width: number): number {
   if (width >= 900) return 3;
-  if (width >= 600) return 2;
-  return 1;
+  if (width > 760) return 2;
+  return 3; // mobile: three at a time (swipe to scroll)
 }
 
 /** Flatten every category's items, keeping dishes tagged for the carousel. */
@@ -45,9 +48,15 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   const { t } = useLanguage();
   const items = useMemo(() => pickHighlights(menu), [menu]);
 
+  // On mobile the carousel becomes a free horizontal swipe (native scroll):
+  // three cards at a time, no arrows/dots.
+  const isMobile = useMediaQuery("(max-width: 760px)");
+
   const viewportRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [page, setPage] = useState(0);
+  // Leftmost card index on mobile, derived from the native scroll position.
+  const [scrollIndex, setScrollIndex] = useState(0);
 
   // Track the viewport width so card width / cards-per-view stay responsive.
   useEffect(() => {
@@ -61,27 +70,46 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   }, []);
 
   const perView = perViewFor(viewportWidth || 900);
+  const gap = isMobile ? MOBILE_GAP : GAP;
   // The carousel moves a full page (perView cards) at a time.
   const pageCount = Math.max(1, Math.ceil(items.length / perView));
   const maxStart = Math.max(0, items.length - perView);
+  const cardWidth = viewportWidth > 0 ? (viewportWidth - gap * (perView - 1)) / perView : 0;
 
   // Keep the page in range when the viewport (and so perView) changes.
   useEffect(() => {
     setPage((p) => Math.min(p, pageCount - 1));
   }, [pageCount]);
 
+  // Mobile: keep the active dot in sync with the native swipe scroll position.
+  useEffect(() => {
+    if (!isMobile) return;
+    const el = viewportRef.current;
+    if (!el) return;
+    const step = cardWidth + gap;
+    const onScroll = () => {
+      if (step > 0) setScrollIndex(Math.round(el.scrollLeft / step));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [isMobile, cardWidth, gap]);
+
   if (items.length === 0) return null;
 
-  const cardWidth = viewportWidth > 0 ? (viewportWidth - GAP * (perView - 1)) / perView : 0;
   // Start index of the current page, clamped so the last page aligns to the end
   // instead of leaving a trailing gap (e.g. 7 items / 3 per view → last page
   // shows items 5–7, not 7 alone).
   const startIndex = Math.min(page * perView, maxStart);
-  const offset = -startIndex * (cardWidth + GAP);
+  // On mobile the track scrolls natively, so no transform offset is applied.
+  const offset = isMobile ? 0 : -startIndex * (cardWidth + gap);
   const canPrev = page > 0;
   const canNext = page < pageCount - 1;
+  const activeDot = Math.min(scrollIndex, maxStart);
 
   const go = (next: number) => setPage(Math.max(0, Math.min(next, pageCount - 1)));
+  const scrollToIndex = (i: number) =>
+    viewportRef.current?.scrollTo({ left: i * (cardWidth + gap), behavior: "smooth" });
 
   return (
     <section className="cdh" aria-roledescription="carousel" aria-label={t({ fr: "Nos coups de cœur", en: "Our favourites", es: "Nuestros favoritos", zh: "我们的心头好" })}>
@@ -91,17 +119,19 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
         </h2>
 
         <div className="cdh-stage">
-          <button
-            type="button"
-            className="cdh-arrow cdh-arrow--prev"
-            onClick={() => go(page - 1)}
-            disabled={!canPrev}
-            aria-label={t({ fr: "Précédent", en: "Previous", es: "Anterior", zh: "上一个" })}
-          >
-            <ChevronIcon />
-          </button>
+          {!isMobile && (
+            <button
+              type="button"
+              className="cdh-arrow cdh-arrow--prev"
+              onClick={() => go(page - 1)}
+              disabled={!canPrev}
+              aria-label={t({ fr: "Précédent", en: "Previous", es: "Anterior", zh: "上一个" })}
+            >
+              <ChevronIcon />
+            </button>
+          )}
 
-          <div className="cdh-viewport" ref={viewportRef}>
+          <div className={`cdh-viewport${isMobile ? " is-scroll" : ""}`} ref={viewportRef}>
             <motion.ul
               className="cdh-track"
               animate={{ x: offset }}
@@ -123,18 +153,20 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
             </motion.ul>
           </div>
 
-          <button
-            type="button"
-            className="cdh-arrow cdh-arrow--next"
-            onClick={() => go(page + 1)}
-            disabled={!canNext}
-            aria-label={t({ fr: "Suivant", en: "Next", es: "Siguiente", zh: "下一个" })}
-          >
-            <ChevronIcon />
-          </button>
+          {!isMobile && (
+            <button
+              type="button"
+              className="cdh-arrow cdh-arrow--next"
+              onClick={() => go(page + 1)}
+              disabled={!canNext}
+              aria-label={t({ fr: "Suivant", en: "Next", es: "Siguiente", zh: "下一个" })}
+            >
+              <ChevronIcon />
+            </button>
+          )}
         </div>
 
-        {pageCount > 1 && (
+        {!isMobile && pageCount > 1 && (
           <div className="cdh-dots" role="tablist">
             {Array.from({ length: pageCount }, (_, i) => (
               <button
@@ -145,6 +177,22 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
                 aria-selected={i === page}
                 role="tab"
                 onClick={() => go(i)}
+              />
+            ))}
+          </div>
+        )}
+
+        {isMobile && maxStart > 0 && (
+          <div className="cdh-dots" role="tablist">
+            {Array.from({ length: maxStart + 1 }, (_, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`cdh-dot${i === activeDot ? " is-active" : ""}`}
+                aria-label={t({ fr: `Aller à la diapositive ${i + 1}`, en: `Go to slide ${i + 1}`, es: `Ir a la diapositiva ${i + 1}`, zh: `前往第 ${i + 1} 张` })}
+                aria-selected={i === activeDot}
+                role="tab"
+                onClick={() => scrollToIndex(i)}
               />
             ))}
           </div>
