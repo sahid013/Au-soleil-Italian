@@ -29,10 +29,10 @@ export function PageHead() {
             </h1>
             <p>
               {t({
-                fr: "Pâtes fraîches, pizzas pétries sur place et produits transalpins. Plats préparés maison, avec générosité, sous le soleil.",
-                en: "Fresh pasta, dough kneaded in-house and finest Italian produce. Made in our kitchen, with generosity, under the sun.",
-                es: "Pasta fresca, masa amasada en casa y los mejores productos italianos. Platos preparados en casa, con generosidad, bajo el sol.",
-                zh: "新鲜面食、现场手工揉制的披萨面团和精选意大利食材。自家厨房用心烹制，沐浴阳光。",
+                fr: "Pâtes, pizzas pétries sur place et produits transalpins. Plats préparés maison, avec générosité, sous le soleil.",
+                en: "Pasta, pizzas kneaded on-site and finest Italian produce. Made in our kitchen, with generosity, under the sun.",
+                es: "Pasta, pizzas amasadas en casa y los mejores productos italianos. Platos preparados en casa, con generosidad, bajo el sol.",
+                zh: "面食、现场手工揉制的披萨和精选意大利食材。自家厨房用心烹制，沐浴阳光。",
               })}
             </p>
             <ButtonLink variant="olive" href="#menu" className="hero-cta">
