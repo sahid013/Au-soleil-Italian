@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import type { MenuData, MenuItem } from "@/lib/types";
@@ -13,6 +13,14 @@ const HIGHLIGHT_TAG = "carrousel";
 const GAP = 22;
 /** Tighter gap used on mobile — must match the `.cdh-track` mobile gap in CSS. */
 const MOBILE_GAP = 8;
+/** Mobile ticker speed, in px per second. */
+const TICKER_SPEED = 28;
+
+/** Wrap `v` into the half-open range [min, max) (for the seamless loop). */
+function wrapValue(min: number, max: number, v: number): number {
+  const range = max - min;
+  return ((((v - min) % range) + range) % range) + min;
+}
 
 /** Cards visible at once, based on the viewport width of the carousel. */
 function perViewFor(width: number): number {
@@ -47,15 +55,15 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   const { t } = useLanguage();
   const items = useMemo(() => pickHighlights(menu), [menu]);
 
-  // On mobile the carousel becomes a free horizontal swipe (native scroll):
-  // three cards at a time, no arrows/dots.
+  // On mobile the carousel becomes a continuous right-to-left ticker (native
+  // scroll auto-advanced each frame): still swipeable, no arrows, dots below.
   const isMobile = useMediaQuery("(max-width: 760px)");
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [page, setPage] = useState(0);
-  // Leftmost card index on mobile, derived from the native scroll position.
-  const [scrollIndex, setScrollIndex] = useState(0);
+  // Active (real) card index on mobile, driven by the ticker position.
+  const [tickIndex, setTickIndex] = useState(0);
 
   // Track the viewport width so card width / cards-per-view stay responsive.
   useEffect(() => {
@@ -74,25 +82,26 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   const pageCount = Math.max(1, Math.ceil(items.length / perView));
   const maxStart = Math.max(0, items.length - perView);
   const cardWidth = viewportWidth > 0 ? (viewportWidth - gap * (perView - 1)) / perView : 0;
+  const step = cardWidth + gap;
+  const period = items.length * step; // width of one full set of cards
 
   // Keep the page in range when the viewport (and so perView) changes.
   useEffect(() => {
     setPage((p) => Math.min(p, pageCount - 1));
   }, [pageCount]);
 
-  // Mobile: keep the active dot in sync with the native swipe scroll position.
-  useEffect(() => {
-    if (!isMobile) return;
-    const el = viewportRef.current;
-    if (!el) return;
-    const step = cardWidth + gap;
-    const onScroll = () => {
-      if (step > 0) setScrollIndex(Math.round(el.scrollLeft / step));
-    };
-    el.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => el.removeEventListener("scroll", onScroll);
-  }, [isMobile, cardWidth, gap]);
+  // Mobile ticker: drift the track leftward at a constant speed via a GPU
+  // transform (motion value → translateX), wrapping by one full set for a
+  // seamless loop. No layout reads/writes, so the motion stays smooth. The dot
+  // index is updated from React state only when it actually changes.
+  const trackX = useMotionValue(0);
+  useAnimationFrame((_, delta) => {
+    if (!isMobile || period <= 0) return;
+    const next = wrapValue(-period, 0, trackX.get() - (TICKER_SPEED * delta) / 1000);
+    trackX.set(next);
+    const idx = wrapValue(0, items.length, Math.round(-next / step)) | 0;
+    setTickIndex((prev) => (prev === idx ? prev : idx));
+  });
 
   if (items.length === 0) return null;
 
@@ -100,15 +109,22 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   // instead of leaving a trailing gap (e.g. 7 items / 3 per view → last page
   // shows items 5–7, not 7 alone).
   const startIndex = Math.min(page * perView, maxStart);
-  // On mobile the track scrolls natively, so no transform offset is applied.
-  const offset = isMobile ? 0 : -startIndex * (cardWidth + gap);
+  const offset = -startIndex * (cardWidth + gap);
   const canPrev = page > 0;
   const canNext = page < pageCount - 1;
-  const activeDot = Math.min(scrollIndex, maxStart);
+
+  // Mobile renders the cards twice for a seamless loop.
+  const trackItems = isMobile ? [...items, ...items] : items;
 
   const go = (next: number) => setPage(Math.max(0, Math.min(next, pageCount - 1)));
-  const scrollToIndex = (i: number) =>
-    viewportRef.current?.scrollTo({ left: i * (cardWidth + gap), behavior: "smooth" });
+  // Mobile: jump the ticker so card `i` sits at the left edge.
+  const jumpToDot = (i: number) => trackX.set(wrapValue(-period, 0, -i * step));
+
+  // On desktop the track springs between pages; on mobile it's the ticker
+  // transform driven by `trackX` each frame.
+  const trackProps = isMobile
+    ? { style: { x: trackX } }
+    : { animate: { x: offset }, transition: { type: "spring" as const, stiffness: 260, damping: 34 } };
 
   return (
     <section className="cdh" aria-roledescription="carousel" aria-label={t({ fr: "Nos coups de cœur", en: "Our favourites", es: "Nuestros favoritos", zh: "我们的心头好" })}>
@@ -130,17 +146,14 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
             </button>
           )}
 
-          <div className={`cdh-viewport${isMobile ? " is-scroll" : ""}`} ref={viewportRef}>
-            <motion.ul
-              className="cdh-track"
-              animate={{ x: offset }}
-              transition={{ type: "spring", stiffness: 260, damping: 34 }}
-            >
-              {items.map((item) => (
+          <div className="cdh-viewport" ref={viewportRef}>
+            <motion.ul className="cdh-track" {...trackProps}>
+              {trackItems.map((item, i) => (
                 <li
                   className="cdh-card"
-                  key={item.id ?? item.name}
+                  key={`${item.id ?? item.name}-${i}`}
                   style={cardWidth ? { width: cardWidth } : undefined}
+                  aria-hidden={isMobile && i >= items.length}
                 >
                   <HighlightMedia item={item} />
                   <div className="cdh-foot">
@@ -181,17 +194,17 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
           </div>
         )}
 
-        {isMobile && maxStart > 0 && (
+        {isMobile && items.length > 1 && (
           <div className="cdh-dots" role="tablist">
-            {Array.from({ length: maxStart + 1 }, (_, i) => (
+            {items.map((_, i) => (
               <button
                 key={i}
                 type="button"
-                className={`cdh-dot${i === activeDot ? " is-active" : ""}`}
+                className={`cdh-dot${i === tickIndex ? " is-active" : ""}`}
                 aria-label={t({ fr: `Aller à la diapositive ${i + 1}`, en: `Go to slide ${i + 1}`, es: `Ir a la diapositiva ${i + 1}`, zh: `前往第 ${i + 1} 张` })}
-                aria-selected={i === activeDot}
+                aria-selected={i === tickIndex}
                 role="tab"
-                onClick={() => scrollToIndex(i)}
+                onClick={() => jumpToDot(i)}
               />
             ))}
           </div>

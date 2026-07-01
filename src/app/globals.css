@@ -602,19 +602,6 @@ h3 {
   overflow: hidden;
   padding: 6px 2px;
 }
-/* Mobile: free horizontal swipe (native scroll + snap), no arrows/dots. */
-.cdh-viewport.is-scroll {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.cdh-viewport.is-scroll::-webkit-scrollbar {
-  display: none;
-}
-.cdh-viewport.is-scroll .cdh-card {
-  scroll-snap-align: start;
-}
 .cdh-track {
   display: flex;
   gap: 22px;
