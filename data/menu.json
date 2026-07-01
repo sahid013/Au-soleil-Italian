@@ -1,5 +1,5 @@
 {
-  "$comment": "LIVE RAW SNAPSHOT of the Ochel API response (2026-07-01T17:09:01.000Z), GET /api/v1/menu/{menuId}. This is the exact API contract (parallel categories / subcategories / dishes arrays). lib/menu.ts maps it via mapOchelToCategories; the live API is used directly when NEXT_PUBLIC_USE_API=true and this file is the fallback.",
+  "$comment": "LIVE RAW SNAPSHOT of the Ochel API response (2026-07-01T17:32:59.000Z), GET /api/v1/menu/{menuId}. This is the exact API contract (parallel categories / subcategories / dishes arrays). lib/menu.ts maps it via mapOchelToCategories; the live API is used directly when NEXT_PUBLIC_USE_API=true and this file is the fallback.",
   "menuId": "9289c209-1e66-4cab-888d-1643965d8ee0",
   "restaurantName": "Au Soleil Italien sgdb",
   "cuisine": "Italian",
@@ -243,70 +243,42 @@
           "zh": []
         }
       }
-    }
-  ],
-  "dishes": [
+    },
     {
-      "id": "c54a0c59-6031-4568-8404-2eda9a69d47d",
-      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
-      "subcategoryId": "f12771fb-7076-4c53-925e-32b915de08a1",
-      "name": "Oeuf",
-      "description": null,
-      "price": 1.2,
+      "id": "9c81efb7-f6c6-4ff0-90da-e8455a217a62",
+      "categoryId": "e1d4b379-e183-4c42-8e95-aa8de2888e33",
+      "name": "Adds-on",
       "sortOrder": 0,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
+      "icon": null,
+      "subtitle": null,
+      "isEnabled": true,
+      "isSystem": false,
+      "isAddOn": false,
       "multiLangData": {
         "name": {
           "fr": [
-            "Oeuf"
+            "Adds-on"
           ],
           "en": [
-            "Egg"
+            "Add-ons"
           ],
           "es": [
-            "Huevo"
+            "Complementos"
           ],
           "zh": [
-            "蛋"
+            "附加组件"
           ]
         },
-        "description": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
+        "subtitle": {
           "fr": [],
           "en": [],
           "es": [],
           "zh": []
         }
       }
-    },
+    }
+  ],
+  "dishes": [
     {
       "id": "7a7bcca2-cbba-4624-9275-9d25e1ab68c8",
       "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
@@ -448,12 +420,12 @@
       }
     },
     {
-      "id": "425da025-3d6c-4eeb-9176-19d59237b5bd",
+      "id": "c1251376-bc0b-4407-a3c6-4830262e9b62",
       "categoryId": "e1d4b379-e183-4c42-8e95-aa8de2888e33",
-      "subcategoryId": null,
-      "name": "Salade test",
+      "subcategoryId": "9c81efb7-f6c6-4ff0-90da-e8455a217a62",
+      "name": "Petite",
       "description": null,
-      "price": 0.0,
+      "price": 15.0,
       "sortOrder": 0,
       "isSpecial": false,
       "specialLabel": null,
@@ -470,16 +442,16 @@
       "multiLangData": {
         "name": {
           "fr": [
-            "Salade test"
+            "Petite"
           ],
           "en": [
-            "Test salad"
+            "Small"
           ],
           "es": [
-            "Ensalada de prueba"
+            "Pequeño"
           ],
           "zh": [
-            "测试沙拉"
+            "小的"
           ]
         },
         "description": {
@@ -647,38 +619,103 @@
       }
     },
     {
-      "id": "1c94e583-caa0-48c5-88f4-0cdc29aceca6",
-      "categoryId": "dc847863-c676-4889-b3ee-d0065f9724a2",
-      "subcategoryId": null,
-      "name": "Méli - Mélo",
-      "description": "Légumes grillés marinés, charcuterie, burrata fraîche",
-      "price": 18.0,
-      "sortOrder": 1,
+      "id": "c54a0c59-6031-4568-8404-2eda9a69d47d",
+      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
+      "subcategoryId": "f12771fb-7076-4c53-925e-32b915de08a1",
+      "name": "Oeuf",
+      "description": null,
+      "price": 1.2,
+      "sortOrder": 0,
       "isSpecial": false,
       "specialLabel": null,
       "tags": [],
       "ingredients": [],
-      "mediaType": "Video",
-      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/eeda5e39fa9e479e8eee950d0be379f9/62f347487fb6425daec9626cce53cfb5.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T192159Z&X-Amz-SignedHeaders=host&X-Amz-Signature=cd07722e2298f6247a75211374abbe18cc5c172563860fe63fee93f552ecf898",
-      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/meli_melo.mp4",
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
       "model3dUrl": null,
       "posterUrl": null,
-      "videoVisible": true,
-      "photoVisible": true,
-      "videoStatus": "Live",
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
       "multiLangData": {
         "name": {
           "fr": [
-            "Méli - Mélo"
+            "Oeuf"
           ],
+          "en": [
+            "Egg"
+          ],
+          "es": [
+            "Huevo"
+          ],
+          "zh": [
+            "蛋"
+          ]
+        },
+        "description": {
+          "fr": [],
           "en": [],
           "es": [],
           "zh": []
         },
-        "description": {
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "425da025-3d6c-4eeb-9176-19d59237b5bd",
+      "categoryId": "e1d4b379-e183-4c42-8e95-aa8de2888e33",
+      "subcategoryId": null,
+      "name": "Salade test",
+      "description": null,
+      "price": 0.0,
+      "sortOrder": 0,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
           "fr": [
-            "Légumes grillés marinés, charcuterie, burrata fraîche"
+            "Salade test"
           ],
+          "en": [
+            "Test salad"
+          ],
+          "es": [
+            "Ensalada de prueba"
+          ],
+          "zh": [
+            "测试沙拉"
+          ]
+        },
+        "description": {
+          "fr": [],
           "en": [],
           "es": [],
           "zh": []
@@ -751,6 +788,63 @@
           "zh": [
             "番茄酱和肉末"
           ]
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "1c94e583-caa0-48c5-88f4-0cdc29aceca6",
+      "categoryId": "dc847863-c676-4889-b3ee-d0065f9724a2",
+      "subcategoryId": null,
+      "name": "Méli - Mélo",
+      "description": "Légumes grillés marinés, charcuterie, burrata fraîche",
+      "price": 18.0,
+      "sortOrder": 1,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "Video",
+      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/eeda5e39fa9e479e8eee950d0be379f9/62f347487fb6425daec9626cce53cfb5.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T192159Z&X-Amz-SignedHeaders=host&X-Amz-Signature=cd07722e2298f6247a75211374abbe18cc5c172563860fe63fee93f552ecf898",
+      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/meli_melo.mp4",
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": true,
+      "photoVisible": true,
+      "videoStatus": "Live",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Méli - Mélo"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Légumes grillés marinés, charcuterie, burrata fraîche"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
         },
         "ingredients": {
           "fr": [],

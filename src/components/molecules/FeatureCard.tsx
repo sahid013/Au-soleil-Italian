@@ -40,6 +40,16 @@ export function FeatureCard({
             />
           )}
         </div>
+        {item.addons && item.addons.length > 0 && (
+          <ul className="mitem-addons">
+            {item.addons.map((addon, i) => (
+              <li className="mitem-addon" key={i}>
+                <span className="mitem-addon-name">+ {addon.name}</span>
+                {addon.price && <span className="mitem-addon-price">{addon.price}</span>}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
