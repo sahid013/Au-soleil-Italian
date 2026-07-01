@@ -39,11 +39,16 @@ export interface OchelSubcategory extends OchelCategory {
   isAddOn?: boolean;
 }
 
-/** A single add-on entry (attached to a dish via its `addons` array). */
+/**
+ * A single add-on entry. The API returns these in the top-level `addons` array,
+ * each linked to its dish via `dishId` (shown inside that dish's card).
+ */
 export interface OchelAddon {
   id?: string;
+  dishId?: string;
   name: string;
   price?: number | null;
+  sortOrder?: number;
   multiLangData?: {
     name?: LangArrays;
   };
@@ -68,7 +73,7 @@ export interface OchelDish {
   posterUrl: string | null;
   videoVisible: boolean;
   videoStatus: string; // "Live" | "Pending" | ... (casing varies)
-  /** Add-ons that apply only to this dish (shown inside the dish card). */
+  /** Some deployments embed a dish's add-ons here instead of the top-level list. */
   addons?: OchelAddon[];
   multiLangData?: {
     name?: LangArrays;
@@ -84,6 +89,8 @@ export interface OchelMenuResponse {
   categories: OchelCategory[];
   subcategories: OchelSubcategory[];
   dishes: OchelDish[];
+  /** Dish add-ons, each linked to its dish by `dishId`. */
+  addons?: OchelAddon[];
 }
 
 /* ---- Helpers ---- */
@@ -152,8 +159,11 @@ function mapAddOn(addon: OchelAddon, currency: string): AddOn {
   };
 }
 
-function mapDish(dish: OchelDish, currency: string): MenuItem {
+function mapDish(dish: OchelDish, currency: string, dishAddons: OchelAddon[] = []): MenuItem {
   const { hasVideo, videoSrc, poster } = resolveVideo(dish);
+  // Add-ons come from the top-level list (matched by dishId); some deployments
+  // also embed them on the dish itself.
+  const addons = [...(dish.addons ?? []), ...dishAddons];
   return {
     id: dish.id,
     name: dish.name,
@@ -170,7 +180,7 @@ function mapDish(dish: OchelDish, currency: string): MenuItem {
     image: dish.photoUrl ?? undefined,
     tags: dish.tags?.length ? dish.tags : undefined,
     // Dish-specific add-ons (shown inside the dish card).
-    addons: dish.addons?.length ? dish.addons.map((a) => mapAddOn(a, currency)) : undefined,
+    addons: addons.length ? addons.map((a) => mapAddOn(a, currency)) : undefined,
   };
 }
 
@@ -206,6 +216,12 @@ function groupBy<T, K extends string | null>(items: T[], key: (item: T) => K): M
 export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
   const dishesByCategory = groupBy(api.dishes, (d) => d.categoryId);
   const subsByCategory = groupBy(api.subcategories, (s) => s.categoryId);
+  // Dish add-ons arrive in the top-level list, keyed by dishId.
+  const addonsByDish = groupBy(
+    [...(api.addons ?? [])].sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0)),
+    (a) => a.dishId ?? "",
+  );
+  const addonsFor = (dishId: string) => addonsByDish.get(dishId) ?? [];
 
   return [...api.categories]
     .sort(bySortOrder)
@@ -221,9 +237,13 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
       const normalSubs = subs.filter((s) => !s.isAddOn);
 
       const items: MenuItem[] = [
-        ...dishes.filter((d) => d.subcategoryId === null).map((d) => mapDish(d, api.currency)),
+        ...dishes
+          .filter((d) => d.subcategoryId === null)
+          .map((d) => mapDish(d, api.currency, addonsFor(d.id))),
         ...normalSubs.flatMap((sub) =>
-          dishes.filter((d) => d.subcategoryId === sub.id).map((d) => mapDish(d, api.currency)),
+          dishes
+            .filter((d) => d.subcategoryId === sub.id)
+            .map((d) => mapDish(d, api.currency, addonsFor(d.id))),
         ),
       ];
 

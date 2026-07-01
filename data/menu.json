@@ -1,5 +1,5 @@
 {
-  "$comment": "LIVE RAW SNAPSHOT of the Ochel API response (2026-07-01T14:48:20.000Z), GET /api/v1/menu/{menuId}. This is the exact API contract (parallel categories / subcategories / dishes arrays). lib/menu.ts maps it via mapOchelToCategories; the live API is used directly when NEXT_PUBLIC_USE_API=true and this file is the fallback.",
+  "$comment": "LIVE RAW SNAPSHOT of the Ochel API response (2026-07-01T17:09:01.000Z), GET /api/v1/menu/{menuId}. This is the exact API contract (parallel categories / subcategories / dishes arrays). lib/menu.ts maps it via mapOchelToCategories; the live API is used directly when NEXT_PUBLIC_USE_API=true and this file is the fallback.",
   "menuId": "9289c209-1e66-4cab-888d-1643965d8ee0",
   "restaurantName": "Au Soleil Italien sgdb",
   "cuisine": "Italian",
@@ -247,15 +247,15 @@
   ],
   "dishes": [
     {
-      "id": "20ce87b9-f71a-4334-bbb5-606a0be2ea24",
+      "id": "c54a0c59-6031-4568-8404-2eda9a69d47d",
       "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
-      "subcategoryId": null,
-      "name": "-",
+      "subcategoryId": "f12771fb-7076-4c53-925e-32b915de08a1",
+      "name": "Oeuf",
       "description": null,
-      "price": 0.0,
+      "price": 1.2,
       "sortOrder": 0,
-      "isSpecial": true,
-      "specialLabel": "Supplément oeuf : 1,20€ | Base crème truffée : 2,00€",
+      "isSpecial": false,
+      "specialLabel": null,
       "tags": [],
       "ingredients": [],
       "mediaType": "None",
@@ -269,16 +269,16 @@
       "multiLangData": {
         "name": {
           "fr": [
-            "-"
+            "Oeuf"
           ],
           "en": [
-            "-"
+            "Egg"
           ],
           "es": [
-            "-"
+            "Huevo"
           ],
           "zh": [
-            "-"
+            "蛋"
           ]
         },
         "description": {
@@ -294,18 +294,10 @@
           "zh": []
         },
         "specialLabel": {
-          "fr": [
-            "Supplément oeuf : 1,20€ | Base crème truffée : 2,00€"
-          ],
-          "en": [
-            "Egg supplement: €1.20 | Truffled cream base: €2.00"
-          ],
-          "es": [
-            "Suplemento huevo: 1,20€ | Base de crema trufada: 2,00 €"
-          ],
-          "zh": [
-            "鸡蛋补充剂： €1.20 |松露奶油底：2.00 欧元"
-          ]
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
         },
         "tags": {
           "fr": [],
@@ -456,6 +448,136 @@
       }
     },
     {
+      "id": "425da025-3d6c-4eeb-9176-19d59237b5bd",
+      "categoryId": "e1d4b379-e183-4c42-8e95-aa8de2888e33",
+      "subcategoryId": null,
+      "name": "Salade test",
+      "description": null,
+      "price": 0.0,
+      "sortOrder": 0,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Salade test"
+          ],
+          "en": [
+            "Test salad"
+          ],
+          "es": [
+            "Ensalada de prueba"
+          ],
+          "zh": [
+            "测试沙拉"
+          ]
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "20ce87b9-f71a-4334-bbb5-606a0be2ea24",
+      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
+      "subcategoryId": null,
+      "name": "-",
+      "description": null,
+      "price": 0.0,
+      "sortOrder": 0,
+      "isSpecial": true,
+      "specialLabel": "Supplément oeuf : 1,20€ | Base crème truffée : 2,00€",
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "-"
+          ],
+          "en": [
+            "-"
+          ],
+          "es": [
+            "-"
+          ],
+          "zh": [
+            "-"
+          ]
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [
+            "Supplément oeuf : 1,20€ | Base crème truffée : 2,00€"
+          ],
+          "en": [
+            "Egg supplement: €1.20 | Truffled cream base: €2.00"
+          ],
+          "es": [
+            "Suplemento huevo: 1,20€ | Base de crema trufada: 2,00 €"
+          ],
+          "zh": [
+            "鸡蛋补充剂： €1.20 |松露奶油底：2.00 欧元"
+          ]
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
       "id": "09aa05d3-cc84-4a35-a6ae-36e52435c1db",
       "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
       "subcategoryId": null,
@@ -515,205 +637,6 @@
           "zh": [
             "补充"
           ]
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "c54a0c59-6031-4568-8404-2eda9a69d47d",
-      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
-      "subcategoryId": "f12771fb-7076-4c53-925e-32b915de08a1",
-      "name": "Oeuf",
-      "description": null,
-      "price": 1.2,
-      "sortOrder": 0,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Oeuf"
-          ],
-          "en": [
-            "Egg"
-          ],
-          "es": [
-            "Huevo"
-          ],
-          "zh": [
-            "蛋"
-          ]
-        },
-        "description": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "b4e4ad2b-a988-4e10-b4a2-acfbda53b69d",
-      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
-      "subcategoryId": null,
-      "name": "Salmone",
-      "description": "Crème fraîche, mozzarella, oignons, saumon frais, roquette, citron",
-      "price": 17.0,
-      "sortOrder": 1,
-      "isSpecial": true,
-      "specialLabel": "Nouveauté",
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Salmone"
-          ],
-          "en": [
-            "Salmone"
-          ],
-          "es": [
-            "salmón"
-          ],
-          "zh": [
-            "鲑鱼"
-          ]
-        },
-        "description": {
-          "fr": [
-            "Crème fraîche, mozzarella, oignons, saumon frais, roquette, citron"
-          ],
-          "en": [
-            "Crème fraîche, mozzarella, onions, fresh salmon, arugula, lemon"
-          ],
-          "es": [
-            "Crème fraîche, mozzarella, cebolla, salmón fresco, rúcula, limón"
-          ],
-          "zh": [
-            "法式酸奶油、马苏里拉奶酪、洋葱、新鲜三文鱼、芝麻菜、柠檬"
-          ]
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [
-            "Nouveauté"
-          ],
-          "en": [
-            "Novelty"
-          ],
-          "es": [
-            "Novedad"
-          ],
-          "zh": [
-            "新奇"
-          ]
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "5df57d92-72d1-4980-9b0c-c1ba9438ae1d",
-      "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
-      "subcategoryId": null,
-      "name": "Escalope de veau milanaise panée",
-      "description": null,
-      "price": 14.9,
-      "sortOrder": 1,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Escalope de veau milanaise panée"
-          ],
-          "en": [
-            "Breaded Milanese veal escalope"
-          ],
-          "es": [
-            "Escalope de ternera a la milanesa empanizada"
-          ],
-          "zh": [
-            "面包屑米兰小牛肉排"
-          ]
-        },
-        "description": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
         },
         "tags": {
           "fr": [],
@@ -850,6 +773,270 @@
       }
     },
     {
+      "id": "5df57d92-72d1-4980-9b0c-c1ba9438ae1d",
+      "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
+      "subcategoryId": null,
+      "name": "Escalope de veau milanaise panée",
+      "description": null,
+      "price": 14.9,
+      "sortOrder": 1,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Escalope de veau milanaise panée"
+          ],
+          "en": [
+            "Breaded Milanese veal escalope"
+          ],
+          "es": [
+            "Escalope de ternera a la milanesa empanizada"
+          ],
+          "zh": [
+            "面包屑米兰小牛肉排"
+          ]
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "b4e4ad2b-a988-4e10-b4a2-acfbda53b69d",
+      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
+      "subcategoryId": null,
+      "name": "Salmone",
+      "description": "Crème fraîche, mozzarella, oignons, saumon frais, roquette, citron",
+      "price": 17.0,
+      "sortOrder": 1,
+      "isSpecial": true,
+      "specialLabel": "Nouveauté",
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Salmone"
+          ],
+          "en": [
+            "Salmone"
+          ],
+          "es": [
+            "salmón"
+          ],
+          "zh": [
+            "鲑鱼"
+          ]
+        },
+        "description": {
+          "fr": [
+            "Crème fraîche, mozzarella, oignons, saumon frais, roquette, citron"
+          ],
+          "en": [
+            "Crème fraîche, mozzarella, onions, fresh salmon, arugula, lemon"
+          ],
+          "es": [
+            "Crème fraîche, mozzarella, cebolla, salmón fresco, rúcula, limón"
+          ],
+          "zh": [
+            "法式酸奶油、马苏里拉奶酪、洋葱、新鲜三文鱼、芝麻菜、柠檬"
+          ]
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [
+            "Nouveauté"
+          ],
+          "en": [
+            "Novelty"
+          ],
+          "es": [
+            "Novedad"
+          ],
+          "zh": [
+            "新奇"
+          ]
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "ebedf723-accf-4e2f-8607-5f2aeddecef5",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Calamars Frits \"Maison\"",
+      "description": "Sauce Caesar",
+      "price": 8.9,
+      "sortOrder": 2,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Calamars Frits \"Maison\""
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Sauce Caesar"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "21bbaa55-8820-42c0-b3a2-0a0ec27581ed",
+      "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
+      "subcategoryId": null,
+      "name": "Linguine du Soleil",
+      "description": "Crème truffée, jambon Italien, copeaux de Parmesan, champignons",
+      "price": 15.5,
+      "sortOrder": 2,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Linguine du Soleil"
+          ],
+          "en": [
+            "Sun Linguine"
+          ],
+          "es": [
+            "linguini del sol"
+          ],
+          "zh": [
+            "太阳扁面条"
+          ]
+        },
+        "description": {
+          "fr": [
+            "Crème truffée, jambon Italien, copeaux de Parmesan, champignons"
+          ],
+          "en": [
+            "Truffled cream, Italian ham, Parmesan shavings, mushrooms"
+          ],
+          "es": [
+            "Crema trufada, jamón italiano, virutas de parmesano, champiñones"
+          ],
+          "zh": [
+            "松露奶油、意大利火腿、帕尔马干酪刨花、蘑菇"
+          ]
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
       "id": "6316bb04-fe08-47e1-a0bc-6d1f9df15c4f",
       "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
       "subcategoryId": null,
@@ -912,65 +1099,6 @@
         },
         "tags": {
           "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "81dd0132-f24c-431f-a420-55e2a75980c0",
-      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
-      "subcategoryId": null,
-      "name": "Burrata crémeuse à l'huile truffée",
-      "description": null,
-      "price": 9.8,
-      "sortOrder": 2,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [
-        "Carrousel"
-      ],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Burrata crémeuse à l'huile truffée"
-          ],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "description": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [
-            "Carrousel"
-          ],
           "en": [],
           "es": [],
           "zh": []
@@ -1124,6 +1252,65 @@
       }
     },
     {
+      "id": "81dd0132-f24c-431f-a420-55e2a75980c0",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Burrata crémeuse à l'huile truffée",
+      "description": null,
+      "price": 9.8,
+      "sortOrder": 2,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [
+        "Carrousel"
+      ],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Burrata crémeuse à l'huile truffée"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [
+            "Carrousel"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
       "id": "3e80f81d-9905-41ec-8816-0da0c0c540f9",
       "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
       "subcategoryId": null,
@@ -1170,132 +1357,6 @@
           ],
           "zh": [
             "扁面条，香蒜酱，奶油，樱桃番茄，整个新鲜布拉塔奶酪"
-          ]
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "ebedf723-accf-4e2f-8607-5f2aeddecef5",
-      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
-      "subcategoryId": null,
-      "name": "Calamars Frits \"Maison\"",
-      "description": "Sauce Caesar",
-      "price": 8.9,
-      "sortOrder": 2,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Calamars Frits \"Maison\""
-          ],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "description": {
-          "fr": [
-            "Sauce Caesar"
-          ],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "21bbaa55-8820-42c0-b3a2-0a0ec27581ed",
-      "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
-      "subcategoryId": null,
-      "name": "Linguine du Soleil",
-      "description": "Crème truffée, jambon Italien, copeaux de Parmesan, champignons",
-      "price": 15.5,
-      "sortOrder": 2,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Linguine du Soleil"
-          ],
-          "en": [
-            "Sun Linguine"
-          ],
-          "es": [
-            "linguini del sol"
-          ],
-          "zh": [
-            "太阳扁面条"
-          ]
-        },
-        "description": {
-          "fr": [
-            "Crème truffée, jambon Italien, copeaux de Parmesan, champignons"
-          ],
-          "en": [
-            "Truffled cream, Italian ham, Parmesan shavings, mushrooms"
-          ],
-          "es": [
-            "Crema trufada, jamón italiano, virutas de parmesano, champiñones"
-          ],
-          "zh": [
-            "松露奶油、意大利火腿、帕尔马干酪刨花、蘑菇"
           ]
         },
         "ingredients": {
@@ -1385,6 +1446,63 @@
           "fr": [
             "Carrousel"
           ],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "0c8358cf-94ce-4ed0-ad4c-302087388318",
+      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
+      "subcategoryId": null,
+      "name": "Carpaccio de Boeuf",
+      "description": "Basilic et Parmesan",
+      "price": 12.0,
+      "sortOrder": 3,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "None",
+      "photoUrl": null,
+      "videoUrl": null,
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Carpaccio de Boeuf"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "description": {
+          "fr": [
+            "Basilic et Parmesan"
+          ],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
           "en": [],
           "es": [],
           "zh": []
@@ -1530,38 +1648,38 @@
       }
     },
     {
-      "id": "0c8358cf-94ce-4ed0-ad4c-302087388318",
+      "id": "e8f7fb4b-1a89-41a0-bb92-d269c90073df",
       "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
       "subcategoryId": null,
-      "name": "Carpaccio de Boeuf",
-      "description": "Basilic et Parmesan",
-      "price": 12.0,
-      "sortOrder": 3,
+      "name": "Carpaccio de Boeuf et Burrata à l'huile truffée",
+      "description": null,
+      "price": 14.5,
+      "sortOrder": 4,
       "isSpecial": false,
       "specialLabel": null,
-      "tags": [],
+      "tags": [
+        "Carroussel"
+      ],
       "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
+      "mediaType": "Video",
+      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/e8f7fb4b1a8941a0bb92d269c90073df/047bf33efa3447e08a2bd26692e34b32.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T192159Z&X-Amz-SignedHeaders=host&X-Amz-Signature=9ad9254d6d8d39bb4ad083bf2e1e823b077f394ac643622164af28d8d23a89b3",
+      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/carpaccio_burrata.mp4",
       "model3dUrl": null,
       "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
+      "videoVisible": true,
+      "photoVisible": true,
+      "videoStatus": "Live",
       "multiLangData": {
         "name": {
           "fr": [
-            "Carpaccio de Boeuf"
+            "Carpaccio de Boeuf et Burrata à l'huile truffée"
           ],
           "en": [],
           "es": [],
           "zh": []
         },
         "description": {
-          "fr": [
-            "Basilic et Parmesan"
-          ],
+          "fr": [],
           "en": [],
           "es": [],
           "zh": []
@@ -1579,7 +1697,9 @@
           "zh": []
         },
         "tags": {
-          "fr": [],
+          "fr": [
+            "Carroussel"
+          ],
           "en": [],
           "es": [],
           "zh": []
@@ -1633,75 +1753,6 @@
           ],
           "zh": [
             "番茄、马苏里拉奶酪、橄榄"
-          ]
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "99f8c91d-9455-4afa-9f66-c6202b6a2cc0",
-      "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
-      "subcategoryId": null,
-      "name": "Escalope de veau parmigiana",
-      "description": "Escalope de veau, aubergines, scarmoza fumée, basilic, sauce tomate, gratinée au four",
-      "price": 16.5,
-      "sortOrder": 4,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Escalope de veau parmigiana"
-          ],
-          "en": [
-            "Veal escalope parmigiana"
-          ],
-          "es": [
-            "Escalope de ternera a la parmesana"
-          ],
-          "zh": [
-            "帕尔马干酪小牛肉片"
-          ]
-        },
-        "description": {
-          "fr": [
-            "Escalope de veau, aubergines, scarmoza fumée, basilic, sauce tomate, gratinée au four"
-          ],
-          "en": [
-            "Veal escalope, eggplant, smoked scarmoza, basil, tomato sauce, baked gratinated"
-          ],
-          "es": [
-            "Escalope de ternera, berenjenas, scarmoza ahumada, albahaca, salsa de tomate, gratinados al horno"
-          ],
-          "zh": [
-            "小牛肉片、茄子、烟熏斯卡莫扎、罗勒、番茄酱、焗烤"
           ]
         },
         "ingredients": {
@@ -1798,111 +1849,52 @@
       }
     },
     {
-      "id": "e8f7fb4b-1a89-41a0-bb92-d269c90073df",
-      "categoryId": "d78c5b53-c159-4554-8c1a-097a2980fb26",
-      "subcategoryId": null,
-      "name": "Carpaccio de Boeuf et Burrata à l'huile truffée",
-      "description": null,
-      "price": 14.5,
-      "sortOrder": 4,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [
-        "Carroussel"
-      ],
-      "ingredients": [],
-      "mediaType": "Video",
-      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/5a126a9739324087b30d2e4c6056296b/dishes/e8f7fb4b1a8941a0bb92d269c90073df/047bf33efa3447e08a2bd26692e34b32.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T192159Z&X-Amz-SignedHeaders=host&X-Amz-Signature=9ad9254d6d8d39bb4ad083bf2e1e823b077f394ac643622164af28d8d23a89b3",
-      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/carpaccio_burrata.mp4",
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": true,
-      "photoVisible": true,
-      "videoStatus": "Live",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Carpaccio de Boeuf et Burrata à l'huile truffée"
-          ],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "description": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [
-            "Carroussel"
-          ],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "7fd75148-b921-4e32-bfcf-28a5547aa57b",
+      "id": "99f8c91d-9455-4afa-9f66-c6202b6a2cc0",
       "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
       "subcategoryId": null,
-      "name": "Escalope de veau soleil",
-      "description": "Jambon, Italien, crème truffée au Parmesan, champignons, burrata",
-      "price": 18.5,
-      "sortOrder": 5,
+      "name": "Escalope de veau parmigiana",
+      "description": "Escalope de veau, aubergines, scarmoza fumée, basilic, sauce tomate, gratinée au four",
+      "price": 16.5,
+      "sortOrder": 4,
       "isSpecial": false,
       "specialLabel": null,
       "tags": [],
       "ingredients": [],
-      "mediaType": "Video",
+      "mediaType": "None",
       "photoUrl": null,
-      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/escalope_de_veau_soleil.mp4",
+      "videoUrl": null,
       "model3dUrl": null,
       "posterUrl": null,
-      "videoVisible": true,
+      "videoVisible": false,
       "photoVisible": false,
-      "videoStatus": "Live",
+      "videoStatus": "NoVideo",
       "multiLangData": {
         "name": {
           "fr": [
-            "Escalope de veau soleil"
+            "Escalope de veau parmigiana"
           ],
           "en": [
-            "Sun veal escalope"
+            "Veal escalope parmigiana"
           ],
           "es": [
-            "Escalopes de ternera al sol"
+            "Escalope de ternera a la parmesana"
           ],
           "zh": [
-            "太阳小牛肉片"
+            "帕尔马干酪小牛肉片"
           ]
         },
         "description": {
           "fr": [
-            "Jambon, Italien, crème truffée au Parmesan, champignons, burrata"
+            "Escalope de veau, aubergines, scarmoza fumée, basilic, sauce tomate, gratinée au four"
           ],
           "en": [
-            "Ham, Italian, Parmesan truffle cream, mushrooms, burrata"
+            "Veal escalope, eggplant, smoked scarmoza, basil, tomato sauce, baked gratinated"
           ],
           "es": [
-            "Jamón, italiano, crema de trufa y parmesano, champiñones, burrata"
+            "Escalope de ternera, berenjenas, scarmoza ahumada, albahaca, salsa de tomate, gratinados al horno"
           ],
           "zh": [
-            "火腿，意大利，帕尔玛松露奶油，蘑菇，布拉塔奶酪"
+            "小牛肉片、茄子、烟熏斯卡莫扎、罗勒、番茄酱、焗烤"
           ]
         },
         "ingredients": {
@@ -2064,6 +2056,75 @@
       }
     },
     {
+      "id": "7fd75148-b921-4e32-bfcf-28a5547aa57b",
+      "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
+      "subcategoryId": null,
+      "name": "Escalope de veau soleil",
+      "description": "Jambon, Italien, crème truffée au Parmesan, champignons, burrata",
+      "price": 18.5,
+      "sortOrder": 5,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "Video",
+      "photoUrl": null,
+      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/escalope_de_veau_soleil.mp4",
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": true,
+      "photoVisible": false,
+      "videoStatus": "Live",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Escalope de veau soleil"
+          ],
+          "en": [
+            "Sun veal escalope"
+          ],
+          "es": [
+            "Escalopes de ternera al sol"
+          ],
+          "zh": [
+            "太阳小牛肉片"
+          ]
+        },
+        "description": {
+          "fr": [
+            "Jambon, Italien, crème truffée au Parmesan, champignons, burrata"
+          ],
+          "en": [
+            "Ham, Italian, Parmesan truffle cream, mushrooms, burrata"
+          ],
+          "es": [
+            "Jamón, italiano, crema de trufa y parmesano, champiñones, burrata"
+          ],
+          "zh": [
+            "火腿，意大利，帕尔玛松露奶油，蘑菇，布拉塔奶酪"
+          ]
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
       "id": "04c9a86e-c1e5-46d7-8f2d-02f28e1107e7",
       "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
       "subcategoryId": null,
@@ -2110,75 +2171,6 @@
           ],
           "zh": [
             "辣椒、大蒜、橄榄油、番茄酱、罗勒"
-          ]
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "4842abab-3381-41ac-9f07-582f9e62606a",
-      "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
-      "subcategoryId": null,
-      "name": "Escalope de veau bolognaise",
-      "description": "Escalope de veau, jambon, sauce bolognaise, gratinée au parmesan",
-      "price": 17.5,
-      "sortOrder": 6,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [],
-      "ingredients": [],
-      "mediaType": "None",
-      "photoUrl": null,
-      "videoUrl": null,
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": false,
-      "photoVisible": false,
-      "videoStatus": "NoVideo",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Escalope de veau bolognaise"
-          ],
-          "en": [
-            "Veal bolognese escalope"
-          ],
-          "es": [
-            "Escalope de ternera a la boloñesa"
-          ],
-          "zh": [
-            "肉酱小牛肉排"
-          ]
-        },
-        "description": {
-          "fr": [
-            "Escalope de veau, jambon, sauce bolognaise, gratinée au parmesan"
-          ],
-          "en": [
-            "Veal escalope, ham, bolognese sauce, gratinated with parmesan"
-          ],
-          "es": [
-            "Escalope de ternera, jamón, salsa boloñesa, gratinado con parmesano"
-          ],
-          "zh": [
-            "小牛肉片、火腿、肉酱、烤帕尔马干酪"
           ]
         },
         "ingredients": {
@@ -2271,125 +2263,52 @@
       }
     },
     {
-      "id": "9ec19c55-4080-4d50-a456-3a0928c2d3e6",
-      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
+      "id": "4842abab-3381-41ac-9f07-582f9e62606a",
+      "categoryId": "7820fb55-f44f-42b2-b34e-c04b0151b2f3",
       "subcategoryId": null,
-      "name": "Regina",
-      "description": "Tomate, mozzarella, jambon blanc, champignons, olives",
-      "price": 14.0,
-      "sortOrder": 7,
-      "isSpecial": false,
-      "specialLabel": null,
-      "tags": [
-        "Carrousel"
-      ],
-      "ingredients": [],
-      "mediaType": "Video",
-      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/00000000000000000000000000000000/dishes/9ec19c5540804d50a4563a0928c2d3e6/bc5a1efed0c047f38dec3405fc375698.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T192159Z&X-Amz-SignedHeaders=host&X-Amz-Signature=6f7bce6e95f673304a75f00ef20e280ebe735ad86f0f2056278d8d5f0099c259",
-      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/pizza_regina.mp4",
-      "model3dUrl": null,
-      "posterUrl": null,
-      "videoVisible": true,
-      "photoVisible": true,
-      "videoStatus": "Live",
-      "multiLangData": {
-        "name": {
-          "fr": [
-            "Regina"
-          ],
-          "en": [
-            "Regina"
-          ],
-          "es": [
-            "regina"
-          ],
-          "zh": [
-            "里贾纳"
-          ]
-        },
-        "description": {
-          "fr": [
-            "Tomate, mozzarella, jambon blanc, champignons, olives"
-          ],
-          "en": [
-            "Tomato, mozzarella, white ham, mushrooms, olives"
-          ],
-          "es": [
-            "Tomate, mozzarella, jamón blanco, champiñones, aceitunas"
-          ],
-          "zh": [
-            "番茄、马苏里拉奶酪、白火腿、蘑菇、橄榄"
-          ]
-        },
-        "ingredients": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "specialLabel": {
-          "fr": [],
-          "en": [],
-          "es": [],
-          "zh": []
-        },
-        "tags": {
-          "fr": [
-            "Carrousel"
-          ],
-          "en": [],
-          "es": [],
-          "zh": []
-        }
-      }
-    },
-    {
-      "id": "cc5f493e-1dc0-42a7-9a8e-c1300dc1ad58",
-      "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
-      "subcategoryId": null,
-      "name": "Penne Gorgonzola",
-      "description": "Gorgonzola crème",
-      "price": 13.5,
-      "sortOrder": 7,
+      "name": "Escalope de veau bolognaise",
+      "description": "Escalope de veau, jambon, sauce bolognaise, gratinée au parmesan",
+      "price": 17.5,
+      "sortOrder": 6,
       "isSpecial": false,
       "specialLabel": null,
       "tags": [],
       "ingredients": [],
-      "mediaType": "Video",
+      "mediaType": "None",
       "photoUrl": null,
-      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/penne_gorgonzola.mp4",
+      "videoUrl": null,
       "model3dUrl": null,
       "posterUrl": null,
-      "videoVisible": true,
-      "photoVisible": true,
-      "videoStatus": "Live",
+      "videoVisible": false,
+      "photoVisible": false,
+      "videoStatus": "NoVideo",
       "multiLangData": {
         "name": {
           "fr": [
-            "Penne Gorgonzola"
+            "Escalope de veau bolognaise"
           ],
           "en": [
-            "Penne Gorgonzola"
+            "Veal bolognese escalope"
           ],
           "es": [
-            "Penne Gorgonzola"
+            "Escalope de ternera a la boloñesa"
           ],
           "zh": [
-            "通心粉"
+            "肉酱小牛肉排"
           ]
         },
         "description": {
           "fr": [
-            "Gorgonzola crème"
+            "Escalope de veau, jambon, sauce bolognaise, gratinée au parmesan"
           ],
           "en": [
-            "Gorgonzola cream"
+            "Veal escalope, ham, bolognese sauce, gratinated with parmesan"
           ],
           "es": [
-            "crema de gorgonzola"
+            "Escalope de ternera, jamón, salsa boloñesa, gratinado con parmesano"
           ],
           "zh": [
-            "戈贡佐拉奶油"
+            "小牛肉片、火腿、肉酱、烤帕尔马干酪"
           ]
         },
         "ingredients": {
@@ -2483,6 +2402,148 @@
         },
         "tags": {
           "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "cc5f493e-1dc0-42a7-9a8e-c1300dc1ad58",
+      "categoryId": "8256138a-5607-4d7c-b7aa-d7482ef2215e",
+      "subcategoryId": null,
+      "name": "Penne Gorgonzola",
+      "description": "Gorgonzola crème",
+      "price": 13.5,
+      "sortOrder": 7,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [],
+      "ingredients": [],
+      "mediaType": "Video",
+      "photoUrl": null,
+      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/penne_gorgonzola.mp4",
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": true,
+      "photoVisible": true,
+      "videoStatus": "Live",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Penne Gorgonzola"
+          ],
+          "en": [
+            "Penne Gorgonzola"
+          ],
+          "es": [
+            "Penne Gorgonzola"
+          ],
+          "zh": [
+            "通心粉"
+          ]
+        },
+        "description": {
+          "fr": [
+            "Gorgonzola crème"
+          ],
+          "en": [
+            "Gorgonzola cream"
+          ],
+          "es": [
+            "crema de gorgonzola"
+          ],
+          "zh": [
+            "戈贡佐拉奶油"
+          ]
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "9ec19c55-4080-4d50-a456-3a0928c2d3e6",
+      "categoryId": "7c96e3c6-8082-4e1c-9004-a24c66f8f9ae",
+      "subcategoryId": null,
+      "name": "Regina",
+      "description": "Tomate, mozzarella, jambon blanc, champignons, olives",
+      "price": 14.0,
+      "sortOrder": 7,
+      "isSpecial": false,
+      "specialLabel": null,
+      "tags": [
+        "Carrousel"
+      ],
+      "ingredients": [],
+      "mediaType": "Video",
+      "photoUrl": "https://t3.storageapi.dev/storage-in-by2w1n-5c3o0yw/staging/tenant/00000000000000000000000000000000/dishes/9ec19c5540804d50a4563a0928c2d3e6/bc5a1efed0c047f38dec3405fc375698.jpg?X-Amz-Expires=604800&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=tid_ytTYicuKtJfCrRhHAAvjkkluIidvXAHcfyxfdimBvKUGEqduLb%2F20260630%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260630T192159Z&X-Amz-SignedHeaders=host&X-Amz-Signature=6f7bce6e95f673304a75f00ef20e280ebe735ad86f0f2056278d8d5f0099c259",
+      "videoUrl": "https://plats.ochel.fr/au_soleil_italien/pizza_regina.mp4",
+      "model3dUrl": null,
+      "posterUrl": null,
+      "videoVisible": true,
+      "photoVisible": true,
+      "videoStatus": "Live",
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Regina"
+          ],
+          "en": [
+            "Regina"
+          ],
+          "es": [
+            "regina"
+          ],
+          "zh": [
+            "里贾纳"
+          ]
+        },
+        "description": {
+          "fr": [
+            "Tomate, mozzarella, jambon blanc, champignons, olives"
+          ],
+          "en": [
+            "Tomato, mozzarella, white ham, mushrooms, olives"
+          ],
+          "es": [
+            "Tomate, mozzarella, jamón blanco, champiñones, aceitunas"
+          ],
+          "zh": [
+            "番茄、马苏里拉奶酪、白火腿、蘑菇、橄榄"
+          ]
+        },
+        "ingredients": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "specialLabel": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        },
+        "tags": {
+          "fr": [
+            "Carrousel"
+          ],
           "en": [],
           "es": [],
           "zh": []
@@ -4231,5 +4292,72 @@
       }
     }
   ],
-  "addons": []
+  "addons": [
+    {
+      "id": "90e8be9d-4e73-4adb-a30e-4741584ccbb0",
+      "dishId": "425da025-3d6c-4eeb-9176-19d59237b5bd",
+      "name": "Petite",
+      "description": null,
+      "price": 15.0,
+      "sortOrder": 0,
+      "mediaType": "None",
+      "photoUrl": null,
+      "photoVisible": false,
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Petite"
+          ],
+          "en": [
+            "Small"
+          ],
+          "es": [
+            "Pequeño"
+          ],
+          "zh": [
+            "小的"
+          ]
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    },
+    {
+      "id": "bff53a82-1b32-4e78-a189-6b74c267b6e7",
+      "dishId": "425da025-3d6c-4eeb-9176-19d59237b5bd",
+      "name": "Grande",
+      "description": null,
+      "price": 18.0,
+      "sortOrder": 1,
+      "mediaType": "None",
+      "photoUrl": null,
+      "photoVisible": false,
+      "multiLangData": {
+        "name": {
+          "fr": [
+            "Grande"
+          ],
+          "en": [
+            "Large"
+          ],
+          "es": [
+            "Grande"
+          ],
+          "zh": [
+            "大的"
+          ]
+        },
+        "description": {
+          "fr": [],
+          "en": [],
+          "es": [],
+          "zh": []
+        }
+      }
+    }
+  ]
 }
