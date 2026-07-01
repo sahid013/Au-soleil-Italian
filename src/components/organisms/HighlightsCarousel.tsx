@@ -28,14 +28,19 @@ function perViewFor(width: number): number {
   return 2; // tablet & mobile: two at a time (mobile swipes to scroll)
 }
 
-/** Flatten every category's items, keeping dishes tagged for the carousel. */
+/**
+ * Flatten every category's items, keeping dishes that are BOTH tagged for the
+ * carousel AND have a video. A dish tagged "Carrousel" but without a `videoUrl`
+ * is skipped, so no blank cards ever show.
+ */
 function pickHighlights(menu: MenuData): MenuItem[] {
   const seen = new Set<string>();
   const out: MenuItem[] = [];
   for (const category of menu.categories) {
     for (const item of category.items) {
       const tagged = item.tags?.some((tag) => tag.trim().toLowerCase() === HIGHLIGHT_TAG);
-      if (!tagged) continue;
+      const hasVideo = Boolean(item.videoUrl ?? item.videoSrc);
+      if (!tagged || !hasVideo) continue;
       const key = item.id ?? item.name;
       if (seen.has(key)) continue;
       seen.add(key);
