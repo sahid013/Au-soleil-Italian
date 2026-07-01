@@ -13,14 +13,22 @@ import { DishThumb } from "./DishThumb";
  * to the price, and a description line. `onPlay` opens the dish video lightbox
  * (also reachable by tapping the thumbnail when the dish has a video).
  */
-export function MenuItem({ item, onPlay }: { item: MenuItemType; onPlay: (item: MenuItemType) => void }) {
+export function MenuItem({
+  item,
+  onPlay,
+  onOpenImage,
+}: {
+  item: MenuItemType;
+  onPlay: (item: MenuItemType) => void;
+  onOpenImage: (item: MenuItemType) => void;
+}) {
   const { t, lang } = useLanguage();
   const description = item.description ? item.description[lang] : "";
   const ref = useDishView<HTMLDivElement>(item.id);
 
   return (
     <div className="mitem" ref={ref}>
-      <DishThumb item={item} size="sm" onPlay={onPlay} />
+      <DishThumb item={item} size="sm" onOpenImage={onOpenImage} />
       <div className="mbody">
         <div className="r1">
           <span className="nm">

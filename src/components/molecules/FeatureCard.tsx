@@ -11,14 +11,22 @@ import { DishThumb } from "./DishThumb";
  * beside a kicker (the dish's badge, e.g. "Nouveauté" / "Signature"), name,
  * description and price. The first two items of every category are shown this way.
  */
-export function FeatureCard({ item, onPlay }: { item: MenuItemType; onPlay: (item: MenuItemType) => void }) {
+export function FeatureCard({
+  item,
+  onPlay,
+  onOpenImage,
+}: {
+  item: MenuItemType;
+  onPlay: (item: MenuItemType) => void;
+  onOpenImage: (item: MenuItemType) => void;
+}) {
   const { t, lang } = useLanguage();
   const ref = useDishView<HTMLDivElement>(item.id);
   const description = item.description ? item.description[lang] : "";
 
   return (
     <div className="feature-card" ref={ref}>
-      <DishThumb item={item} size="lg" onPlay={onPlay} />
+      <DishThumb item={item} size="lg" onOpenImage={onOpenImage} />
       <div className="feature-body">
         {item.badge && <span className="feature-kicker">{item.badge}</span>}
         <h3 className="feature-name">{item.name}</h3>

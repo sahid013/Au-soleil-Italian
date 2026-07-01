@@ -47,7 +47,7 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
-  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(0);
 
   // Track the viewport width so card width / cards-per-view stay responsive.
   useEffect(() => {
@@ -61,21 +61,27 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
   }, []);
 
   const perView = perViewFor(viewportWidth || 900);
-  const maxIndex = Math.max(0, items.length - perView);
+  // The carousel moves a full page (perView cards) at a time.
+  const pageCount = Math.max(1, Math.ceil(items.length / perView));
+  const maxStart = Math.max(0, items.length - perView);
 
-  // Keep the index in range when the viewport (and so perView) changes.
+  // Keep the page in range when the viewport (and so perView) changes.
   useEffect(() => {
-    setIndex((i) => Math.min(i, maxIndex));
-  }, [maxIndex]);
+    setPage((p) => Math.min(p, pageCount - 1));
+  }, [pageCount]);
 
   if (items.length === 0) return null;
 
   const cardWidth = viewportWidth > 0 ? (viewportWidth - GAP * (perView - 1)) / perView : 0;
-  const offset = -index * (cardWidth + GAP);
-  const canPrev = index > 0;
-  const canNext = index < maxIndex;
+  // Start index of the current page, clamped so the last page aligns to the end
+  // instead of leaving a trailing gap (e.g. 7 items / 3 per view → last page
+  // shows items 5–7, not 7 alone).
+  const startIndex = Math.min(page * perView, maxStart);
+  const offset = -startIndex * (cardWidth + GAP);
+  const canPrev = page > 0;
+  const canNext = page < pageCount - 1;
 
-  const go = (next: number) => setIndex(Math.max(0, Math.min(next, maxIndex)));
+  const go = (next: number) => setPage(Math.max(0, Math.min(next, pageCount - 1)));
 
   return (
     <section className="cdh" aria-roledescription="carousel" aria-label={t({ fr: "Nos coups de cœur", en: "Our favourites", es: "Nuestros favoritos", zh: "我们的心头好" })}>
@@ -88,7 +94,7 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
           <button
             type="button"
             className="cdh-arrow cdh-arrow--prev"
-            onClick={() => go(index - 1)}
+            onClick={() => go(page - 1)}
             disabled={!canPrev}
             aria-label={t({ fr: "Précédent", en: "Previous", es: "Anterior", zh: "上一个" })}
           >
@@ -120,7 +126,7 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
           <button
             type="button"
             className="cdh-arrow cdh-arrow--next"
-            onClick={() => go(index + 1)}
+            onClick={() => go(page + 1)}
             disabled={!canNext}
             aria-label={t({ fr: "Suivant", en: "Next", es: "Siguiente", zh: "下一个" })}
           >
@@ -128,15 +134,15 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
           </button>
         </div>
 
-        {maxIndex > 0 && (
+        {pageCount > 1 && (
           <div className="cdh-dots" role="tablist">
-            {Array.from({ length: maxIndex + 1 }, (_, i) => (
+            {Array.from({ length: pageCount }, (_, i) => (
               <button
                 key={i}
                 type="button"
-                className={`cdh-dot${i === index ? " is-active" : ""}`}
-                aria-label={t({ fr: `Aller à la diapositive ${i + 1}`, en: `Go to slide ${i + 1}`, es: `Ir a la diapositiva ${i + 1}`, zh: `前往第 ${i + 1} 张` })}
-                aria-selected={i === index}
+                className={`cdh-dot${i === page ? " is-active" : ""}`}
+                aria-label={t({ fr: `Aller à la page ${i + 1}`, en: `Go to page ${i + 1}`, es: `Ir a la página ${i + 1}`, zh: `前往第 ${i + 1} 页` })}
+                aria-selected={i === page}
                 role="tab"
                 onClick={() => go(i)}
               />

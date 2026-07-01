@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 import type { MenuCategory, MenuItem as MenuItemType } from "@/lib/types";
 import { PanelHead } from "@/components/molecules/PanelHead";
 import { MenuItem } from "@/components/molecules/MenuItem";
@@ -15,15 +16,19 @@ export function MenuPanel({
   category,
   active,
   onPlay,
+  onOpenImage,
 }: {
   category: MenuCategory;
   active: boolean;
   onPlay: (item: MenuItemType) => void;
+  onOpenImage: (item: MenuItemType) => void;
 }) {
   const { t } = useLanguage();
 
-  const featured = category.items.slice(0, 2);
-  const rest = category.items.slice(2);
+  // On mobile, skip the two large featured cards and show every dish in the list.
+  const isMobile = useMediaQuery("(max-width: 760px)");
+  const featured = isMobile ? [] : category.items.slice(0, 2);
+  const rest = isMobile ? category.items : category.items.slice(2);
 
   return (
     <div
@@ -43,7 +48,7 @@ export function MenuPanel({
       {featured.length > 0 && (
         <div className="panel-feature">
           {featured.map((item) => (
-            <FeatureCard key={item.name} item={item} onPlay={onPlay} />
+            <FeatureCard key={item.name} item={item} onPlay={onPlay} onOpenImage={onOpenImage} />
           ))}
         </div>
       )}
@@ -51,7 +56,7 @@ export function MenuPanel({
       {rest.length > 0 && (
         <div className="panel-cols">
           {rest.map((item) => (
-            <MenuItem key={item.name} item={item} onPlay={onPlay} />
+            <MenuItem key={item.name} item={item} onPlay={onPlay} onOpenImage={onOpenImage} />
           ))}
         </div>
       )}
