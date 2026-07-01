@@ -6,7 +6,19 @@ import { useLanguage } from "@/lib/i18n";
 import type { SiteData } from "@/lib/types";
 import { LangToggle } from "@/components/atoms/LangToggle";
 import { ButtonLink } from "@/components/atoms/Button";
-import { MenuIcon, PhoneIcon } from "@/components/atoms/icons";
+import { PhoneIcon } from "@/components/atoms/icons";
+
+/** Three-bar icon that animates into an X when `open` (spring morph). */
+function MenuToggleIcon({ open }: { open: boolean }) {
+  const spring = { type: "spring", stiffness: 500, damping: 30 } as const;
+  return (
+    <span className="nav-burger" aria-hidden="true">
+      <motion.span className="nav-burger-bar" animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} transition={spring} />
+      <motion.span className="nav-burger-bar" animate={open ? { opacity: 0 } : { opacity: 1 }} transition={{ duration: 0.15 }} />
+      <motion.span className="nav-burger-bar" animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }} transition={spring} />
+    </span>
+  );
+}
 
 /** Sticky top navigation: brand, links, language toggle and a "book" CTA. */
 export function Navbar({ site }: { site: SiteData }) {
@@ -38,7 +50,7 @@ export function Navbar({ site }: { site: SiteData }) {
           whileTap={{ scale: 0.9 }}
           transition={{ type: "spring", stiffness: 400, damping: 22 }}
         >
-          <MenuIcon />
+          <MenuToggleIcon open={open} />
         </motion.button>
       </div>
     </header>

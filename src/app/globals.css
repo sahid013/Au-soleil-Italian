@@ -301,6 +301,23 @@ h3 {
 .nav-toggle {
   display: none;
 }
+/* Animated hamburger → X icon inside the nav toggle. */
+.nav-burger {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 22px;
+  height: 16px;
+}
+.nav-burger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
 
 /* ============================================================
    PAGE HEAD
@@ -804,6 +821,7 @@ h3 {
   .menu-tab {
     flex: 0 0 auto;
     scroll-snap-align: start;
+    font-size: calc(0.8rem - 4px);
   }
 }
 
@@ -1067,9 +1085,9 @@ h3 {
   .panel-feature {
     grid-template-columns: 1fr;
   }
-  /* Smaller category title on mobile. */
+  /* Smaller category title on mobile (−6px from the base mobile size). */
   .panel-head h2 {
-    font-size: 1.24rem;
+    font-size: calc(1.24rem - 6px);
   }
 }
 
@@ -1176,6 +1194,35 @@ h3 {
   line-height: 1.4;
   margin-top: 3px;
   max-width: 46ch;
+}
+
+/* Mobile stacked dish row: name / tag / (price + play) / description. */
+.mitem--stack .mbody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+.mitem--stack .m-tag {
+  line-height: 1;
+}
+.mitem--stack .m-tag .tag-nv {
+  display: inline-block;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  color: var(--cream);
+  background: var(--red);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.mitem--stack .m-price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mitem--stack .ds {
+  margin-top: 1px;
 }
 
 /* video button on item */
@@ -1708,7 +1755,7 @@ h3 {
     font-size: 1.08rem;
   }
   .shell {
-    padding: 0 22px;
+    padding: 0 12px;
   }
   .nav-links {
     display: none;
@@ -1773,7 +1820,7 @@ h3 {
 @media (max-width: 760px) {
   /* Extra 40px breathing room at the top of the hero. */
   .page-head {
-    padding-top: calc(clamp(48px, 8vw, 88px) + 40px);
+    padding-top: calc(clamp(48px, 8vw, 88px) + 70px);
   }
   /* "La Carta" title +12px. */
   .hero-title {
@@ -1782,6 +1829,14 @@ h3 {
   /* Hero description -4px. */
   .page-head p {
     font-size: calc(1.18rem - 4px);
+  }
+  /* Carousel section title ("Nos coups de cœur") -6px. */
+  .cdh-title {
+    font-size: calc(clamp(1.5rem, 3.4vw, 2.5rem) - 6px);
+  }
+  /* Menu-item description -3px. */
+  .mitem .ds {
+    font-size: calc(1.02rem - 3px);
   }
   /* Softer 8px corners on the carousel cards. */
   .cdh-card {

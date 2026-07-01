@@ -17,8 +17,7 @@ const MOBILE_GAP = 8;
 /** Cards visible at once, based on the viewport width of the carousel. */
 function perViewFor(width: number): number {
   if (width >= 900) return 3;
-  if (width > 760) return 2;
-  return 3; // mobile: three at a time (swipe to scroll)
+  return 2; // tablet & mobile: two at a time (mobile swipes to scroll)
 }
 
 /** Flatten every category's items, keeping dishes tagged for the carousel. */
