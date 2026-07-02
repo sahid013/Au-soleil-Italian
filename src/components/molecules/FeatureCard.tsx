@@ -4,6 +4,7 @@ import { useLanguage } from "@/lib/i18n";
 import type { MenuItem as MenuItemType } from "@/lib/types";
 import { useDishView } from "@/lib/useDishView";
 import { PlayButton } from "@/components/atoms/PlayButton";
+import { View3DButton } from "@/components/atoms/View3DButton";
 import { DishThumb } from "./DishThumb";
 
 /**
@@ -15,20 +16,23 @@ export function FeatureCard({
   item,
   onPlay,
   onOpenImage,
+  onView3D,
 }: {
   item: MenuItemType;
   onPlay: (item: MenuItemType) => void;
   onOpenImage: (item: MenuItemType) => void;
+  onView3D: (item: MenuItemType) => void;
 }) {
   const { t } = useLanguage();
   const ref = useDishView<HTMLDivElement>(item.id);
   const description = item.description ? t(item.description) : "";
+  const has3D = Boolean(item.model3dGlb || item.model3dUsdz);
 
   return (
     <div className="feature-card" ref={ref}>
       <DishThumb item={item} size="lg" onOpenImage={onOpenImage} />
       <div className="feature-body">
-        {item.badge && <span className="feature-kicker">{item.badge}</span>}
+        {item.badge && <span className="feature-kicker">{t(item.badge)}</span>}
         <h3 className="feature-name">{t(item.name)}</h3>
         {description && <p className="feature-desc">{description}</p>}
         <div className="feature-foot">
@@ -37,6 +41,12 @@ export function FeatureCard({
             <PlayButton
               label={t({ fr: "Voir la vidéo du plat", en: "Watch dish video", es: "Ver el vídeo del plato", zh: "观看菜品视频" })}
               onClick={() => onPlay(item)}
+            />
+          )}
+          {has3D && (
+            <View3DButton
+              label={t({ fr: "Voir le plat en 3D", en: "View dish in 3D", es: "Ver el plato en 3D", zh: "查看 3D 菜品" })}
+              onClick={() => onView3D(item)}
             />
           )}
         </div>

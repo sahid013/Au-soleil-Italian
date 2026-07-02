@@ -305,7 +305,7 @@ function HighlightMedia({ item }: { item: MenuItem }) {
       ) : (
         <div className="cdh-video cdh-media--empty" aria-hidden="true" />
       )}
-      {item.badge && <span className="cdh-badge">{item.badge}</span>}
+      {item.badge && <span className="cdh-badge">{t(item.badge)}</span>}
     </div>
   );
 }

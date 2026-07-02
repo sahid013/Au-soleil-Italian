@@ -70,6 +70,10 @@ export interface OchelDish {
   photoUrl: string | null;
   videoUrl: string | null;
   model3dUrl: string | null;
+  /** Interactive 3D model (glTF-binary), viewed inline in the 3D lightbox. */
+  model3dGlbUrl?: string | null;
+  /** USDZ variant of the 3D model, launched in AR Quick Look on iOS. */
+  model3dUsdzUrl?: string | null;
   posterUrl: string | null;
   videoVisible: boolean;
   videoStatus: string; // "Live" | "Pending" | ... (casing varies)
@@ -78,6 +82,8 @@ export interface OchelDish {
   multiLangData?: {
     name?: LangArrays;
     description?: LangArrays;
+    /** Per-language translations of `specialLabel` (the small badge above the name). */
+    specialLabel?: LangArrays;
   };
 }
 
@@ -171,8 +177,11 @@ function mapDish(dish: OchelDish, currency: string, dishAddons: OchelAddon[] = [
     name: localize(dish.multiLangData?.name, dish.name) ?? { fr: dish.name, en: dish.name },
     price: formatPrice(dish.price, currency),
     description: localize(dish.multiLangData?.description, dish.description ?? ""),
-    // Show a badge only when the API provides a label for the dish.
-    badge: dish.specialLabel?.trim() || undefined,
+    // Show a badge only when the API provides a label for the dish. Its
+    // translations come from multiLangData.specialLabel (fallback: French).
+    badge: dish.specialLabel?.trim()
+      ? localize(dish.multiLangData?.specialLabel, dish.specialLabel)
+      : undefined,
     hasVideo: hasVideo || undefined,
     videoSrc,
     // Raw clip URL (independent of videoVisible) so curated highlights can show
@@ -183,6 +192,9 @@ function mapDish(dish: OchelDish, currency: string, dishAddons: OchelAddon[] = [
     tags: dish.tags?.length ? dish.tags : undefined,
     // Dish-specific add-ons (shown inside the dish card).
     addons: addons.length ? addons.map((a) => mapAddOn(a, currency)) : undefined,
+    // 3D model URLs (GLB for the inline viewer, USDZ for iOS AR).
+    model3dGlb: dish.model3dGlbUrl?.trim() || undefined,
+    model3dUsdz: dish.model3dUsdzUrl?.trim() || undefined,
   };
 }
 

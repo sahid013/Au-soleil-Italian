@@ -6,6 +6,7 @@ import type { MenuItem as MenuItemType } from "@/lib/types";
 import { useDishView } from "@/lib/useDishView";
 import { NewTag } from "@/components/atoms/NewTag";
 import { PlayButton } from "@/components/atoms/PlayButton";
+import { View3DButton } from "@/components/atoms/View3DButton";
 import { DishThumb } from "./DishThumb";
 
 /**
@@ -20,20 +21,30 @@ export function MenuItem({
   item,
   onPlay,
   onOpenImage,
+  onView3D,
 }: {
   item: MenuItemType;
   onPlay: (item: MenuItemType) => void;
   onOpenImage: (item: MenuItemType) => void;
+  onView3D: (item: MenuItemType) => void;
 }) {
   const { t } = useLanguage();
   const description = item.description ? t(item.description) : "";
   const ref = useDishView<HTMLDivElement>(item.id);
   const isMobile = useMediaQuery("(max-width: 760px)");
+  const has3D = Boolean(item.model3dGlb || item.model3dUsdz);
 
   const playButton = item.hasVideo && (
     <PlayButton
       label={t({ fr: "Voir la vidéo du plat", en: "Watch dish video", es: "Ver el vídeo del plato", zh: "观看菜品视频" })}
       onClick={() => onPlay(item)}
+    />
+  );
+
+  const view3DButton = has3D && (
+    <View3DButton
+      label={t({ fr: "Voir le plat en 3D", en: "View dish in 3D", es: "Ver el plato en 3D", zh: "查看 3D 菜品" })}
+      onClick={() => onView3D(item)}
     />
   );
 
@@ -60,13 +71,14 @@ export function MenuItem({
           </span>
           {item.badge && (
             <span className="m-tag">
-              <NewTag label={item.badge} />
+              <NewTag label={t(item.badge)} />
             </span>
           )}
-          {(item.price || playButton) && (
+          {(item.price || playButton || view3DButton) && (
             <span className="m-price-row">
               {item.price && <span className="pr">{item.price}</span>}
               {playButton}
+              {view3DButton}
             </span>
           )}
           {description && <div className="ds">{description}</div>}
@@ -83,10 +95,11 @@ export function MenuItem({
         <div className="r1">
           <span className="nm">
             {t(item.name)}
-            {item.badge && <NewTag label={item.badge} />}
+            {item.badge && <NewTag label={t(item.badge)} />}
             {item.time && <span className="mtime"> · {item.time}</span>}
           </span>
           {playButton}
+          {view3DButton}
           <span className="lead-dots" />
           {item.price && <span className="pr">{item.price}</span>}
         </div>

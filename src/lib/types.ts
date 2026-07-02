@@ -29,8 +29,9 @@ export interface MenuItem {
   price?: string | null;
   /** Optional bilingual description / list of ingredients. */
   description?: Localized;
-  /** Badge text from the API (e.g. a chef-special label). Shown only when set. */
-  badge?: string;
+  /** Localized badge text from the API's `multiLangData.specialLabel` (e.g. a
+   *  chef-special label like "De saison"), falling back to French. Shown only when set. */
+  badge?: Localized;
   /** When true, an item video button opens the lightbox (video at /videos/<slug>.mp4). */
   hasVideo?: boolean;
   /** Explicit video filename under /videos/ (overrides the name-slug lookup). */
@@ -52,6 +53,12 @@ export interface MenuItem {
   tags?: string[];
   /** Add-ons that apply only to this dish; rendered inside the dish card. */
   addons?: AddOn[];
+  /** Absolute URL of the dish's 3D model in glTF-binary format (from the API's
+   *  `model3dGlbUrl`). Embedded in the 3D lightbox for interactive viewing. */
+  model3dGlb?: string;
+  /** Absolute URL of the dish's 3D model in USDZ format (from the API's
+   *  `model3dUsdzUrl`). Used to launch AR Quick Look ("see it live") on iOS. */
+  model3dUsdz?: string;
 }
 
 /** A single add-on / supplement (a name and an optional price). */
