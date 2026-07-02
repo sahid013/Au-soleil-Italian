@@ -1415,10 +1415,16 @@ h3 {
   display: block;
   background: #000;
 }
-/* 3D model viewer frame — lighter backdrop than video */
+/* 3D model viewer frame — lighter backdrop than video, 1.5x the 16/9 height */
 .vframe--3d {
+  aspect-ratio: 32 / 27;
   background: radial-gradient(120% 100% at 50% 0%, rgba(246, 206, 132, 0.22), rgba(30, 59, 44, 0) 62%),
     linear-gradient(160deg, #f7efe0, #eadfca);
+}
+/* 3D popup — 20px gap from the viewport left/right edges */
+.vmodal--3d {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .vframe--3d .vmodel {
   --poster-color: transparent;
@@ -1519,7 +1525,6 @@ h3 {
 }
 /* "See it live" — launches AR (USDZ Quick Look on iOS) */
 .ar-cta {
-  position: relative;
   margin-top: 18px;
   display: inline-flex;
   align-items: center;
@@ -1536,14 +1541,6 @@ h3 {
   text-decoration: none;
   cursor: pointer;
   transition: 0.22s var(--ease);
-}
-/* Hidden image required by iOS AR Quick Look on the rel="ar" anchor. */
-.ar-cta-usdz {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
 }
 .ar-cta svg {
   width: 15px;

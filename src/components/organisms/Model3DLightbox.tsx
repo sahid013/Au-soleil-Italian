@@ -77,7 +77,7 @@ export function Model3DLightbox({ item, onClose }: { item: MenuItem | null; onCl
     <AnimatePresence>
       {open && item && (
         <motion.div
-          className="vmodal open"
+          className="vmodal vmodal--3d open"
           aria-hidden={false}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -141,17 +141,15 @@ export function Model3DLightbox({ item, onClose }: { item: MenuItem | null; onCl
               {description && <div className="vdesc">{description}</div>}
               {item.price && <div className="vprice">{item.price}</div>}
               {item.model3dUsdz && (
-                // Anchor with rel="ar" is the reliable way to launch AR Quick
-                // Look on iOS (requires an <img> child); elsewhere it opens the
-                // USDZ file. The hidden img satisfies the iOS AR requirement.
+                // Open the USDZ in a new tab. On iOS Safari, navigating to a
+                // .usdz URL launches AR Quick Look ("see it live").
                 <a
                   className="ar-cta"
-                  rel="ar"
                   href={item.model3dUsdz}
                   target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={t({ fr: "Voir en réel", en: "See it live", es: "Verlo en vivo", zh: "实景查看" })}
                 >
-                  <img className="ar-cta-usdz" src={item.poster ?? item.image ?? item.model3dGlb} alt="" aria-hidden="true" />
                   <CubeIcon />
                   <span>{t({ fr: "Voir en réel", en: "See it live", es: "Verlo en vivo", zh: "实景查看" })}</span>
                 </a>
