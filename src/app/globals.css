@@ -1415,9 +1415,10 @@ h3 {
   display: block;
   background: #000;
 }
-/* 3D model viewer frame — lighter backdrop than video, 1.5x the 16/9 height */
+/* 3D model viewer frame — lighter backdrop than video; taller so the model
+   has room to breathe (1.5x the previous 32/27 height). */
 .vframe--3d {
-  aspect-ratio: 32 / 27;
+  aspect-ratio: 64 / 81;
   background: radial-gradient(120% 100% at 50% 0%, rgba(246, 206, 132, 0.22), rgba(30, 59, 44, 0) 62%),
     linear-gradient(160deg, #f7efe0, #eadfca);
 }
