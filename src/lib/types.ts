@@ -22,8 +22,9 @@ export interface Localized {
 export interface MenuItem {
   /** Backend dish UUID, used as `dishId` for analytics events. Absent for local data. */
   id?: string;
-  /** Proper name, shown as-is in both languages (e.g. "Linguine du Soleil"). */
-  name: string;
+  /** Dish name in each site language, taken from the API's `multiLangData.name`
+   *  and falling back to the French value when a language isn't translated. */
+  name: Localized;
   /** Price string including the currency symbol, or null when priced elsewhere (e.g. salads). */
   price?: string | null;
   /** Optional bilingual description / list of ingredients. */

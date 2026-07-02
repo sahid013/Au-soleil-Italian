@@ -36,7 +36,7 @@ export function DishThumb({
       onClick={() => onOpenImage(item)}
       aria-label={t({ fr: "Agrandir la photo", en: "Enlarge photo", es: "Ampliar la foto", zh: "放大照片" })}
     >
-      <img className="dish-thumb-img" src={item.image} alt={item.name} loading="lazy" />
+      <img className="dish-thumb-img" src={item.image} alt={t(item.name)} loading="lazy" />
       <span className="dish-thumb-expand" aria-hidden="true">
         <ExpandIcon />
       </span>

@@ -21,7 +21,7 @@ import { CloseIcon } from "@/components/atoms/icons";
  * page is navigated away — once per open.
  */
 export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClose: () => void }) {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
@@ -84,8 +84,8 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
 
   // Prefer an absolute URL from the backend API; otherwise fall back to a local
   // /videos/ file (explicit filename, then name-slug lookup).
-  const src = item ? item.videoSrc ?? (item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name)}.mp4`) : "";
-  const description = item?.description ? item.description[lang] : "";
+  const src = item ? item.videoSrc ?? (item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name.fr)}.mp4`) : "";
+  const description = item?.description ? t(item.description) : "";
 
   return (
     <AnimatePresence>
@@ -103,7 +103,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             className="vmodal-box"
             role="dialog"
             aria-modal="true"
-            aria-label={item.name}
+            aria-label={t(item.name)}
             initial={{ opacity: 0, scale: 0.95, y: 18 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 10 }}
@@ -123,7 +123,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             <div className="vplaceholder">
               <span className="vsun" />
               <span className="vspinner" aria-hidden="true" />
-              <span className="vph-name">{item.name}</span>
+              <span className="vph-name">{t(item.name)}</span>
               <span className="vph-soon">
                 {t({ fr: "Chargement de la vidéo…", en: "Loading video…", es: "Cargando vídeo…", zh: "正在加载视频…" })}
               </span>
@@ -151,7 +151,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
 
         <div className="vmeta">
           <span className="vkicker">{t({ fr: "Le plat en vidéo", en: "The dish on film", es: "El plato en vídeo", zh: "菜品视频" })}</span>
-          <div className="vname">{item.name}</div>
+          <div className="vname">{t(item.name)}</div>
           {description && <div className="vdesc">{description}</div>}
           {item.price && <div className="vprice">{item.price}</div>}
         </div>

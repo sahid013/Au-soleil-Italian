@@ -47,7 +47,7 @@ export function ImageLightbox({ item, onClose }: { item: MenuItem | null; onClos
             className="imodal-box"
             role="dialog"
             aria-modal="true"
-            aria-label={item.name}
+            aria-label={t(item.name)}
             initial={{ opacity: 0, scale: 0.95, y: 18 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 10 }}
@@ -61,7 +61,7 @@ export function ImageLightbox({ item, onClose }: { item: MenuItem | null; onClos
             >
               <CloseIcon />
             </button>
-            <img className="imodal-img" src={item.image} alt={item.name} />
+            <img className="imodal-img" src={item.image} alt={t(item.name)} />
           </motion.div>
         </motion.div>
       )}

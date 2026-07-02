@@ -41,7 +41,7 @@ function pickHighlights(menu: MenuData): MenuItem[] {
       const tagged = item.tags?.some((tag) => tag.trim().toLowerCase() === HIGHLIGHT_TAG);
       const hasVideo = Boolean(item.videoUrl ?? item.videoSrc);
       if (!tagged || !hasVideo) continue;
-      const key = item.id ?? item.name;
+      const key = item.id ?? item.name.fr;
       if (seen.has(key)) continue;
       seen.add(key);
       out.push(item);
@@ -219,13 +219,13 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
                 trackItems.map((item, i) => (
                   <li
                     className="cdh-card"
-                    key={`${item.id ?? item.name}-${i}`}
+                    key={`${item.id ?? item.name.fr}-${i}`}
                     style={{ width: cardWidth }}
                     aria-hidden={isMobile && i >= items.length}
                   >
                     <HighlightMedia item={item} />
                     <div className="cdh-foot">
-                      <span className="cdh-name">{item.name}</span>
+                      <span className="cdh-name">{t(item.name)}</span>
                       {item.price && <span className="cdh-price">{item.price}</span>}
                     </div>
                   </li>
@@ -284,6 +284,7 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
 
 /** Card media: a looping muted dish video when available, else the photo. */
 function HighlightMedia({ item }: { item: MenuItem }) {
+  const { t } = useLanguage();
   const src = item.videoUrl ?? item.videoSrc;
   return (
     <div className="cdh-media">
@@ -300,7 +301,7 @@ function HighlightMedia({ item }: { item: MenuItem }) {
           aria-hidden="true"
         />
       ) : item.image ? (
-        <img className="cdh-video" src={item.image} alt={item.name} loading="lazy" />
+        <img className="cdh-video" src={item.image} alt={t(item.name)} loading="lazy" />
       ) : (
         <div className="cdh-video cdh-media--empty" aria-hidden="true" />
       )}

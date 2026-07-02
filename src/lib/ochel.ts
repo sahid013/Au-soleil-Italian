@@ -166,7 +166,9 @@ function mapDish(dish: OchelDish, currency: string, dishAddons: OchelAddon[] = [
   const addons = [...(dish.addons ?? []), ...dishAddons];
   return {
     id: dish.id,
-    name: dish.name,
+    // Name + description both come from the API's per-language multiLangData
+    // (falling back to the French value when a language isn't translated).
+    name: localize(dish.multiLangData?.name, dish.name) ?? { fr: dish.name, en: dish.name },
     price: formatPrice(dish.price, currency),
     description: localize(dish.multiLangData?.description, dish.description ?? ""),
     // Show a badge only when the API provides a label for the dish.

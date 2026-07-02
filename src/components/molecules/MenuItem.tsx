@@ -25,8 +25,8 @@ export function MenuItem({
   onPlay: (item: MenuItemType) => void;
   onOpenImage: (item: MenuItemType) => void;
 }) {
-  const { t, lang } = useLanguage();
-  const description = item.description ? item.description[lang] : "";
+  const { t } = useLanguage();
+  const description = item.description ? t(item.description) : "";
   const ref = useDishView<HTMLDivElement>(item.id);
   const isMobile = useMediaQuery("(max-width: 760px)");
 
@@ -55,7 +55,7 @@ export function MenuItem({
         <DishThumb item={item} size="sm" onOpenImage={onOpenImage} />
         <div className="mbody">
           <span className="nm">
-            {item.name}
+            {t(item.name)}
             {item.time && <span className="mtime"> · {item.time}</span>}
           </span>
           {item.badge && (
@@ -82,7 +82,7 @@ export function MenuItem({
       <div className="mbody">
         <div className="r1">
           <span className="nm">
-            {item.name}
+            {t(item.name)}
             {item.badge && <NewTag label={item.badge} />}
             {item.time && <span className="mtime"> · {item.time}</span>}
           </span>

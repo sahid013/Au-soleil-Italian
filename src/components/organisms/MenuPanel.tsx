@@ -49,7 +49,7 @@ export function MenuPanel({
       {featured.length > 0 && (
         <div className="panel-feature">
           {featured.map((item) => (
-            <FeatureCard key={item.name} item={item} onPlay={onPlay} onOpenImage={onOpenImage} />
+            <FeatureCard key={item.id ?? item.name.fr} item={item} onPlay={onPlay} onOpenImage={onOpenImage} />
           ))}
         </div>
       )}
@@ -57,7 +57,7 @@ export function MenuPanel({
       {rest.length > 0 && (
         <div className="panel-cols">
           {rest.map((item) => (
-            <MenuItem key={item.name} item={item} onPlay={onPlay} onOpenImage={onOpenImage} />
+            <MenuItem key={item.id ?? item.name.fr} item={item} onPlay={onPlay} onOpenImage={onOpenImage} />
           ))}
         </div>
       )}

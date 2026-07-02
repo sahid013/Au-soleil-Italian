@@ -20,16 +20,16 @@ export function FeatureCard({
   onPlay: (item: MenuItemType) => void;
   onOpenImage: (item: MenuItemType) => void;
 }) {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const ref = useDishView<HTMLDivElement>(item.id);
-  const description = item.description ? item.description[lang] : "";
+  const description = item.description ? t(item.description) : "";
 
   return (
     <div className="feature-card" ref={ref}>
       <DishThumb item={item} size="lg" onOpenImage={onOpenImage} />
       <div className="feature-body">
         {item.badge && <span className="feature-kicker">{item.badge}</span>}
-        <h3 className="feature-name">{item.name}</h3>
+        <h3 className="feature-name">{t(item.name)}</h3>
         {description && <p className="feature-desc">{description}</p>}
         <div className="feature-foot">
           {item.price && <span className="feature-price">{item.price}</span>}
