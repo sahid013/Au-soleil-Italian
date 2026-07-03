@@ -71,8 +71,6 @@ export function Model3DLightbox({ item, onClose }: { item: MenuItem | null; onCl
     };
   }, [open, onClose]);
 
-  const description = item?.description ? t(item.description) : "";
-
   return (
     <AnimatePresence>
       {open && item && (
@@ -136,10 +134,6 @@ export function Model3DLightbox({ item, onClose }: { item: MenuItem | null; onCl
             </div>
 
             <div className="vmeta">
-              <span className="vkicker">{t({ fr: "Le plat en 3D", en: "The dish in 3D", es: "El plato en 3D", zh: "3D 菜品" })}</span>
-              <div className="vname">{t(item.name)}</div>
-              {description && <div className="vdesc">{description}</div>}
-              {item.price && <div className="vprice">{item.price}</div>}
               {item.model3dUsdz && (
                 // Explicitly spawn a new tab/window for the USDZ. On iOS Safari
                 // this navigates to the .usdz and launches AR Quick Look ("see

@@ -157,10 +157,10 @@ function resolveVideo(dish: OchelDish): { hasVideo: boolean; videoSrc?: string; 
   return { hasVideo: false };
 }
 
-/** Map one raw add-on into the UI `AddOn` shape (name + formatted price). */
+/** Map one raw add-on into the UI `AddOn` shape (localized name + formatted price). */
 function mapAddOn(addon: OchelAddon, currency: string): AddOn {
   return {
-    name: firstOf(addon.multiLangData?.name?.fr) ?? addon.name,
+    name: localize(addon.multiLangData?.name, addon.name) ?? { fr: addon.name, en: addon.name },
     price: addon.price != null ? formatPrice(addon.price, currency) : null,
   };
 }
@@ -296,7 +296,10 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
           title: localize(sub.multiLangData?.name, sub.name) ?? { fr: sub.name, en: sub.name },
           items: dishes
             .filter((d) => d.subcategoryId === sub.id)
-            .map<AddOn>((d) => ({ name: d.name, price: formatPrice(d.price, api.currency) })),
+            .map<AddOn>((d) => ({
+              name: localize(d.multiLangData?.name, d.name) ?? { fr: d.name, en: d.name },
+              price: formatPrice(d.price, api.currency),
+            })),
         }))
         .filter((group) => group.items.length > 0);
 

@@ -63,7 +63,9 @@ export interface MenuItem {
 
 /** A single add-on / supplement (a name and an optional price). */
 export interface AddOn {
-  name: string;
+  /** Add-on name in each site language (from the API's `multiLangData.name`,
+   *  falling back to the French value when a language isn't translated). */
+  name: Localized;
   /** Price string including the currency symbol, or null when it has none. */
   price?: string | null;
 }

@@ -29,10 +29,15 @@ export function MenuPanel({
 }) {
   const { t } = useLanguage();
 
+  // Categories priced by size variations (the Salades category) show every dish
+  // as a regular row — no large featured cards — and hide per-dish prices, since
+  // pricing is given once by the category's size options (see VariationsCard).
+  const pricedBySizes = (category.variations?.length ?? 0) > 0;
+
   // On mobile, skip the two large featured cards and show every dish in the list.
   const isMobile = useMediaQuery("(max-width: 760px)");
-  const featured = isMobile ? [] : category.items.slice(0, 2);
-  const rest = isMobile ? category.items : category.items.slice(2);
+  const featured = isMobile || pricedBySizes ? [] : category.items.slice(0, 2);
+  const rest = isMobile || pricedBySizes ? category.items : category.items.slice(2);
 
   return (
     <div
@@ -49,6 +54,13 @@ export function MenuPanel({
 
       <PanelHead title={category.title} note={category.note} ornament />
 
+      {/* Size options card. In size-priced categories (Salades) it sits above the
+          dishes, since the sizes/prices frame the whole list; elsewhere it would
+          follow the items (see below). */}
+      {pricedBySizes && category.variations && category.variations.length > 0 && (
+        <VariationsCard variations={category.variations} />
+      )}
+
       {featured.length > 0 && (
         <div className="panel-feature">
           {featured.map((item) => (
@@ -60,12 +72,14 @@ export function MenuPanel({
       {rest.length > 0 && (
         <div className="panel-cols">
           {rest.map((item) => (
-            <MenuItem key={item.id ?? item.name.fr} item={item} onPlay={onPlay} onOpenImage={onOpenImage} onView3D={onView3D} />
+            <MenuItem key={item.id ?? item.name.fr} item={item} hidePrice={pricedBySizes} onPlay={onPlay} onOpenImage={onOpenImage} onView3D={onView3D} />
           ))}
         </div>
       )}
 
-      {category.variations && category.variations.length > 0 && <VariationsCard variations={category.variations} />}
+      {!pricedBySizes && category.variations && category.variations.length > 0 && (
+        <VariationsCard variations={category.variations} />
+      )}
 
       {category.addons && category.addons.length > 0 && <AddOnsCard groups={category.addons} />}
 

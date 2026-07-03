@@ -17,7 +17,7 @@ export function AddOnsCard({ groups }: { groups: AddOnGroup[] }) {
           <ul className="addons-list">
             {group.items.map((addon, i) => (
               <li className="addons-row" key={i}>
-                <span className="addons-name">{addon.name}</span>
+                <span className="addons-name">{t(addon.name)}</span>
                 <span className="addons-dots" />
                 {addon.price && <span className="addons-price">{addon.price}</span>}
               </li>

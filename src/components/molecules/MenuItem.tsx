@@ -22,14 +22,19 @@ export function MenuItem({
   onPlay,
   onOpenImage,
   onView3D,
+  hidePrice = false,
 }: {
   item: MenuItemType;
   onPlay: (item: MenuItemType) => void;
   onOpenImage: (item: MenuItemType) => void;
   onView3D: (item: MenuItemType) => void;
+  /** Hide the per-dish price (e.g. Salades, where pricing is given once by the
+   *  category's size options). Also drops the dotted price leader. */
+  hidePrice?: boolean;
 }) {
   const { t } = useLanguage();
   const description = item.description ? t(item.description) : "";
+  const showPrice = !hidePrice && Boolean(item.price);
   const ref = useDishView<HTMLDivElement>(item.id);
   const isMobile = useMediaQuery("(max-width: 760px)");
   const has3D = Boolean(item.model3dGlb || item.model3dUsdz);
@@ -53,7 +58,7 @@ export function MenuItem({
     <ul className="mitem-addons">
       {item.addons.map((addon, i) => (
         <li className="mitem-addon" key={i}>
-          <span className="mitem-addon-name">+ {addon.name}</span>
+          <span className="mitem-addon-name">+ {t(addon.name)}</span>
           {addon.price && <span className="mitem-addon-price">{addon.price}</span>}
         </li>
       ))}
@@ -74,9 +79,9 @@ export function MenuItem({
               <NewTag label={t(item.badge)} />
             </span>
           )}
-          {(item.price || playButton || view3DButton) && (
+          {(showPrice || playButton || view3DButton) && (
             <span className="m-price-row">
-              {item.price && <span className="pr">{item.price}</span>}
+              {showPrice && <span className="pr">{item.price}</span>}
               {playButton}
               {view3DButton}
             </span>
@@ -100,8 +105,12 @@ export function MenuItem({
           </span>
           {playButton}
           {view3DButton}
-          <span className="lead-dots" />
-          {item.price && <span className="pr">{item.price}</span>}
+          {!hidePrice && (
+            <>
+              <span className="lead-dots" />
+              {item.price && <span className="pr">{item.price}</span>}
+            </>
+          )}
         </div>
         {description && <div className="ds">{description}</div>}
         {addons}

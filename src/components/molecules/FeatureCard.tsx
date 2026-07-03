@@ -54,7 +54,7 @@ export function FeatureCard({
           <ul className="mitem-addons">
             {item.addons.map((addon, i) => (
               <li className="mitem-addon" key={i}>
-                <span className="mitem-addon-name">+ {addon.name}</span>
+                <span className="mitem-addon-name">+ {t(addon.name)}</span>
                 {addon.price && <span className="mitem-addon-price">{addon.price}</span>}
               </li>
             ))}

@@ -1484,6 +1484,26 @@ h3 {
   height: 100%;
   display: block;
 }
+/* 3D popup layout: a fixed 90vh box that never scrolls — the model viewer
+   fills all available height and the AR button sits in a bottom bar. Applies at
+   every breakpoint (overrides the shared .vmodal-box auto-height/scroll and the
+   tall .vframe--3d aspect ratio). */
+.vmodal--3d .vmodal-box {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  max-height: 80vh;
+  overflow: hidden;
+}
+.vmodal--3d .vframe--3d {
+  flex: 1 1 auto;
+  aspect-ratio: auto;
+  min-height: 0;
+}
+.vmodal--3d .vmeta {
+  flex: 0 0 auto;
+  text-align: center;
+}
 .vplaceholder {
   position: absolute;
   inset: 0;
