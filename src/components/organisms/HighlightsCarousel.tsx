@@ -286,10 +286,38 @@ export function HighlightsCarousel({ menu }: { menu: MenuData }) {
 function HighlightMedia({ item }: { item: MenuItem }) {
   const { t } = useLanguage();
   const src = item.videoUrl ?? item.videoSrc;
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // iOS Safari only autoplays a video when the `muted` *property* (not just the
+  // attribute React renders) is true and it's inline — and it usually needs an
+  // explicit play() once data is ready. Set these imperatively and (re)try play
+  // on load so the carousel clips actually start on iPhone.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !src) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("webkit-playsinline", "true");
+    const tryPlay = () => {
+      const p = video.play();
+      if (p) p.catch(() => {});
+    };
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+    };
+  }, [src]);
+
   return (
     <div className="cdh-media">
       {src ? (
         <video
+          ref={videoRef}
           className="cdh-video"
           src={src}
           poster={item.poster ?? item.image}
@@ -297,7 +325,7 @@ function HighlightMedia({ item }: { item: MenuItem }) {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-hidden="true"
         />
       ) : item.image ? (
