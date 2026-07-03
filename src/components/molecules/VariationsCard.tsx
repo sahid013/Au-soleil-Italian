@@ -12,7 +12,7 @@ export function VariationsCard({ variations }: { variations: MenuVariation[] }) 
   const { t } = useLanguage();
   return (
     <div className="variations-card">
-      <h3 className="variations-title">{t({ fr: "Portions", en: "Portions", es: "Raciones", zh: "分量" })}</h3>
+      <h3 className="variations-title">{t({ fr: "Tailles", en: "Sizes", es: "Tamaños", zh: "份量" })}</h3>
       <p className="variations-note">
         {t({
           fr: "Disponible pour toutes nos salades.",

@@ -251,36 +251,42 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
       const normalSubs = subs.filter((s) => !s.isAddOn);
 
       // Special-case the Salades category: its dish add-ons are really portion
-      // options (Small / Large) that apply to every salad, so we lift them to
-      // category-level `variations` and stop attaching them to a single dish.
+      // options (Small / Large) that apply to every salad. They live on a single
+      // "carrier" dish — the first salad dish that has any add-ons — which only
+      // exists to hold them. We lift those add-ons to category-level `variations`
+      // and hide the carrier from the item list (it isn't a real salad). The
+      // options card title is a fixed frontend label (see VariationsCard).
       const isSalad = /salad/i.test(cat.name);
+      const saladCarrier = isSalad ? dishes.find((d) => addonsFor(d.id).length > 0) : undefined;
       const dishAddonsFor = (dishId: string) => (isSalad ? [] : addonsFor(dishId));
+      const includeDish = (d: OchelDish) => d.id !== saladCarrier?.id;
 
       const items: MenuItem[] = [
         ...dishes
           .filter((d) => d.subcategoryId === null)
+          .filter(includeDish)
           .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id))),
         ...normalSubs.flatMap((sub) =>
           dishes
             .filter((d) => d.subcategoryId === sub.id)
+            .filter(includeDish)
             .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id))),
         ),
       ];
 
-      // Collect the salad portion options (deduped by name, in sort order).
+      // Collect the salad portion options from the carrier's add-ons
+      // (deduped by name, in sort order).
       let variations: MenuVariation[] | undefined;
-      if (isSalad) {
+      if (saladCarrier) {
         const seen = new Set<string>();
         const collected: MenuVariation[] = [];
-        for (const d of dishes) {
-          for (const addon of addonsFor(d.id)) {
-            const name = localize(addon.multiLangData?.name, addon.name);
-            if (!name) continue;
-            const key = name.fr.toLowerCase();
-            if (seen.has(key)) continue;
-            seen.add(key);
-            collected.push({ name, price: addon.price != null ? formatPrice(addon.price, api.currency) : null });
-          }
+        for (const addon of addonsFor(saladCarrier.id)) {
+          const name = localize(addon.multiLangData?.name, addon.name);
+          if (!name) continue;
+          const key = name.fr.toLowerCase();
+          if (seen.has(key)) continue;
+          seen.add(key);
+          collected.push({ name, price: addon.price != null ? formatPrice(addon.price, api.currency) : null });
         }
         variations = collected.length ? collected : undefined;
       }
