@@ -7,6 +7,7 @@ import { PanelHead } from "@/components/molecules/PanelHead";
 import { MenuItem } from "@/components/molecules/MenuItem";
 import { FeatureCard } from "@/components/molecules/FeatureCard";
 import { AddOnsCard } from "@/components/molecules/AddOnsCard";
+import { VariationsCard } from "@/components/molecules/VariationsCard";
 
 /**
  * A category panel inside a decorative parchment frame: centred heading, two
@@ -63,6 +64,8 @@ export function MenuPanel({
           ))}
         </div>
       )}
+
+      {category.variations && category.variations.length > 0 && <VariationsCard variations={category.variations} />}
 
       {category.addons && category.addons.length > 0 && <AddOnsCard groups={category.addons} />}
 

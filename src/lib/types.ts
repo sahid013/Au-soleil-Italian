@@ -74,6 +74,14 @@ export interface AddOnGroup {
   items: AddOn[];
 }
 
+/** A portion / size option for a category (e.g. Small / Large), applying to
+ *  every item in that category rather than a single dish. */
+export interface MenuVariation {
+  name: Localized;
+  /** Price string including the currency symbol, or null when it has none. */
+  price?: string | null;
+}
+
 /** A menu category / tab (e.g. Pizza, Pasta). */
 export interface MenuCategory {
   /** Stable slug used for the tab + panel ids. */
@@ -87,6 +95,9 @@ export interface MenuCategory {
   /** Category-level add-on groups (from `isAddOn` subcategories); rendered as a
    *  card beneath the category's items. */
   addons?: AddOnGroup[];
+  /** Portion / size options that apply to every item in the category (e.g. the
+   *  Salades category's Small / Large pricing). Rendered as an options card. */
+  variations?: MenuVariation[];
 }
 
 export interface CafeExtra {

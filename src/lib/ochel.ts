@@ -10,7 +10,7 @@
    Doc: GET /api/v1/menu/{menuId}
    ============================================================ */
 
-import { LANGS, type AddOn, type AddOnGroup, type Lang, type Localized, type MenuCategory, type MenuItem } from "./types";
+import { LANGS, type AddOn, type AddOnGroup, type Lang, type Localized, type MenuCategory, type MenuItem, type MenuVariation } from "./types";
 import { slugify } from "./slug";
 
 /* ---- Raw API response shapes ---- */
@@ -250,16 +250,40 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
       const addonSubs = subs.filter((s) => s.isAddOn);
       const normalSubs = subs.filter((s) => !s.isAddOn);
 
+      // Special-case the Salades category: its dish add-ons are really portion
+      // options (Small / Large) that apply to every salad, so we lift them to
+      // category-level `variations` and stop attaching them to a single dish.
+      const isSalad = /salad/i.test(cat.name);
+      const dishAddonsFor = (dishId: string) => (isSalad ? [] : addonsFor(dishId));
+
       const items: MenuItem[] = [
         ...dishes
           .filter((d) => d.subcategoryId === null)
-          .map((d) => mapDish(d, api.currency, addonsFor(d.id))),
+          .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id))),
         ...normalSubs.flatMap((sub) =>
           dishes
             .filter((d) => d.subcategoryId === sub.id)
-            .map((d) => mapDish(d, api.currency, addonsFor(d.id))),
+            .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id))),
         ),
       ];
+
+      // Collect the salad portion options (deduped by name, in sort order).
+      let variations: MenuVariation[] | undefined;
+      if (isSalad) {
+        const seen = new Set<string>();
+        const collected: MenuVariation[] = [];
+        for (const d of dishes) {
+          for (const addon of addonsFor(d.id)) {
+            const name = localize(addon.multiLangData?.name, addon.name);
+            if (!name) continue;
+            const key = name.fr.toLowerCase();
+            if (seen.has(key)) continue;
+            seen.add(key);
+            collected.push({ name, price: addon.price != null ? formatPrice(addon.price, api.currency) : null });
+          }
+        }
+        variations = collected.length ? collected : undefined;
+      }
 
       const addons: AddOnGroup[] = addonSubs
         .map((sub) => ({
@@ -278,6 +302,7 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
         note: localize(cat.multiLangData?.subtitle, cat.subtitle ?? ""),
         items,
         addons: addons.length ? addons : undefined,
+        variations,
       };
       return category;
     })
