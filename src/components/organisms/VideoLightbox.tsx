@@ -85,6 +85,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
   // Prefer an absolute URL from the backend API; otherwise fall back to a local
   // /videos/ file (explicit filename, then name-slug lookup).
   const src = item ? item.videoSrc ?? (item.video ? `/videos/${item.video}` : `/videos/${slugify(item.name.fr)}.mp4`) : "";
+  const description = item?.description ? t(item.description) : "";
 
   return (
     <AnimatePresence>
@@ -134,7 +135,7 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             playsInline
             muted
             autoPlay
-            controls
+            loop
             preload="auto"
             poster={item.poster}
             src={src}
@@ -146,6 +147,13 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
             onPlaying={handlePlaying}
             onEnded={sendWatchTime}
           />
+        </div>
+
+        <div className="vmeta">
+          <span className="vkicker">{t({ fr: "Le plat en vidéo", en: "The dish on film", es: "El plato en vídeo", zh: "菜品视频" })}</span>
+          <div className="vname">{t(item.name)}</div>
+          {description && <div className="vdesc">{description}</div>}
+          {item.price && <div className="vprice">{item.price}</div>}
         </div>
           </motion.div>
         </motion.div>
