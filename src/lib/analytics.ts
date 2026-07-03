@@ -34,7 +34,25 @@ interface TrackOptions {
 
 /** Low-level send. Fire-and-forget; analytics are non-critical so errors are swallowed. */
 function track(eventType: EventType, opts: TrackOptions = {}): void {
-  if (!ENABLED || typeof window === "undefined") return;
+  // TEMP DIAGNOSTICS — remove once analytics is confirmed working in prod.
+  if (typeof window !== "undefined") {
+    // eslint-disable-next-line no-console
+    console.log("[analytics] track()", eventType, {
+      ENABLED,
+      USE_API: process.env.NEXT_PUBLIC_USE_API,
+      BASE_URL,
+      MENU_ID,
+      opts,
+    });
+  }
+
+  if (!ENABLED || typeof window === "undefined") {
+    // eslint-disable-next-line no-console
+    console.warn("[analytics] SKIPPED — analytics disabled.", {
+      reason: !BASE_URL ? "missing NEXT_PUBLIC_API_BASE_URL" : !MENU_ID ? "missing NEXT_PUBLIC_MENU_ID" : process.env.NEXT_PUBLIC_USE_API !== "true" ? "NEXT_PUBLIC_USE_API is not 'true'" : "server-side",
+    });
+    return;
+  }
 
   const body: Record<string, unknown> = {
     eventType,
@@ -46,14 +64,25 @@ function track(eventType: EventType, opts: TrackOptions = {}): void {
   if (opts.durationSeconds != null) body.durationSeconds = opts.durationSeconds;
 
   try {
+    // eslint-disable-next-line no-console
+    console.log("[analytics] POST", `${BASE_URL}/events`, body);
     fetch(`${BASE_URL}/events`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
       keepalive: true, // lets watch_time send during page unload
-    }).catch(() => {});
-  } catch {
-    /* ignore — analytics must never break the page */
+    })
+      .then(async (res) => {
+        // eslint-disable-next-line no-console
+        console.log("[analytics] response", eventType, res.status, res.ok ? "OK" : await res.text().catch(() => ""));
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error("[analytics] fetch failed", eventType, err);
+      });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("[analytics] threw", eventType, err);
   }
 }
 
