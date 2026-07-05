@@ -1102,6 +1102,35 @@ h3 {
   margin: 24px auto 0;
   text-align: center;
 }
+/* Subcategory group inside a category panel: a centred heading above the
+   group's two-column dish list. Sections stack heading → items → heading → … */
+.panel-section + .panel-section {
+  margin-top: clamp(28px, 3.6vw, 44px);
+}
+.panel-subhead {
+  font-family: var(--f-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.9rem;
+  color: var(--red);
+  text-align: center;
+  margin: 0 0 clamp(14px, 1.8vw, 22px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.panel-subhead::before,
+.panel-subhead::after {
+  content: "";
+  height: 1px;
+  width: clamp(24px, 8vw, 70px);
+  background: linear-gradient(90deg, transparent, rgba(199, 154, 59, 0.7));
+}
+.panel-subhead::after {
+  background: linear-gradient(90deg, rgba(199, 154, 59, 0.7), transparent);
+}
 @media (max-width: 900px) {
   .panel-cols {
     column-count: 1;

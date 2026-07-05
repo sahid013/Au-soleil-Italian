@@ -10,7 +10,7 @@
    Doc: GET /api/v1/menu/{menuId}
    ============================================================ */
 
-import { LANGS, type AddOn, type AddOnGroup, type Lang, type Localized, type MenuCategory, type MenuItem, type MenuVariation } from "./types";
+import { LANGS, type AddOn, type AddOnGroup, type Lang, type Localized, type MenuCategory, type MenuItem, type MenuSection, type MenuVariation } from "./types";
 import { slugify } from "./slug";
 
 /* ---- Raw API response shapes ---- */
@@ -261,18 +261,36 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
       const dishAddonsFor = (dishId: string) => (isSalad ? [] : addonsFor(dishId));
       const includeDish = (d: OchelDish) => d.id !== saladCarrier?.id;
 
-      const items: MenuItem[] = [
-        ...dishes
-          .filter((d) => d.subcategoryId === null)
-          .filter(includeDish)
-          .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id))),
-        ...normalSubs.flatMap((sub) =>
-          dishes
+      // Dishes attached straight to the category (no subcategory).
+      const directItems = dishes
+        .filter((d) => d.subcategoryId === null)
+        .filter(includeDish)
+        .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id)));
+
+      // Each normal subcategory becomes a titled section of its dishes (empty
+      // ones dropped). These preserve the API's subcategory grouping so the
+      // panel can render a heading above each group.
+      const subSections: MenuSection[] = normalSubs
+        .map((sub) => ({
+          title: localize(sub.multiLangData?.name, sub.name) ?? { fr: sub.name, en: sub.name },
+          items: dishes
             .filter((d) => d.subcategoryId === sub.id)
             .filter(includeDish)
             .map((d) => mapDish(d, api.currency, dishAddonsFor(d.id))),
-        ),
-      ];
+        }))
+        .filter((section) => section.items.length > 0);
+
+      // Flat list (unchanged consumers: featured cards, size-priced path, the
+      // empty-category filter).
+      const items: MenuItem[] = [...directItems, ...subSections.flatMap((s) => s.items)];
+
+      // Only expose grouped sections when the category actually has
+      // subcategories; otherwise the panel keeps its flat/featured rendering.
+      // A leading untitled section carries any directly-attached dishes.
+      let sections: MenuSection[] | undefined;
+      if (subSections.length > 0) {
+        sections = directItems.length > 0 ? [{ items: directItems }, ...subSections] : subSections;
+      }
 
       // Collect the salad portion options from the carrier's add-ons
       // (deduped by name, in sort order).
@@ -310,6 +328,7 @@ export function mapOchelToCategories(api: OchelMenuResponse): MenuCategory[] {
         title: localize(cat.multiLangData?.name, cat.name) ?? { fr: cat.name, en: cat.name },
         note: localize(cat.multiLangData?.subtitle, cat.subtitle ?? ""),
         items,
+        sections,
         addons: addons.length ? addons : undefined,
         variations,
       };

@@ -84,6 +84,15 @@ export interface MenuVariation {
   price?: string | null;
 }
 
+/** A group of dishes within a category, headed by its subcategory name. Dishes
+ *  attached straight to the category (no subcategory) form a leading, untitled
+ *  section. See `MenuCategory.sections`. */
+export interface MenuSection {
+  /** Subcategory heading; absent for the untitled leading section. */
+  title?: Localized;
+  items: MenuItem[];
+}
+
 /** A menu category / tab (e.g. Pizza, Pasta). */
 export interface MenuCategory {
   /** Stable slug used for the tab + panel ids. */
@@ -94,6 +103,12 @@ export interface MenuCategory {
   /** Optional supplements line shown at the bottom of the panel. */
   supplement?: Localized;
   items: MenuItem[];
+  /** Dishes grouped by subcategory, preserving the API's subcategory split.
+   *  Present only when the category has one or more (non-add-on) subcategories;
+   *  the panel then renders each section's heading above its items instead of
+   *  the flat list. `items` still holds the same dishes flattened, for the
+   *  featured-card / size-priced paths. */
+  sections?: MenuSection[];
   /** Category-level add-on groups (from `isAddOn` subcategories); rendered as a
    *  card beneath the category's items. */
   addons?: AddOnGroup[];

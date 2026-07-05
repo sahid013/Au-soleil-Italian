@@ -40,9 +40,14 @@ export function MenuPanel({
   const handlePlay = (item: MenuItemType) => onPlay(item, saladVariations);
   const handleView3D = (item: MenuItemType) => onView3D(item, saladVariations);
 
+  // When a category has several subcategories, render each as a heading above
+  // its own dish list (section, items, next section, items…) instead of the
+  // flat featured/list layout. A single group falls back to the flat layout.
+  const grouped = (category.sections?.length ?? 0) >= 2;
+
   // On mobile, skip the two large featured cards and show every dish in the list.
   const isMobile = useMediaQuery("(max-width: 760px)");
-  const featured = isMobile || pricedBySizes ? [] : category.items.slice(0, 2);
+  const featured = isMobile || pricedBySizes || grouped ? [] : category.items.slice(0, 2);
   const rest = isMobile || pricedBySizes ? category.items : category.items.slice(2);
 
   return (
@@ -67,20 +72,35 @@ export function MenuPanel({
         <VariationsCard variations={category.variations} />
       )}
 
-      {featured.length > 0 && (
-        <div className="panel-feature">
-          {featured.map((item) => (
-            <FeatureCard key={item.id ?? item.name.fr} item={item} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
-          ))}
-        </div>
-      )}
+      {grouped ? (
+        category.sections!.map((section, i) => (
+          <div className="panel-section" key={section.title ? section.title.fr : `direct-${i}`}>
+            {section.title && <h3 className="panel-subhead">{t(section.title)}</h3>}
+            <div className="panel-cols">
+              {section.items.map((item) => (
+                <MenuItem key={item.id ?? item.name.fr} item={item} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
+              ))}
+            </div>
+          </div>
+        ))
+      ) : (
+        <>
+          {featured.length > 0 && (
+            <div className="panel-feature">
+              {featured.map((item) => (
+                <FeatureCard key={item.id ?? item.name.fr} item={item} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
+              ))}
+            </div>
+          )}
 
-      {rest.length > 0 && (
-        <div className="panel-cols">
-          {rest.map((item) => (
-            <MenuItem key={item.id ?? item.name.fr} item={item} hidePrice={pricedBySizes} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
-          ))}
-        </div>
+          {rest.length > 0 && (
+            <div className="panel-cols">
+              {rest.map((item) => (
+                <MenuItem key={item.id ?? item.name.fr} item={item} hidePrice={pricedBySizes} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
+              ))}
+            </div>
+          )}
+        </>
       )}
 
       {!pricedBySizes && category.variations && category.variations.length > 0 && (
