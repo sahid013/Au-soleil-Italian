@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n";
 import { useMediaQuery } from "@/lib/useMediaQuery";
-import type { MenuCategory, MenuItem as MenuItemType } from "@/lib/types";
+import type { MenuCategory, MenuItem as MenuItemType, MenuVariation } from "@/lib/types";
 import { PanelHead } from "@/components/molecules/PanelHead";
 import { MenuItem } from "@/components/molecules/MenuItem";
 import { FeatureCard } from "@/components/molecules/FeatureCard";
@@ -23,9 +23,9 @@ export function MenuPanel({
 }: {
   category: MenuCategory;
   active: boolean;
-  onPlay: (item: MenuItemType) => void;
+  onPlay: (item: MenuItemType, variations?: MenuVariation[]) => void;
   onOpenImage: (item: MenuItemType) => void;
-  onView3D: (item: MenuItemType) => void;
+  onView3D: (item: MenuItemType, variations?: MenuVariation[]) => void;
 }) {
   const { t } = useLanguage();
 
@@ -33,6 +33,12 @@ export function MenuPanel({
   // as a regular row — no large featured cards — and hide per-dish prices, since
   // pricing is given once by the category's size options (see VariationsCard).
   const pricedBySizes = (category.variations?.length ?? 0) > 0;
+
+  // For size-priced categories (Salades), carry the size options into the media
+  // lightboxes so they show the pills in place of a (missing) per-dish price.
+  const saladVariations = pricedBySizes ? category.variations : undefined;
+  const handlePlay = (item: MenuItemType) => onPlay(item, saladVariations);
+  const handleView3D = (item: MenuItemType) => onView3D(item, saladVariations);
 
   // On mobile, skip the two large featured cards and show every dish in the list.
   const isMobile = useMediaQuery("(max-width: 760px)");
@@ -64,7 +70,7 @@ export function MenuPanel({
       {featured.length > 0 && (
         <div className="panel-feature">
           {featured.map((item) => (
-            <FeatureCard key={item.id ?? item.name.fr} item={item} onPlay={onPlay} onOpenImage={onOpenImage} onView3D={onView3D} />
+            <FeatureCard key={item.id ?? item.name.fr} item={item} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
           ))}
         </div>
       )}
@@ -72,7 +78,7 @@ export function MenuPanel({
       {rest.length > 0 && (
         <div className="panel-cols">
           {rest.map((item) => (
-            <MenuItem key={item.id ?? item.name.fr} item={item} hidePrice={pricedBySizes} onPlay={onPlay} onOpenImage={onOpenImage} onView3D={onView3D} />
+            <MenuItem key={item.id ?? item.name.fr} item={item} hidePrice={pricedBySizes} onPlay={handlePlay} onOpenImage={onOpenImage} onView3D={handleView3D} />
           ))}
         </div>
       )}

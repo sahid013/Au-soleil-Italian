@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
-import type { MenuData, MenuItem } from "@/lib/types";
+import type { MenuData, MenuItem, MenuVariation } from "@/lib/types";
 import { trackScan } from "@/lib/analytics";
 import { MenuPanel } from "./MenuPanel";
 import { VideoLightbox } from "./VideoLightbox";
@@ -24,6 +24,18 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
   const [activeVideo, setActiveVideo] = useState<MenuItem | null>(null);
   const [activeImage, setActiveImage] = useState<MenuItem | null>(null);
   const [activeModel, setActiveModel] = useState<MenuItem | null>(null);
+  // Salades: the category size options carried alongside the open video/3D dish,
+  // shown as title-less pills in the lightbox in place of a per-dish price.
+  const [activeVariations, setActiveVariations] = useState<MenuVariation[] | undefined>(undefined);
+
+  const openVideo = (item: MenuItem, variations?: MenuVariation[]) => {
+    setActiveVariations(variations);
+    setActiveVideo(item);
+  };
+  const openModel = (item: MenuItem, variations?: MenuVariation[]) => {
+    setActiveVariations(variations);
+    setActiveModel(item);
+  };
 
   // Fire a single "scan" event when the menu page first loads.
   useEffect(() => {
@@ -88,9 +100,9 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
                   <MenuPanel
                     category={category}
                     active
-                    onPlay={setActiveVideo}
+                    onPlay={openVideo}
                     onOpenImage={setActiveImage}
-                    onView3D={setActiveModel}
+                    onView3D={openModel}
                   />
                 </motion.div>
               ))}
@@ -98,9 +110,9 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
         </div>
       </div>
 
-      <VideoLightbox item={activeVideo} onClose={() => setActiveVideo(null)} />
+      <VideoLightbox item={activeVideo} variations={activeVariations} onClose={() => setActiveVideo(null)} />
       <ImageLightbox item={activeImage} onClose={() => setActiveImage(null)} />
-      <Model3DLightbox item={activeModel} onClose={() => setActiveModel(null)} />
+      <Model3DLightbox item={activeModel} variations={activeVariations} onClose={() => setActiveModel(null)} />
     </section>
   );
 }

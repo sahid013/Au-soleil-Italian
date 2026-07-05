@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
-import type { MenuItem } from "@/lib/types";
+import type { MenuItem, MenuVariation } from "@/lib/types";
 import { slugify } from "@/lib/slug";
 import { trackVideoPlay, trackWatchTime } from "@/lib/analytics";
 import { CloseIcon } from "@/components/atoms/icons";
@@ -20,7 +20,16 @@ import { CloseIcon } from "@/components/atoms/icons";
  * (with seconds watched) when the clip ends, the lightbox closes, or the
  * page is navigated away — once per open.
  */
-export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClose: () => void }) {
+export function VideoLightbox({
+  item,
+  variations,
+  onClose,
+}: {
+  item: MenuItem | null;
+  /** Salades only: category size options shown as title-less pills in place of a price. */
+  variations?: MenuVariation[];
+  onClose: () => void;
+}) {
   const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -153,7 +162,18 @@ export function VideoLightbox({ item, onClose }: { item: MenuItem | null; onClos
           <span className="vkicker">{t({ fr: "Le plat en vidéo", en: "The dish on film", es: "El plato en vídeo", zh: "菜品视频" })}</span>
           <div className="vname">{t(item.name)}</div>
           {description && <div className="vdesc">{description}</div>}
-          {item.price && <div className="vprice">{item.price}</div>}
+          {variations && variations.length > 0 ? (
+            <ul className="vpiles">
+              {variations.map((v, i) => (
+                <li className="variation-pill" key={i}>
+                  <span className="variation-name">{t(v.name)}</span>
+                  {v.price && <span className="variation-price">{v.price}</span>}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            item.price && <div className="vprice">{item.price}</div>
+          )}
         </div>
           </motion.div>
         </motion.div>

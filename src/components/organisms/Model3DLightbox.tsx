@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
-import type { MenuItem } from "@/lib/types";
+import type { MenuItem, MenuVariation } from "@/lib/types";
 import { CloseIcon, CubeIcon } from "@/components/atoms/icons";
 
 /**
@@ -15,7 +15,16 @@ import { CloseIcon, CubeIcon } from "@/components/atoms/icons";
  * @google/model-viewer is imported lazily on the client (it registers the
  * <model-viewer> custom element on import), so it never runs on the server.
  */
-export function Model3DLightbox({ item, onClose }: { item: MenuItem | null; onClose: () => void }) {
+export function Model3DLightbox({
+  item,
+  variations,
+  onClose,
+}: {
+  item: MenuItem | null;
+  /** Salades only: category size options shown as title-less pills in place of a price. */
+  variations?: MenuVariation[];
+  onClose: () => void;
+}) {
   const { t } = useLanguage();
   const viewerRef = useRef<HTMLElement>(null);
   const [ready, setReady] = useState(false);
@@ -139,7 +148,18 @@ export function Model3DLightbox({ item, onClose }: { item: MenuItem | null; onCl
               <span className="vkicker">{t({ fr: "Le plat en 3D", en: "The dish in 3D", es: "El plato en 3D", zh: "3D 菜品" })}</span>
               <div className="vname">{t(item.name)}</div>
               {description && <div className="vdesc">{description}</div>}
-              {item.price && <div className="vprice">{item.price}</div>}
+              {variations && variations.length > 0 ? (
+                <ul className="vpiles">
+                  {variations.map((v, i) => (
+                    <li className="variation-pill" key={i}>
+                      <span className="variation-name">{t(v.name)}</span>
+                      {v.price && <span className="variation-price">{v.price}</span>}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                item.price && <div className="vprice">{item.price}</div>
+              )}
               {item.model3dUsdz && (
                 // Explicitly spawn a new tab/window for the USDZ. On iOS Safari
                 // this navigates to the .usdz and launches AR Quick Look ("see

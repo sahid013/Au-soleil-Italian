@@ -1595,6 +1595,16 @@ h3 {
   font-size: 1.15rem;
   margin-top: 12px;
 }
+/* Salades: size options shown as title-less pills in the media lightbox, in
+   place of a per-dish price. Reuses the .variation-pill look from the panel. */
+.vmeta .vpiles {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
 /* "See it live" — launches AR (USDZ Quick Look on iOS) */
 .ar-cta {
   margin-top: 18px;
