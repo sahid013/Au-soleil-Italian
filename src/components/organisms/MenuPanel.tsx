@@ -40,10 +40,11 @@ export function MenuPanel({
   const handlePlay = (item: MenuItemType) => onPlay(item, saladVariations);
   const handleView3D = (item: MenuItemType) => onView3D(item, saladVariations);
 
-  // When a category has several subcategories, render each as a heading above
-  // its own dish list (section, items, next section, items…) instead of the
-  // flat featured/list layout. A single group falls back to the flat layout.
-  const grouped = (category.sections?.length ?? 0) >= 2;
+  // When a category has subcategories, render each as a heading above its own
+  // dish list (section, items, next section, items…) instead of the flat
+  // featured/list layout — including a lone subcategory (e.g. Boissons →
+  // Cocktails Italiens), so its title always shows under the category name.
+  const grouped = (category.sections?.length ?? 0) >= 1;
 
   // On mobile, skip the two large featured cards and show every dish in the list.
   const isMobile = useMediaQuery("(max-width: 760px)");
