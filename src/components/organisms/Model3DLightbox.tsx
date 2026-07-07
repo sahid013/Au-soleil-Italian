@@ -170,7 +170,7 @@ export function Model3DLightbox({
                   onClick={() => window.open(item.model3dUsdz, "_blank", "noopener,noreferrer")}
                 >
                   <CubeIcon />
-                  <span>{t({ fr: "Voir en réel", en: "See it live", es: "Verlo en vivo", zh: "实景查看" })}</span>
+                  <span>{t({ fr: "Voir sur la table", en: "See it on the table", es: "Verlo en la mesa", zh: "在餐桌上查看" })}</span>
                 </button>
               )}
             </div>
