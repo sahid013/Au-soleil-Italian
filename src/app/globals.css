@@ -824,9 +824,17 @@ h3 {
   }
 }
 
-/* panels */
+/* panels: every category stacked one after another on a single scrollable page */
+.menu-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
 .menu-panel {
   display: none;
+  /* clear the sticky category bar (plus breathing room) when a pill click
+     smooth-scrolls here, so the panel top isn't tucked under the bar */
+  scroll-margin-top: 120px;
 }
 .menu-panel.active {
   display: block;

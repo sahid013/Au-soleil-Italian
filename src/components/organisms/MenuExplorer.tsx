@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import type { MenuData, MenuItem, MenuVariation } from "@/lib/types";
 import { trackScan } from "@/lib/analytics";
@@ -11,14 +11,20 @@ import { ImageLightbox } from "./ImageLightbox";
 import { Model3DLightbox } from "./Model3DLightbox";
 
 /**
- * The interactive heart of the menu page: a sticky tab bar, one panel per
- * category, and the video lightbox. Every tab and dish comes from the
- * API-driven `menu` (see lib/menu.ts), so the menu is purely data-driven.
+ * The interactive heart of the menu page: a sticky category bar above every
+ * category panel stacked one after another on a single, continuously
+ * scrollable page. A scroll spy highlights the pill for the section currently
+ * under the bar, and clicking a pill smooth-scrolls to that section. Every tab
+ * and dish comes from the API-driven `menu` (see lib/menu.ts), so the menu is
+ * purely data-driven.
  */
 export function MenuExplorer({ menu }: { menu: MenuData }) {
   const { t } = useLanguage();
-  const tabsWrapRef = useRef<HTMLDivElement>(null);
-  const readyRef = useRef(false);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  // While a pill click animates the smooth scroll, the scroll spy is locked so
+  // the active pill doesn't flicker through the intermediate sections.
+  const lockRef = useRef(false);
+  const lockTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [activeTab, setActiveTab] = useState(menu.categories[0]?.id ?? "");
   const [activeVideo, setActiveVideo] = useState<MenuItem | null>(null);
@@ -42,24 +48,60 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
     trackScan();
   }, []);
 
+  // Scroll spy: highlight the pill for whichever category section is currently
+  // sitting under the sticky bar as the user scrolls the stacked panels.
+  useEffect(() => {
+    const panels = menu.categories
+      .map((c) => document.getElementById(`panel-${c.id}`))
+      .filter((el): el is HTMLElement => el !== null);
+    if (!panels.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (lockRef.current) return;
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-panel");
+            if (id) setActiveTab(id);
+          }
+        }
+      },
+      // A thin band just below the sticky bar: a section becomes active as its
+      // top crosses into that band near the top of the viewport.
+      { rootMargin: "-72px 0px -70% 0px", threshold: 0 },
+    );
+    panels.forEach((p) => observer.observe(p));
+    return () => observer.disconnect();
+  }, [menu.categories]);
+
+  // Keep the active pill visible within the horizontally-scrolling tab strip
+  // (mobile), without nudging the page's own vertical scroll.
+  useEffect(() => {
+    const wrap = tabsRef.current;
+    if (!wrap || wrap.scrollWidth <= wrap.clientWidth) return;
+    const btn = wrap.querySelector<HTMLElement>(`[aria-controls="panel-${activeTab}"]`);
+    if (!btn) return;
+    wrap.scrollTo({ left: btn.offsetLeft - wrap.clientWidth / 2 + btn.offsetWidth / 2, behavior: "smooth" });
+  }, [activeTab]);
+
+  // Click a pill: mark it active and smooth-scroll to its section, locking the
+  // scroll spy until the animated scroll settles.
   function activate(id: string) {
     setActiveTab(id);
-    // After the first interaction, scroll the tab bar into view if the user
-    // has scrolled past it (mirrors the original behaviour).
-    if (readyRef.current && tabsWrapRef.current) {
-      const y = tabsWrapRef.current.getBoundingClientRect().top + window.scrollY - 70;
-      if (window.scrollY > y) window.scrollTo({ top: y, behavior: "smooth" });
-    }
-    readyRef.current = true;
+    lockRef.current = true;
+    if (lockTimer.current) clearTimeout(lockTimer.current);
+    lockTimer.current = setTimeout(() => {
+      lockRef.current = false;
+    }, 700);
+    document.getElementById(`panel-${id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   const tabs = menu.categories.map((c) => ({ id: c.id, label: t(c.title) }));
 
   return (
     <section className="menu-wrap" id="menu">
-      <div className="menu-tabs-wrap" ref={tabsWrapRef}>
+      <div className="menu-tabs-wrap">
         <div className="shell">
-          <div className="menu-tabs" role="tablist" aria-label="Catégories de la carte">
+          <div className="menu-tabs" role="tablist" aria-label="Catégories de la carte" ref={tabsRef}>
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -86,27 +128,16 @@ export function MenuExplorer({ menu }: { menu: MenuData }) {
 
       <div className="shell">
         <div className="menu-panels">
-          <AnimatePresence mode="wait">
-            {menu.categories
-              .filter((category) => category.id === activeTab)
-              .map((category) => (
-                <motion.div
-                  key={category.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
-                >
-                  <MenuPanel
-                    category={category}
-                    active
-                    onPlay={openVideo}
-                    onOpenImage={setActiveImage}
-                    onView3D={openModel}
-                  />
-                </motion.div>
-              ))}
-          </AnimatePresence>
+          {menu.categories.map((category) => (
+            <MenuPanel
+              key={category.id}
+              category={category}
+              active
+              onPlay={openVideo}
+              onOpenImage={setActiveImage}
+              onView3D={openModel}
+            />
+          ))}
         </div>
       </div>
 
