@@ -161,13 +161,15 @@ export function Model3DLightbox({
                 item.price && <div className="vprice">{item.price}</div>
               )}
               {item.model3dUsdz && (
-                // Explicitly spawn a new tab/window for the USDZ. On iOS Safari
-                // this navigates to the .usdz and launches AR Quick Look ("see
-                // it live"); on desktop it opens the model in a separate tab.
+                // Open the USDZ in the same tab. On iOS Safari this launches AR
+                // Quick Look and returns to the menu when the session ends,
+                // instead of stranding the user on a separate model tab.
                 <button
                   type="button"
                   className="ar-cta"
-                  onClick={() => window.open(item.model3dUsdz, "_blank", "noopener,noreferrer")}
+                  onClick={() => {
+                    window.location.href = item.model3dUsdz!;
+                  }}
                 >
                   <CubeIcon />
                   <span>{t({ fr: "Voir sur la table", en: "See it on the table", es: "Verlo en la mesa", zh: "在餐桌上查看" })}</span>
