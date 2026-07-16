@@ -178,7 +178,7 @@ export function Model3DLightbox({
               <div className="powered-by">
                 <span>Propulsé par</span>
                 <a href="https://www.ochel.fr/" target="_blank" rel="noopener noreferrer">
-                  <img src="/ochellogofull.png" alt="Ochel" height={16} />
+                  <img src="/ochellogofull.png" alt="Ochel" height={12} />
                 </a>
               </div>
             </div>

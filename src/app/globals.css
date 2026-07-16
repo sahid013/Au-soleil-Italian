@@ -1677,6 +1677,7 @@ h3 {
 .vmeta .powered-by {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-top: 20px;
 }
@@ -1684,7 +1685,7 @@ h3 {
   font-family: var(--f-title);
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  font-size: 0.64rem;
+  font-size: calc(0.64rem - 1px);
   color: var(--espresso-soft);
 }
 .vmeta .powered-by a {
@@ -1692,7 +1693,7 @@ h3 {
   align-items: center;
 }
 .vmeta .powered-by img {
-  height: 16px;
+  height: 12px;
   width: auto;
   display: block;
 }
