@@ -1539,7 +1539,7 @@ h3 {
 }
 .vmodal--3d .vmeta {
   flex: 0 0 auto;
-  text-align: center;
+  text-align: left;
 }
 .vplaceholder {
   position: absolute;
@@ -1673,6 +1673,28 @@ h3 {
 .ar-cta:focus-visible {
   outline: 2px solid var(--bronze);
   outline-offset: 2px;
+}
+.vmeta .powered-by {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.vmeta .powered-by span {
+  font-family: var(--f-title);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.64rem;
+  color: var(--espresso-soft);
+}
+.vmeta .powered-by a {
+  display: inline-flex;
+  align-items: center;
+}
+.vmeta .powered-by img {
+  height: 16px;
+  width: auto;
+  display: block;
 }
 
 /* image lightbox — enlarged dish photo only (no title/price) */
@@ -1944,6 +1966,28 @@ h3 {
   color: var(--espresso-soft);
   max-width: 34ch;
   margin: 16px 0 0;
+}
+.footer .powered-by {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.footer .powered-by span {
+  font-family: var(--f-title);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.68rem;
+  color: var(--espresso-soft);
+}
+.footer .powered-by a {
+  display: inline-flex;
+  align-items: center;
+}
+.footer .powered-by img {
+  height: 16px;
+  width: auto;
+  display: block;
 }
 .footer h4 {
   font-family: var(--f-title);

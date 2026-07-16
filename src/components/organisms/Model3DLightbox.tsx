@@ -175,6 +175,12 @@ export function Model3DLightbox({
                   <span>{t({ fr: "Voir sur la table", en: "See it on the table", es: "Verlo en la mesa", zh: "在餐桌上查看" })}</span>
                 </button>
               )}
+              <div className="powered-by">
+                <span>Propulsé par</span>
+                <a href="https://www.ochel.fr/" target="_blank" rel="noopener noreferrer">
+                  <img src="/ochellogofull.png" alt="Ochel" height={16} />
+                </a>
+              </div>
             </div>
           </motion.div>
         </motion.div>
